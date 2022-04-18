@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "594545905863",
+    "project_id": "tfgnd-990d5",
+    "storage_bucket": "tfgnd-990d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594545905863:android:85623780d964afd5ee6ee2",
+        "android_client_info": {
+          "package_name": "com.example.tfg_nd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594545905863-nbfghs24q8ku12ulhuf6cctdvrag2dj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoHGvFnYnhVumdKmQYkGAVxnKhOs6VsZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594545905863-nbfghs24q8ku12ulhuf6cctdvrag2dj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
