@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.tfg_nd.R;
 import com.example.tfg_nd.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -25,6 +26,12 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
 
+        root.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return root;
     }

@@ -22,4 +22,9 @@
         android:name="com.example.tfg_nd.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/test"
+        android:name="com.example.tfg_nd.test"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test" />
 </navigation>
