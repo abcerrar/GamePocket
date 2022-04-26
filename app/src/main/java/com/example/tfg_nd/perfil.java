@@ -3,6 +3,7 @@ package com.example.tfg_nd;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -15,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -22,6 +25,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class perfil extends Fragment {
 
@@ -32,7 +38,7 @@ public class perfil extends Fragment {
 
     FirebaseUser currentUser;
     Button btnCerrarSesion;
-    TextView tvPerfil, tvDinero, tvNombre, tvNivel;
+    TextView tvPerfil, tvDinero, tvNombre, tvNivel, tvExp;
     ProgressBar pb;
 
     public perfil() {
@@ -59,6 +65,7 @@ public class perfil extends Fragment {
         tvDinero = v.findViewById(R.id.profile_dinero);
         tvNombre = v.findViewById(R.id.profile_nombre);
         tvNivel = v.findViewById(R.id.profile_nivel);
+        tvExp = v.findViewById(R.id.profile_exp);
         pb = v.findViewById(R.id.profile_pb);
 
         if(currentUser!=null){
@@ -88,9 +95,18 @@ public class perfil extends Fragment {
                         exp = snapshot.getData().get("exp")+"";
                         if(exp.equals("null")) exp = "0";
 
+                        //Si la exp es 100 o mas, subir de nivel (solo de uno en uno de momento)
+                        if(Integer.parseInt(exp) >= 100){
+                            nivel = String.valueOf(Integer.parseInt(nivel)+1);
+                            exp = String.valueOf(Integer.parseInt(exp)-100);
+                            db.collection("users").document(email).update("exp", exp);
+                            db.collection("users").document(email).update("nivel", nivel);
+                        }
+
                         tvDinero.setText(dinero);
                         tvNombre.setText(nombre);
                         tvNivel.setText(nivel);
+                        tvExp.setText(exp+"/100");
                         pb.setProgress(Integer.parseInt(exp));
                     } else {
                         Log.d(TAG, "Current data: null");

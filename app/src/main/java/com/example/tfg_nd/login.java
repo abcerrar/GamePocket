@@ -111,12 +111,12 @@ public class login extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithEmail:success");
+                            Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithEmail:failure", task.getException());
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -139,6 +139,7 @@ public class login extends Fragment {
                         usuario.put("dinero", 0);
                         usuario.put("exp", 0);
                         usuario.put("nivel", 0);
+                        usuario.put("nombre", "");
 
                         db.collection("users").document(email).set(usuario)
                             .addOnFailureListener(new OnFailureListener() {
