@@ -20,10 +20,10 @@
             android:id="@+id/test"
             android:title="developer options" />
         <item
-            android:id="@+id/login"
-            android:title="Login" />
-        <item
             android:id="@+id/perfil"
             android:title="Perfil" />
+        <item
+            android:id="@+id/login"
+            android:title="Login" />
     </group>
 </menu>

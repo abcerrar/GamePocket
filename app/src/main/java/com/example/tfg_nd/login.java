@@ -1,7 +1,5 @@
 package com.example.tfg_nd;
 
-import static androidx.navigation.Navigation.findNavController;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,19 +12,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class login extends Fragment {
 
-    Button btnAcceder, btnRegistrar;
-    EditText etEmail, contraseña;
+    Button btnAcceder;
+    TextView changeDisplay;
+    EditText etEmail, contraseña, etName, contraseña2;
     FirebaseAuth mAuth;
+    boolean login = true;
+    private final String TAG = "login.java";
 
     public login() {}
 
@@ -41,10 +49,32 @@ public class login extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         btnAcceder = v.findViewById(R.id.btAcceder);
-        btnRegistrar = v.findViewById(R.id.btRegistrar);
         etEmail = v.findViewById(R.id.etEmail);
         contraseña = v.findViewById(R.id.etPass);
+        changeDisplay = v.findViewById(R.id.notengocuenta);
+        etName = v.findViewById(R.id.etName);
+        contraseña2 = v.findViewById(R.id.etPass2);
         mAuth = FirebaseAuth.getInstance();
+
+
+        changeDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(login){
+                    login = false;
+                    btnAcceder.setText("Registrarse");
+                    changeDisplay.setText("Ya tengo cuenta");
+                    etName.setVisibility(View.VISIBLE);
+                    contraseña2.setVisibility(View.VISIBLE);
+                }else{
+                    login = true;
+                    btnAcceder.setText("Iniciar sesión");
+                    changeDisplay.setText("No tengo cuenta");
+                    etName.setVisibility(View.INVISIBLE);
+                    contraseña2.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
         btnAcceder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,19 +82,23 @@ public class login extends Fragment {
                 String email = etEmail.getText().toString();
                 String pass = contraseña.getText().toString();
                 //Habria que validar la contraseña y el email
-                iniciarSesion(email, pass);
-            }
-        });
+                if(login){
+                    iniciarSesion(email, pass);
+                }else{
+                    String nombre = etName.getText().toString();
+                    String pass2 = contraseña2.getText().toString();
 
-
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = etEmail.getText().toString();
-                String pass = contraseña.getText().toString();
-                //Habria que validar la contraseña y el email
-
-                registrarUsuario(email, pass);
+                    if(!pass.equals(pass2)){
+                        Toast.makeText(getContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
+                        contraseña.setText("");
+                        contraseña2.setText("");
+                    }else if(nombre.length()<3) {
+                        Toast.makeText(getContext(), "Nombre demasiado corto.", Toast.LENGTH_SHORT).show();
+                        etName.setText("");
+                    }else{
+                        registrarUsuario(email, pass);
+                    }
+                }
             }
         });
 
@@ -94,10 +128,25 @@ public class login extends Fragment {
     public void registrarUsuario(String email, String pass){
         mAuth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                @Override
+                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
+                        String nombre = etName.getText().toString();
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        Map<String, Object> usuario = new HashMap<>();;
+                        usuario.put("nombre", nombre);
+                        usuario.put("dinero", "0");
+
+                        db.collection("users").document(email).set(usuario)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error en addToUser", e);
+                                }
+                            });
+
                         Log.d("TAG", "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
@@ -119,7 +168,26 @@ public class login extends Fragment {
         }else {
             Toast.makeText(getContext(),"You Didnt signed in",Toast.LENGTH_LONG).show();
         }
+    }
 
+    public void addToUser(String email, String campo, String valor){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> usuario = new HashMap<>();;
+        usuario.put(campo, valor);
+
+        //Si usas add te crea un documento con un ID autogenerado
+        db.collection("users").document(email).set(usuario)
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.w(TAG, "Error en addToUser", e);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.w(TAG, "addToUser ejecutado correctamente");
+            }
+        });
     }
 
 }

@@ -44,16 +44,9 @@ public class test extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private final String TAG = "test.java";
-    User user1;
 
     public test() {
 
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static test newInstance(String param1, String param2) {
-        test fragment = new test();
-        return fragment;
     }
 
     @Override
@@ -103,26 +96,24 @@ public class test extends Fragment {
 
                 //Si usas add te crea un documento con un ID autogenerado
                 db.collection("users").document(currentUser.getEmail()).set(user)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "setDinero realizado correctamente");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error en setDinero()", e);
-                            }
-                        });
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "setDinero realizado correctamente");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error en setDinero()", e);
+                        }
+                    });
             }
         });
 
         verDinero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvDinero.setText(user1.getDinero()+"");
-                Log.d(TAG, "parando" + user1.getDinero()+"");
             }
         });
         return v;
