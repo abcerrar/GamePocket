@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,8 @@ public class perfil extends Fragment {
 
     FirebaseUser currentUser;
     Button btnCerrarSesion;
-    TextView tvPerfil, tvDinero;
+    TextView tvPerfil, tvDinero, tvNombre, tvNivel;
+    ProgressBar pb;
 
     public perfil() {
 
@@ -55,6 +57,9 @@ public class perfil extends Fragment {
         btnCerrarSesion = v.findViewById(R.id.profile_signout);
         tvPerfil = v.findViewById(R.id.textView6);
         tvDinero = v.findViewById(R.id.profile_dinero);
+        tvNombre = v.findViewById(R.id.profile_nombre);
+        tvNivel = v.findViewById(R.id.profile_nivel);
+        pb = v.findViewById(R.id.profile_pb);
 
         if(currentUser!=null){
             email = currentUser.getEmail();
@@ -72,7 +77,21 @@ public class perfil extends Fragment {
 
                     if (snapshot != null && snapshot.exists()) {
                         Log.d(TAG, "Current data: " + snapshot.getData());
-                        tvDinero.setText(snapshot.getData().get("dinero")+"");
+                        String dinero, nombre, nivel, exp;
+
+                        dinero = snapshot.getData().get("dinero")+"";
+                        if(dinero.equals("null")) dinero = "0";
+                        nombre = snapshot.getData().get("nombre")+"";
+                        if(nombre.equals("null")) nombre = "error";
+                        nivel = snapshot.getData().get("nivel")+"";
+                        if(nivel.equals("null")) nivel = "0";
+                        exp = snapshot.getData().get("exp")+"";
+                        if(exp.equals("null")) exp = "0";
+
+                        tvDinero.setText(dinero);
+                        tvNombre.setText(nombre);
+                        tvNivel.setText(nivel);
+                        pb.setProgress(Integer.parseInt(exp));
                     } else {
                         Log.d(TAG, "Current data: null");
                     }

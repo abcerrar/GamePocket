@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -137,7 +136,9 @@ public class login extends Fragment {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         Map<String, Object> usuario = new HashMap<>();;
                         usuario.put("nombre", nombre);
-                        usuario.put("dinero", "0");
+                        usuario.put("dinero", 0);
+                        usuario.put("exp", 0);
+                        usuario.put("nivel", 0);
 
                         db.collection("users").document(email).set(usuario)
                             .addOnFailureListener(new OnFailureListener() {
@@ -170,24 +171,5 @@ public class login extends Fragment {
         }
     }
 
-    public void addToUser(String email, String campo, String valor){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, Object> usuario = new HashMap<>();;
-        usuario.put(campo, valor);
-
-        //Si usas add te crea un documento con un ID autogenerado
-        db.collection("users").document(email).set(usuario)
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG, "Error en addToUser", e);
-                }
-            }).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.w(TAG, "addToUser ejecutado correctamente");
-            }
-        });
-    }
 
 }

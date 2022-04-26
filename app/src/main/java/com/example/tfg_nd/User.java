@@ -60,12 +60,12 @@ public class User {
         Log.d(TAG, dinero+" pollo " + getDinero());
     }
 
-    public int getDinero(){
-        return this.dinero;
-    }
-
     public void setDinero(int dinero){
         this.dinero = dinero;
+    }
+
+    public int getDinero(){
+        return this.dinero;
     }
 
     //Aplica los datos actuales de la clase user actual a la base de datos
@@ -79,13 +79,13 @@ public class User {
             .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Log.d("TAG", "setDinero realizado correctamente");
+                    Log.d(TAG, "setDinero realizado correctamente");
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.w("TAG", "Error en setDinero()", e);
+                    Log.w(TAG, "Error en setDinero()", e);
                 }
             });
     }

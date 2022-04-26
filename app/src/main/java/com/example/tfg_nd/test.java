@@ -66,48 +66,13 @@ public class test extends Fragment {
         verDinero = v.findViewById(R.id.btVerDinero);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        username.setText(currentUser.getEmail());
-        DocumentReference docRef = db.collection("users").document(currentUser.getEmail());
 
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Log.d(TAG, "Current data: " + snapshot.getData());
-                    tvDinero.setText(snapshot.getData().get("dinero").toString());
-                } else {
-                    Log.d(TAG, "Current data: null");
-                }
-            }
-        });
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> user;
-                user = new HashMap<>();
-                int dinero = Integer.parseInt(edDinero.getText().toString());
-                user.put("dinero", dinero);
-
-                //Si usas add te crea un documento con un ID autogenerado
-                db.collection("users").document(currentUser.getEmail()).set(user)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "setDinero realizado correctamente");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error en setDinero()", e);
-                        }
-                    });
+                String email = mAuth.getCurrentUser().getEmail();
+                User usuario = new User(email);
+                tvDinero.setText(usuario.getDinero()+"");
             }
         });
 

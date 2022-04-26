@@ -73,9 +73,9 @@ public class HomeFragment extends Fragment {
                 }
             });
         }else{
-            Log.d(TAG, "No estas logeado");
+            Log.d(TAG, "No estás logeado");
             dinero.setText("????");
-            tvEmail.setText("No estas logeado");
+            tvEmail.setText("No estás logeado");
         }
 
         return root;
