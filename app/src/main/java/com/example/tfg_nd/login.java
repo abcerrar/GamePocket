@@ -134,12 +134,11 @@ public class login extends Fragment {
                         String nombre = etName.getText().toString();
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        Map<String, Object> usuario = new HashMap<>();;
+                        Map<String, Object> usuario = new HashMap<>();
                         usuario.put("nombre", nombre);
                         usuario.put("dinero", 0);
                         usuario.put("exp", 0);
                         usuario.put("nivel", 0);
-                        usuario.put("nombre", "");
 
                         db.collection("users").document(email).set(usuario)
                             .addOnFailureListener(new OnFailureListener() {
@@ -166,7 +165,6 @@ public class login extends Fragment {
         if(account != null){
             Toast.makeText(getContext(),"You Signed In successfully",Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), HomeMenuActivity.class));
-            //findNavController(getView()).navigate(R.id.login_home);
         }else {
             Toast.makeText(getContext(),"You Didnt signed in",Toast.LENGTH_LONG).show();
         }
