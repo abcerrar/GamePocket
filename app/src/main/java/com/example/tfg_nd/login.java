@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,13 +48,18 @@ public class login extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_login_to_perfil);
+        }
+
         btnAcceder = v.findViewById(R.id.btAcceder);
         etEmail = v.findViewById(R.id.etEmail);
         contraseña = v.findViewById(R.id.etPass);
         changeDisplay = v.findViewById(R.id.notengocuenta);
         etName = v.findViewById(R.id.etName);
         contraseña2 = v.findViewById(R.id.etPass2);
-        mAuth = FirebaseAuth.getInstance();
 
 
         changeDisplay.setOnClickListener(new View.OnClickListener() {
