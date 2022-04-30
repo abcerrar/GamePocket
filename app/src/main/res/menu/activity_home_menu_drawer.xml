@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
@@ -14,5 +16,15 @@
         <item
             android:id="@+id/login"
             android:title="Perfil personal" />
+    </group>
+    <group
+        android:id="@+id/puzzle"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/puzzle_1"
+            android:title="puzzle_1"/>
+        <item
+            android:id="@+id/puzzle_2"
+            android:title="puzzle_2"/>
     </group>
 </menu>

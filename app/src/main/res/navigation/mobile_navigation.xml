@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_self"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_home_to_niveles"
+            app:destination="@id/niveles" />
     </fragment>
 
     <fragment
@@ -45,4 +48,9 @@
         android:name="com.example.tfg_nd.perfil"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/niveles"
+        android:name="com.example.tfg_nd.niveles"
+        android:label="fragment_niveles"
+        tools:layout="@layout/fragment_niveles" />
 </navigation>
