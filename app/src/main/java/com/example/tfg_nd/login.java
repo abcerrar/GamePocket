@@ -49,7 +49,7 @@ public class login extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
 
-
+        mAuth = FirebaseAuth.getInstance();
         btnAcceder = v.findViewById(R.id.btAcceder);
         etEmail = v.findViewById(R.id.etEmail);
         contraseña = v.findViewById(R.id.etPass);

@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cuadro_nivel">#AC50BC</color>
+    <color name="cuadro_nivel_completo">#FFC107</color>
 </resources>

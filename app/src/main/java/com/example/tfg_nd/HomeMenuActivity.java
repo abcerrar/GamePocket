@@ -35,6 +35,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     NavController navController;
     DrawerLayout drawer;
     FirebaseAuth mAuth;
+    manejadorPreferencias mPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
 
         binding = ActivityHomeMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        mPref = new manejadorPreferencias("pref", this);
 
         setSupportActionBar(binding.appBarHomeMenu.toolbar);
 
@@ -94,6 +95,14 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.test:
                 navController.navigate(R.id.test);
+                break;
+            case R.id.puzzle_1:
+                mPref.put("gamemode", "puzzle_1");
+                navController.navigate(R.id.niveles);
+                break;
+            case R.id.puzzle_2:
+                mPref.put("gamemode", "puzzle_2");
+                navController.navigate(R.id.niveles);
                 break;
 
         }
