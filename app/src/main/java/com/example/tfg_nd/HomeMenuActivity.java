@@ -12,6 +12,8 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -25,11 +27,14 @@ import com.example.tfg_nd.databinding.ActivityHomeMenuBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class HomeMenuActivity extends AppCompatActivity{
+public class HomeMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private final String TAG = "HomeMenuActivity.java";
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeMenuBinding binding;
+    NavController navController;
+    DrawerLayout drawer;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +43,10 @@ public class HomeMenuActivity extends AppCompatActivity{
         binding = ActivityHomeMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         setSupportActionBar(binding.appBarHomeMenu.toolbar);
 
-        DrawerLayout drawer = binding.drawerLayout;
+        drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -48,10 +54,9 @@ public class HomeMenuActivity extends AppCompatActivity{
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.login, R.id.perfil, R.id.test)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_menu);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -68,4 +73,31 @@ public class HomeMenuActivity extends AppCompatActivity{
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Log.w(TAG, item.getItemId()+"");
+
+        int id = item.getItemId();
+        //Se pueden añadir animaciones para el menu
+        switch (id){
+            case R.id.perfil:
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if(currentUser!=null){
+                    navController.navigate(R.id.perfil);
+                }else{
+                    navController.navigate(R.id.login);
+                }
+                break;
+            case R.id.nav_home:
+                navController.navigate(R.id.nav_home);
+                break;
+            case R.id.test:
+                navController.navigate(R.id.test);
+                break;
+
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return false;
+    }
 }

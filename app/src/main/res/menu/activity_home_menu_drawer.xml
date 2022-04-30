@@ -14,7 +14,7 @@
             android:id="@+id/test"
             android:title="Test" />
         <item
-            android:id="@+id/login"
+            android:id="@+id/perfil"
             android:title="Perfil personal" />
     </group>
     <group

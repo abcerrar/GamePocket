@@ -48,11 +48,7 @@ public class login extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null){
-            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_login_to_perfil);
-        }
+
 
         btnAcceder = v.findViewById(R.id.btAcceder);
         etEmail = v.findViewById(R.id.etEmail);
