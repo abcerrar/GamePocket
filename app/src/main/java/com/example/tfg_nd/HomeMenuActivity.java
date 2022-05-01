@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -77,13 +78,13 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Log.w(TAG, item.getItemId()+"");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         int id = item.getItemId();
         //Se pueden añadir animaciones para el menu
         switch (id){
             case R.id.perfil:
-                mAuth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = mAuth.getCurrentUser();
                 if(currentUser!=null){
                     navController.navigate(R.id.perfil);
                 }else{
@@ -97,12 +98,20 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 navController.navigate(R.id.test);
                 break;
             case R.id.puzzle_1:
-                mPref.put("gamemode", "puzzle_1");
-                navController.navigate(R.id.niveles);
+                if(currentUser!=null){
+                    mPref.put("gamemode", "puzzle_1");
+                    navController.navigate(R.id.niveles);
+                }else{
+                    Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.puzzle_2:
-                mPref.put("gamemode", "puzzle_2");
-                navController.navigate(R.id.niveles);
+                if(currentUser!=null){
+                    mPref.put("gamemode", "puzzle_2");
+                    navController.navigate(R.id.niveles);
+                }else{
+                    Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
         }

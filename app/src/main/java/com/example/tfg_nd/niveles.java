@@ -51,7 +51,6 @@ public class niveles extends Fragment {
         View v = inflater.inflate(R.layout.fragment_niveles, container, false);
         mPref = new manejadorPreferencias("pref", getActivity());
         FirebaseUser current_user = mAuth.getCurrentUser();
-        email = current_user.getEmail();
 
         niveles = new TextView[MAX_NIVELES];
         niveles[0] = v.findViewById(R.id.nivel1);
@@ -69,7 +68,8 @@ public class niveles extends Fragment {
 
         gamemode = mPref.get("gamemode", "error");
 
-        if(!gamemode.equals("error")){
+        if(!gamemode.equals("error") && current_user != null){
+            email = current_user.getEmail();
             DocumentReference docRef = db.collection(gamemode).document(email);
             docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
@@ -83,6 +83,7 @@ public class niveles extends Fragment {
                     if (snapshot != null && snapshot.exists()) {
                         Log.d(TAG, "Current data: " + snapshot.getData());
                         current_level = Integer.parseInt(snapshot.getData().get("nivel")+"");
+                        //Pintar los niveles completados
                         for(int i=0; i<MAX_NIVELES; i++){
                             if(i<current_level) niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
                             else niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
@@ -109,8 +110,10 @@ public class niveles extends Fragment {
                     }
                 }
             });
-        }else{
+        }else if(gamemode.equals("error")){
             Toast.makeText(getContext(), "Fallo al cargar el modo de juego seleccionado", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
         }
 
 
