@@ -33,7 +33,6 @@ public class niveles extends Fragment {
     private final int MAX_NIVELES = 12;
     private final String TAG = "Niveles.java";
     private TextView[] niveles;
-    private TextView aux;
     private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
@@ -69,15 +68,8 @@ public class niveles extends Fragment {
         niveles[10] = v.findViewById(R.id.nivel11);
         niveles[11] = v.findViewById(R.id.nivel12);
 
-        for(int i=0; i<MAX_NIVELES; i++){
-            aux = niveles[i];
-            aux.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String nivel = aux.getText().toString();
-                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
-                }
-            });
+        for(int i = 0; i<MAX_NIVELES; i++){
+            setOnClickLevel(i);
         }
 
         gamemode = mPref.get("gamemode", "error");
@@ -134,5 +126,29 @@ public class niveles extends Fragment {
 
 
         return v;
+    }
+
+    public void setOnClickLevel(int nivel){
+        //esto sta en una función porque si no se ejecutaba antes el bucle que la clase interna
+        niveles[nivel].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(nivel < current_level) jumpToGame();
+                else Toast.makeText(getContext(), "Debes pasarte los niveles anteriores ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void jumpToGame(){
+        switch(gamemode){
+            case "puzzle_1":
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
+                break;
+            case "puzzle_2":
+                //NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_2);
+                Toast.makeText(getContext(), "Ese modo de juego aun no esta implementado", Toast.LENGTH_SHORT).show();
+                break;
+            case "error":
+                Toast.makeText(getContext(), "Error al seleccionar un modo de juego", Toast.LENGTH_SHORT).show();
+        }
     }
 }
