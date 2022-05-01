@@ -1,5 +1,7 @@
 package com.example.tfg_nd;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -117,5 +119,9 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    public static float pxToDp(Context context, float px) {
+        return px / context.getResources().getDisplayMetrics().density;
     }
 }

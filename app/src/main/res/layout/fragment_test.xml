@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".test" >
+    tools:context=".test">
 
     <Button
         android:id="@+id/btVerDinero"
@@ -22,12 +22,11 @@
         android:id="@+id/tvDinero"
         android:layout_width="219dp"
         android:layout_height="35dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginBottom="108dp"
+        android:background="#9C9191"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btVerDinero"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etUsername"
@@ -67,4 +66,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDinero"
         app:layout_constraintVertical_bias="0.069" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="317dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.448" />
 </androidx.constraintlayout.widget.ConstraintLayout>

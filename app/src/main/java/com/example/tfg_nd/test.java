@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +42,7 @@ public class test extends Fragment {
     Button agregar;
     Button verDinero;
     TextView tvDinero;
+    SeekBar sb;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -64,8 +67,27 @@ public class test extends Fragment {
         agregar = v.findViewById(R.id.btAgregar);
         tvDinero = v.findViewById(R.id.tvDinero);
         verDinero = v.findViewById(R.id.btVerDinero);
+        sb = v.findViewById(R.id.seekBar);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        tvDinero.getLayoutParams().height = 1000;
+
+        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvDinero.setText(progress+"");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(getContext(), "Has elegido " + seekBar.getProgress(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
