@@ -16,17 +16,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.tfg_nd.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.tfg_nd.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
         android:id="@+id/test"
         android:name="com.example.tfg_nd.test"
         android:label="fragment_test"
@@ -50,4 +39,9 @@
         android:name="com.example.tfg_nd.niveles"
         android:label="fragment_niveles"
         tools:layout="@layout/fragment_niveles" />
+    <fragment
+        android:id="@+id/puzzle_porcenaje"
+        android:name="com.example.tfg_nd.puzzle_porcenaje"
+        android:label="fragment_puzzle_porcenaje"
+        tools:layout="@layout/fragment_puzzle_porcenaje" />
 </navigation>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,6 +33,7 @@ public class niveles extends Fragment {
     private final int MAX_NIVELES = 12;
     private final String TAG = "Niveles.java";
     private TextView[] niveles;
+    private TextView aux;
     private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
@@ -65,6 +68,17 @@ public class niveles extends Fragment {
         niveles[9] = v.findViewById(R.id.nivel10);
         niveles[10] = v.findViewById(R.id.nivel11);
         niveles[11] = v.findViewById(R.id.nivel12);
+
+        for(int i=0; i<MAX_NIVELES; i++){
+            aux = niveles[i];
+            aux.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String nivel = aux.getText().toString();
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
+                }
+            });
+        }
 
         gamemode = mPref.get("gamemode", "error");
 
