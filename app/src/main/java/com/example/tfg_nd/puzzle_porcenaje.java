@@ -1,18 +1,39 @@
 package com.example.tfg_nd;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class puzzle_porcenaje extends Fragment {
 
-    TextView tvColor;
+    TextView tvColor, tvNumero, tvResultado;
+    int num;
+    SeekBar sb;
+
+    private final String TAG = "puzzle_porcentaje.java";
+    String email;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public puzzle_porcenaje() {
 
@@ -28,6 +49,12 @@ public class puzzle_porcenaje extends Fragment {
         View v = inflater.inflate(R.layout.fragment_puzzle_porcenaje, container, false);
 
         tvColor = v.findViewById(R.id.tvColor);
+        tvNumero = v.findViewById(R.id.tvNumero);
+        tvResultado = v.findViewById(R.id.tvResultado);
+        sb = v.findViewById(R.id.seekBar2);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null) email = currentUser.getEmail();
 
         //seguramente haya una forma mas eficiente de hacer esto, pero me estaba dando problemas el conversor de px a dp y asi se ha quedado
         int dimensiones[] = new int[]{
@@ -43,14 +70,67 @@ public class puzzle_porcenaje extends Fragment {
                 R.dimen.pc91, R.dimen.pc92, R.dimen.pc93, R.dimen.pc94, R.dimen.pc95, R.dimen.pc96, R.dimen.pc97, R.dimen.pc98, R.dimen.pc99, R.dimen.pc100
         };
 
-        int num = (int)(Math.random()*99+1);
+        num = (int)(Math.random()*99+1);
         int altura = getResources().getDimensionPixelSize(dimensiones[num])*3;
         tvColor.getLayoutParams().height = altura;
-        Toast.makeText(getContext(), "numero: " + num, Toast.LENGTH_SHORT).show();
 
+        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvNumero.setText(progress+"");
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                sb.setEnabled(false);
+                int porcentaje = 100-num;
+                if(seekBar.getProgress() == porcentaje){
+                    tvResultado.setText("Acertaste!! era " + porcentaje);
+                    victoria();
+                }else{
+                    tvResultado.setText("Fallaste... :( era " + porcentaje);
+                    alertFinalPartida("prueba");
+                }
 
-
+            }
+        });
         return v;
+    }
+
+    public void alertFinalPartida(String titulo){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View custom_layout = getLayoutInflater().inflate(R.layout.end_game, null);
+
+
+
+        builder.setView(custom_layout);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void victoria(){
+        DocumentReference docRef = db.collection("puzzle_1").document(email);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        int nivel;
+                        nivel = Integer.parseInt(document.get("nivel")+"");
+                        nivel++;
+                        db.collection("puzzle_1").document(email).update("nivel", nivel);
+
+                    } else {
+                        //Si no existe crea un usuario nuevo con ese nombre
+                        Toast.makeText(getContext(), "Error en Victoria()", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
 }

@@ -91,8 +91,11 @@ public class niveles extends Fragment {
                         current_level = Integer.parseInt(snapshot.getData().get("nivel")+"");
                         //Pintar los niveles completados
                         for(int i=0; i<MAX_NIVELES; i++){
-                            if(i<current_level) niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
-                            else niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
+                            if(i<current_level){
+                                niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
+                            }else{
+                                niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
+                            }
                         }
                     } else {
                         //Si el ususario no tiene ninguna partida en este modo de jueg, la creas
