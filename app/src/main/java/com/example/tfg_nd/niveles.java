@@ -109,6 +109,7 @@ public class niveles extends Fragment {
                             if(i<current_level){
                                 niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
                                 estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
+                                //★
                             }else{
                                 niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
                                 estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
@@ -153,14 +154,15 @@ public class niveles extends Fragment {
         niveles[nivel].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nivel < current_level) jumpToGame();
+                if(nivel < current_level) jumpToGame(nivel);
                 else Toast.makeText(getContext(), "Debes pasarte los niveles anteriores ", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    public void jumpToGame(){
+    public void jumpToGame(int nivel){
         switch(gamemode){
             case "puzzle_1":
+                mPref.put("nivel", (nivel+1)+"");
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
                 break;
             case "puzzle_2":

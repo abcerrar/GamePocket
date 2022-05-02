@@ -35,7 +35,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -62,7 +61,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -89,7 +87,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -116,7 +113,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -151,7 +147,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -178,7 +173,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -205,7 +199,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -232,7 +225,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -267,7 +259,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -294,7 +285,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -321,7 +311,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -348,7 +337,6 @@
                 android:layout_gravity="bottom"
                 android:background="@color/cuadro_nivel"
                 android:gravity="center|top"
-                android:text="★★★"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
