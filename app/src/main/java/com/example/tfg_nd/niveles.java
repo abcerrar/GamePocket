@@ -33,6 +33,7 @@ public class niveles extends Fragment {
     private final int MAX_NIVELES = 12;
     private final String TAG = "Niveles.java";
     private TextView[] niveles;
+    private TextView[] estrellas;
     private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
@@ -55,6 +56,7 @@ public class niveles extends Fragment {
         FirebaseUser current_user = mAuth.getCurrentUser();
 
         niveles = new TextView[MAX_NIVELES];
+        estrellas = new TextView[MAX_NIVELES];
         niveles[0] = v.findViewById(R.id.nivel1);
         niveles[1] = v.findViewById(R.id.nivel2);
         niveles[2] = v.findViewById(R.id.nivel3);
@@ -67,7 +69,20 @@ public class niveles extends Fragment {
         niveles[9] = v.findViewById(R.id.nivel10);
         niveles[10] = v.findViewById(R.id.nivel11);
         niveles[11] = v.findViewById(R.id.nivel12);
+        estrellas[0] = v.findViewById(R.id.stars1);
+        estrellas[1] = v.findViewById(R.id.stars2);
+        estrellas[2] = v.findViewById(R.id.stars3);
+        estrellas[3] = v.findViewById(R.id.stars4);
+        estrellas[4] = v.findViewById(R.id.stars5);
+        estrellas[5] = v.findViewById(R.id.stars6);
+        estrellas[6] = v.findViewById(R.id.stars7);
+        estrellas[7] = v.findViewById(R.id.stars8);
+        estrellas[8] = v.findViewById(R.id.stars9);
+        estrellas[9] = v.findViewById(R.id.stars10);
+        estrellas[10] = v.findViewById(R.id.stars11);
+        estrellas[11] = v.findViewById(R.id.stars12);
 
+        //Asignar en onClick a cada TextView
         for(int i = 0; i<MAX_NIVELES; i++){
             setOnClickLevel(i);
         }
@@ -93,8 +108,10 @@ public class niveles extends Fragment {
                         for(int i=0; i<MAX_NIVELES; i++){
                             if(i<current_level){
                                 niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
+                                estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
                             }else{
                                 niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
+                                estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
                             }
                         }
                     } else {
