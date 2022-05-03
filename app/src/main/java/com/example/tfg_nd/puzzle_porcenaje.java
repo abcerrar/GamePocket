@@ -40,9 +40,10 @@ import java.util.Map;
 public class puzzle_porcenaje extends Fragment {
 
     TextView tvColor, tvNumero, tvResultado;
-    int num, nivel_actual;
+    int num, nivel_actual, num_estrellas = 0;
     SeekBar sb;
     int[] dimensiones;
+    AlertDialog dialog;
 
     private final String TAG = "puzzle_porcentaje.java";
     private final String gamemode = "puzzle_1";
@@ -101,17 +102,22 @@ public class puzzle_porcenaje extends Fragment {
                 sb.setEnabled(false);
                 int porcentaje = 100-num;
                 int respuesta = seekBar.getProgress();
+                int resultado = porcentaje - respuesta;
                 if(respuesta == porcentaje){
-                    alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", 6);
+                    num_estrellas = 3;
+                    alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2);
                     subirNivel();
-                }else if(porcentaje - respuesta == 1){
-                    alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, 4);
+                }else if(resultado == 1 || resultado == -1){
+                    num_estrellas = 2;
+                    alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2);
                     subirNivel();
-                }else if(porcentaje - respuesta < 3){
-                    alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, 2);
+                }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
+                    num_estrellas = 1;
+                    alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2);
                     subirNivel();
                 }else{
-                    alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, 0);
+                    num_estrellas = 0;
+                    alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, num_estrellas*2);
                 }
 
             }
@@ -140,15 +146,46 @@ public class puzzle_porcenaje extends Fragment {
         reloadGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pintarFigura();
-                sb.setEnabled(true);
-                tvNumero.setText("");
+                reloadGame();
+            }
+        });
+
+        if(num_estrellas==0){
+            nextLevel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Tu flipas", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            nextLevel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reloadGame();
+                    Toast.makeText(getContext(), "No ha pasado al siguiente esto esta en desarrollo sry not sry", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        backMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                dialog.dismiss();
             }
         });
 
         builder.setView(custom_layout);
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
+    }
+
+    public void reloadGame(){
+        pintarFigura();
+        sb.setEnabled(true);
+        sb.setProgress(0);
+        tvNumero.setText("");
+        dialog.dismiss();
     }
 
     public void pintarFigura(){
@@ -174,15 +211,29 @@ public class puzzle_porcenaje extends Fragment {
                             nivel++;
                             db.collection(gamemode).document(email).update("nivel", nivel+"");
                         }
-
-                        //Actualizar las estrellas
-
+                        actualizarEstrellas();
                     } else {
                         //Si no existe crea un usuario nuevo con ese nombre
-                        Toast.makeText(getContext(), "Error en Victoria()", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Error en updateUser()", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+    public void actualizarEstrellas(){
+        DocumentReference docRef = db.collection(gamemode).document(email).collection("datos_nivel").document(nivel_actual+"");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                try{
+                    int estrellas = Integer.parseInt(documentSnapshot.getData().get("estrellas")+"");
+                    if(num_estrellas > estrellas){
+                        db.collection(gamemode).document(email).collection("datos_nivel").document(nivel_actual+"").update("estrellas", num_estrellas);
+                    }
+                }catch(Exception e){
+                    Log.w(TAG, "Error al acceder a las etrellas");
                 }
             }
         });

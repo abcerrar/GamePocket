@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +40,7 @@ public class niveles extends Fragment {
     private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
+    ListenerRegistration listener_nivel;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -92,7 +96,7 @@ public class niveles extends Fragment {
         if(!gamemode.equals("error") && current_user != null){
             email = current_user.getEmail();
             DocumentReference docRef = db.collection(gamemode).document(email);
-            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            listener_nivel = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot snapshot,
                                     @Nullable FirebaseFirestoreException e) {
@@ -109,6 +113,7 @@ public class niveles extends Fragment {
                             if(i<current_level){
                                 niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
                                 estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
+                                asignatEstrellas((i+1));
                                 //★
                             }else{
                                 niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
@@ -121,7 +126,8 @@ public class niveles extends Fragment {
                         current_level = 1;
                         game.put("nivel", 1);
 
-                        db.collection(gamemode).document(email).set(game)
+                        DocumentReference docRef = db.collection(gamemode).document(email);
+                        docRef.set(game)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -134,6 +140,19 @@ public class niveles extends Fragment {
                                     Log.w(TAG, "Error en la creación de sesion en: "+ gamemode, e);
                                 }
                             });
+                        Map<String, Object> datos_nivel = new HashMap<>();
+                        for(int i=0; i<MAX_NIVELES; i++){
+                            docRef = db.collection(gamemode).document(email).collection("datos_nivel").document((i+1)+"");
+                            datos_nivel.put("estrellas", 0);
+                            datos_nivel.put("num_nivel", (i+1));
+                            datos_nivel.put("completado", false);
+                            docRef.set(datos_nivel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d(TAG, "Datos de nivel cargados correctamente");
+                                }
+                            });
+                        }
                     }
                 }
             });
@@ -164,6 +183,7 @@ public class niveles extends Fragment {
             case "puzzle_1":
                 mPref.put("nivel", (nivel+1)+"");
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
+                listener_nivel.remove();
                 break;
             case "puzzle_2":
                 //NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_2);
@@ -173,4 +193,32 @@ public class niveles extends Fragment {
                 Toast.makeText(getContext(), "Error al seleccionar un modo de juego", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void asignatEstrellas(int nivel){
+        DocumentReference docRef = db.collection(gamemode).document(email).collection("datos_nivel").document(nivel+"");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                try{
+                    int num_estrellas = Integer.parseInt(documentSnapshot.getData().get("estrellas")+"");
+                    int num_nivel = Integer.parseInt(documentSnapshot.getData().get("num_nivel")+"");
+                    switch(num_estrellas){
+                        case 1:
+                            estrellas[num_nivel-1].setText("★");
+                            break;
+                        case 2:
+                            estrellas[num_nivel-1].setText("★★");
+                            break;
+                        case 3:
+                            estrellas[num_nivel-1].setText("★★★");
+                            break;
+
+                    }
+                }catch(Exception e){
+                    Log.w(TAG, "Error al acceder a las etrellas");
+                }
+            }
+        });
+    }
+
 }

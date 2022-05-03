@@ -18,8 +18,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -71,6 +73,13 @@ public class test extends Fragment {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         tvDinero.getLayoutParams().height = 1000;
+        DocumentReference docRef = db.document("puzzle_1/tester@tester.com/datos_nivel/1");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                tvDinero.setText(documentSnapshot.getData().get("estrellas")+"");
+            }
+        });
 
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
