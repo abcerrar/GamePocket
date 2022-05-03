@@ -40,7 +40,6 @@ public class niveles extends Fragment {
     private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
-    ListenerRegistration listener_nivel;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -96,15 +95,9 @@ public class niveles extends Fragment {
         if(!gamemode.equals("error") && current_user != null){
             email = current_user.getEmail();
             DocumentReference docRef = db.collection(gamemode).document(email);
-            listener_nivel = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
-                public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                    @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
-                        Log.w(TAG, "Listen failed.", e);
-                        return;
-                    }
-
+                public void onSuccess(DocumentSnapshot snapshot) {
                     if (snapshot != null && snapshot.exists()) {
                         Log.d(TAG, "Current data: " + snapshot.getData());
                         current_level = Integer.parseInt(snapshot.getData().get("nivel")+"");
@@ -128,18 +121,18 @@ public class niveles extends Fragment {
 
                         DocumentReference docRef = db.collection(gamemode).document(email);
                         docRef.set(game)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "nueva sesion en "+ gamemode +" realizada correctamente");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error en la creación de sesion en: "+ gamemode, e);
-                                }
-                            });
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "nueva sesion en "+ gamemode +" realizada correctamente");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error en la creación de sesion en: "+ gamemode, e);
+                                    }
+                                });
                         Map<String, Object> datos_nivel = new HashMap<>();
                         for(int i=0; i<MAX_NIVELES; i++){
                             docRef = db.collection(gamemode).document(email).collection("datos_nivel").document((i+1)+"");
@@ -156,6 +149,7 @@ public class niveles extends Fragment {
                     }
                 }
             });
+
         }else if(gamemode.equals("error")){
             Toast.makeText(getContext(), "Fallo al cargar el modo de juego seleccionado", Toast.LENGTH_SHORT).show();
         }else{
@@ -183,7 +177,6 @@ public class niveles extends Fragment {
             case "puzzle_1":
                 mPref.put("nivel", (nivel+1)+"");
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
-                listener_nivel.remove();
                 break;
             case "puzzle_2":
                 //NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_2);
