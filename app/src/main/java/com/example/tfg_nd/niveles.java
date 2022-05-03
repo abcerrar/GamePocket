@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class niveles extends Fragment {
     private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
+    private Button btReset;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -84,6 +86,7 @@ public class niveles extends Fragment {
         estrellas[9] = v.findViewById(R.id.stars10);
         estrellas[10] = v.findViewById(R.id.stars11);
         estrellas[11] = v.findViewById(R.id.stars12);
+        btReset = v.findViewById(R.id.btReset);
 
         //Asignar en onClick a cada TextView
         for(int i = 0; i<MAX_NIVELES; i++){
@@ -114,38 +117,7 @@ public class niveles extends Fragment {
                             }
                         }
                     } else {
-                        //Si el ususario no tiene ninguna partida en este modo de jueg, la creas
-                        Map<String, Object> game = new HashMap<>();
-                        current_level = 1;
-                        game.put("nivel", 1);
-
-                        DocumentReference docRef = db.collection(gamemode).document(email);
-                        docRef.set(game)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "nueva sesion en "+ gamemode +" realizada correctamente");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error en la creación de sesion en: "+ gamemode, e);
-                                    }
-                                });
-                        Map<String, Object> datos_nivel = new HashMap<>();
-                        for(int i=0; i<MAX_NIVELES; i++){
-                            docRef = db.collection(gamemode).document(email).collection("datos_nivel").document((i+1)+"");
-                            datos_nivel.put("estrellas", 0);
-                            datos_nivel.put("num_nivel", (i+1));
-                            datos_nivel.put("completado", false);
-                            docRef.set(datos_nivel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d(TAG, "Datos de nivel cargados correctamente");
-                                }
-                            });
-                        }
+                        crearPartida();
                     }
                 }
             });
@@ -156,10 +128,51 @@ public class niveles extends Fragment {
             Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
         }
 
-
+        btReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                crearPartida();
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+            }
+        });
 
 
         return v;
+    }
+
+    public void crearPartida(){
+        //Si el ususario no tiene ninguna partida en este modo de jueg, la creas
+        Map<String, Object> game = new HashMap<>();
+        current_level = 1;
+        game.put("nivel", 1);
+
+        DocumentReference docRef = db.collection(gamemode).document(email);
+        docRef.set(game)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "nueva sesion en "+ gamemode +" realizada correctamente");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error en la creación de sesion en: "+ gamemode, e);
+                    }
+                });
+        Map<String, Object> datos_nivel = new HashMap<>();
+        for(int i=0; i<MAX_NIVELES; i++){
+            docRef = db.collection(gamemode).document(email).collection("datos_nivel").document((i+1)+"");
+            datos_nivel.put("estrellas", 0);
+            datos_nivel.put("num_nivel", (i+1));
+            datos_nivel.put("completado", false);
+            docRef.set(datos_nivel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d(TAG, "Datos de nivel cargados correctamente");
+                }
+            });
+        }
     }
 
     public void setOnClickLevel(int nivel){

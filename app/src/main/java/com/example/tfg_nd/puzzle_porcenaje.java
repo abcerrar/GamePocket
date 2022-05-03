@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class puzzle_porcenaje extends Fragment {
 
-    TextView tvColor, tvNumero, tvResultado;
+    TextView tvColor, tvNumero, tvResultado, tvTitulo;
     int num, nivel_actual, num_estrellas = 0;
     SeekBar sb;
     int[] dimensiones;
@@ -68,6 +68,7 @@ public class puzzle_porcenaje extends Fragment {
         tvColor = v.findViewById(R.id.tvColor);
         tvNumero = v.findViewById(R.id.tvNumero);
         tvResultado = v.findViewById(R.id.tvResultado);
+        tvTitulo = v.findViewById(R.id.titulo);
         sb = v.findViewById(R.id.seekBar2);
         mPref = new manejadorPreferencias("pref", getActivity());
 
@@ -88,6 +89,7 @@ public class puzzle_porcenaje extends Fragment {
                 R.dimen.pc91, R.dimen.pc92, R.dimen.pc93, R.dimen.pc94, R.dimen.pc95, R.dimen.pc96, R.dimen.pc97, R.dimen.pc98, R.dimen.pc99, R.dimen.pc100
         };
         nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
+        tvTitulo.setText("Nivel: " + nivel_actual);
         pintarFigura();
 
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -166,8 +168,12 @@ public class puzzle_porcenaje extends Fragment {
                     reloadGame();
                     if(nivel_actual==12){
                         Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                     }else{
                         mPref.put("nivel", (nivel_actual+1)+"");
+                        nivel_actual++;
+                        tvTitulo.setText("Nivel: " + nivel_actual);
+                        reloadGame();
                     }
                 }
             });
@@ -215,6 +221,8 @@ public class puzzle_porcenaje extends Fragment {
                         Log.w(TAG, nivel_actual +"--"+nivel);
                         if(nivel == nivel_actual){
                             Log.w(TAG, email);
+                            //Poner este nivel en completado
+                            db.collection(gamemode).document(email).collection("datos_nivel").document(nivel+"").update("completado", true);
                             nivel++;
                             db.collection(gamemode).document(email).update("nivel", nivel+"");
                         }
