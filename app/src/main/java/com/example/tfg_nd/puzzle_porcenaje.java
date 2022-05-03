@@ -99,27 +99,29 @@ public class puzzle_porcenaje extends Fragment {
             public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                sb.setEnabled(false);
+
                 int porcentaje = 100-num;
                 int respuesta = seekBar.getProgress();
                 int resultado = porcentaje - respuesta;
-                if(respuesta == porcentaje){
-                    num_estrellas = 3;
-                    alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2);
-                    subirNivel();
-                }else if(resultado == 1 || resultado == -1){
-                    num_estrellas = 2;
-                    alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2);
-                    subirNivel();
-                }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
-                    num_estrellas = 1;
-                    alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2);
-                    subirNivel();
-                }else{
-                    num_estrellas = 0;
-                    alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, num_estrellas*2);
+                if(respuesta !=  0){
+                    if(respuesta == porcentaje){
+                        num_estrellas = 3;
+                        alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2);
+                        subirNivel();
+                    }else if(resultado == 1 || resultado == -1){
+                        num_estrellas = 2;
+                        alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2);
+                        subirNivel();
+                    }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
+                        num_estrellas = 1;
+                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2);
+                        subirNivel();
+                    }else{
+                        num_estrellas = 0;
+                        alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, num_estrellas*2);
+                    }
+                    sb.setEnabled(false);
                 }
-
             }
         });
         return v;
@@ -162,7 +164,11 @@ public class puzzle_porcenaje extends Fragment {
                 @Override
                 public void onClick(View v) {
                     reloadGame();
-                    Toast.makeText(getContext(), "No ha pasado al siguiente esto esta en desarrollo sry not sry", Toast.LENGTH_SHORT).show();
+                    if(nivel_actual==12){
+                        Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                    }else{
+                        mPref.put("nivel", (nivel_actual+1)+"");
+                    }
                 }
             });
         }
@@ -175,6 +181,7 @@ public class puzzle_porcenaje extends Fragment {
             }
         });
 
+        builder.setCancelable(false);
         builder.setView(custom_layout);
         dialog = builder.create();
         dialog.show();
