@@ -43,7 +43,8 @@ public class puzzle_porcenaje extends Fragment {
     int num, nivel_actual, num_estrellas = 0;
     SeekBar sb;
     int[] dimensiones;
-    AlertDialog dialog;
+    private AlertDialog dialog;
+    private ImageView contenedor;
 
     private final String TAG = "puzzle_porcentaje.java";
     private final String gamemode = "puzzle_1";
@@ -70,6 +71,7 @@ public class puzzle_porcenaje extends Fragment {
         tvResultado = v.findViewById(R.id.tvResultado);
         tvTitulo = v.findViewById(R.id.titulo);
         sb = v.findViewById(R.id.seekBar2);
+        contenedor = v.findViewById(R.id.contenedor);
         mPref = new manejadorPreferencias("pref", getActivity());
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -89,6 +91,9 @@ public class puzzle_porcenaje extends Fragment {
                 R.dimen.pc91, R.dimen.pc92, R.dimen.pc93, R.dimen.pc94, R.dimen.pc95, R.dimen.pc96, R.dimen.pc97, R.dimen.pc98, R.dimen.pc99, R.dimen.pc100
         };
         nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
+
+
+
         tvTitulo.setText("Nivel: " + nivel_actual);
         pintarFigura();
 
@@ -205,6 +210,14 @@ public class puzzle_porcenaje extends Fragment {
         num = (int)(Math.random()*99+1);
         int altura = getResources().getDimensionPixelSize(dimensiones[num])*3;
         tvColor.getLayoutParams().height = altura;
+        switch (nivel_actual){
+            case 5: case 6: case 7: case 8:
+                contenedor.setImageResource(R.drawable.circle);
+                break;
+            case 9: case 10: case 11: case 12:
+                contenedor.setImageResource(R.drawable.triangle);
+                break;
+        }
     }
 
     public void subirNivel(){

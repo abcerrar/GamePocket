@@ -12,9 +12,9 @@
         android:layout_height="28dp"
         android:layout_marginTop="76dp"
         android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/contenedor"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/contenedor"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -22,13 +22,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#CF6C6C"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintBottom_toBottomOf="@+id/contenedor"
+        app:layout_constraintEnd_toEndOf="@+id/contenedor"
+        app:layout_constraintStart_toStartOf="@+id/contenedor"
         app:layout_constraintTop_toBottomOf="@+id/tvColor" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/contenedor"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:src="@drawable/square"
@@ -87,7 +87,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvColor"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.421" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
