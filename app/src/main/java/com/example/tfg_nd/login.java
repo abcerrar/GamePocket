@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -82,24 +83,23 @@ public class login extends Fragment {
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String pass = contraseña.getText().toString();
-                //Habria que validar la contraseña y el email
-                if(login){
-                    iniciarSesion(email, pass);
-                }else{
+
+                if(email.equals("")) Toast.makeText(getContext(), "Debes introducir un email", Toast.LENGTH_SHORT).show();
+                else if(pass.equals("")) Toast.makeText(getContext(), "Debes introducir una contraseña", Toast.LENGTH_SHORT).show();
+                else if(login) iniciarSesion(email, pass);
+                else{
                     String nombre = etName.getText().toString();
                     String pass2 = contraseña2.getText().toString();
 
-                    if(!pass.equals(pass2)){
+                    if(nombre.equals("")) Toast.makeText(getContext(), "Debes introducir un nombre", Toast.LENGTH_SHORT).show();
+                    else if(!pass.equals(pass2)){
                         Toast.makeText(getContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
                         contraseña.setText("");
                         contraseña2.setText("");
-                    }else if(nombre.length()<3) {
-                        Toast.makeText(getContext(), "Nombre demasiado corto.", Toast.LENGTH_SHORT).show();
-                        etName.setText("");
-                    }else{
-                        registrarUsuario(email, pass);
                     }
+                    else registrarUsuario(email, pass);
                 }
+
             }
         });
 
@@ -119,7 +119,7 @@ public class login extends Fragment {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Ese correo y esa contraseña no coinciden.", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }
@@ -155,8 +155,8 @@ public class login extends Fragment {
                         updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(getContext(), "Ese correo ya esta en uso o no tienes conexion.", Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
                 }

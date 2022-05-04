@@ -145,6 +145,8 @@ public class niveles extends Fragment {
         Map<String, Object> game = new HashMap<>();
         current_level = 1;
         game.put("nivel", 1);
+        niveles[0].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
+        estrellas[0].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
 
         DocumentReference docRef = db.collection(gamemode).document(email);
         docRef.set(game)

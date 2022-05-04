@@ -145,6 +145,15 @@
             android:text="cerrar sesión"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btBorrarCuenta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="borrar cuenta"
+            app:layout_constraintBottom_toTopOf="@+id/profile_signout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

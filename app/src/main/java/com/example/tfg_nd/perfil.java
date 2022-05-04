@@ -3,6 +3,7 @@ package com.example.tfg_nd;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -15,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,7 +34,7 @@ public class perfil extends Fragment {
     private final String TAG = "Perfil.java";
 
     FirebaseUser currentUser;
-    Button btnCerrarSesion;
+    Button btnCerrarSesion, btnBorrarCuenta;
     TextView tvPerfil, tvDinero, tvNombre, tvNivel, tvExp;
     ProgressBar pb;
 
@@ -50,6 +53,7 @@ public class perfil extends Fragment {
         View v = inflater.inflate(R.layout.fragment_perfil, container, false);
         currentUser = mAuth.getCurrentUser();
         btnCerrarSesion = v.findViewById(R.id.profile_signout);
+        btnBorrarCuenta = v.findViewById(R.id.btBorrarCuenta);
         tvPerfil = v.findViewById(R.id.textView6);
         tvDinero = v.findViewById(R.id.profile_dinero);
         tvNombre = v.findViewById(R.id.profile_nombre);
@@ -111,7 +115,34 @@ public class perfil extends Fragment {
             }
         });
 
+        btnBorrarCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                borrarUsuario();
+            }
+        });
+
         return v;
+    }
+
+    public void borrarUsuario(){
+        db.collection("puzzle_1").document(email).delete();
+        for(int i=1; i<12; i++){
+            try{
+                db.collection("puzzle_1").document(email).collection("datos_nivel").document(i+"").delete();
+            }catch (Exception e){
+                Log.d(TAG, "Error en el borrado");
+            }
+        }
+        db.collection("puzzle_2").document(email).delete();
+        db.collection("users").document(email).delete();
+        currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d(TAG, "Usuario borrado");
+            }
+        });
+        startActivity(new Intent(getContext(), HomeMenuActivity.class));
     }
 
     public void cerrarSesion(){
