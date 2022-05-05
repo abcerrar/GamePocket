@@ -28,7 +28,7 @@ public class manejadorPreferencias {
     }
 
     public String get(String key, String def) {
-        prefs = activity.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        prefs = activity.getSharedPreferences(name, Context.MODE_PRIVATE);
         String dato = prefs.getString(key, def);
         return dato;
     }

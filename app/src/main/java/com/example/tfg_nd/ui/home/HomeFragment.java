@@ -1,16 +1,25 @@
 package com.example.tfg_nd.ui.home;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.tfg_nd.R;
 import com.example.tfg_nd.databinding.FragmentHomeBinding;
+import com.example.tfg_nd.manejadorPreferencias;
+import com.example.tfg_nd.niveles;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,9 +33,11 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment.java";
+    private manejadorPreferencias mPref;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private LinearLayout btPorcentaje;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
@@ -38,10 +49,12 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        btPorcentaje = root.findViewById(R.id.btPorcentajes);
         dinero = root.findViewById(R.id.dinero);
         tvEmail = root.findViewById(R.id.tvEmail);
 
         mAuth = FirebaseAuth.getInstance();
+        mPref = new manejadorPreferencias("pref", getActivity());
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser != null){
@@ -72,13 +85,47 @@ public class HomeFragment extends Fragment {
             tvEmail.setText("No estás logeado");
         }
 
+        btPorcentaje.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentUser!=null){
+                    mPref.put("gamemode", "puzzle_1");
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                }else{
+                    Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         return root;
     }
+    /*
+    public void botonGris (LinearLayout layout){
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_UP:
+                        layout.setBackgroundColor(getResources().getColor(R.color.fondo3));
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        layout.setBackground(getResources().get
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+     */
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        listener.remove();
+        try{
+            listener.remove();
+        }catch(Exception e){
+            Log.d(TAG, "Erro al remover el listenner");
+        }
     }
 }

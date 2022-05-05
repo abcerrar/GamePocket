@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="cuadro_nivel">#AC50BC</color>
     <color name="cuadro_nivel_completo">#FFC107</color>
+    <color name="fondo1">#8065AF</color>
+    <color name="fondo2">#8B77AE</color>
+    <color name="fondo3">#9788B1</color>
+
 </resources>
