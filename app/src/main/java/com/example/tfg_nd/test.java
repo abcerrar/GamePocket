@@ -102,8 +102,7 @@ public class test extends Fragment {
             @Override
             public void onClick(View v) {
                 String email = mAuth.getCurrentUser().getEmail();
-                User usuario = new User(email);
-                tvDinero.setText(usuario.getDinero()+"");
+
             }
         });
 

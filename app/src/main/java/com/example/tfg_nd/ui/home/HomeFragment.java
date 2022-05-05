@@ -25,8 +25,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment.java";
 
-    FirebaseAuth mAuth;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;

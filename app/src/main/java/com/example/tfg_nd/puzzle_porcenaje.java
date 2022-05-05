@@ -1,11 +1,9 @@
 package com.example.tfg_nd;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
@@ -21,21 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class puzzle_porcenaje extends Fragment {
 
@@ -45,6 +34,7 @@ public class puzzle_porcenaje extends Fragment {
     int[] dimensiones;
     private AlertDialog dialog;
     private ImageView contenedor;
+    private User user;
 
     private final String TAG = "puzzle_porcentaje.java";
     private final String gamemode = "puzzle_1";
@@ -75,7 +65,10 @@ public class puzzle_porcenaje extends Fragment {
         mPref = new manejadorPreferencias("pref", getActivity());
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null) email = currentUser.getEmail();
+        if(currentUser!=null){
+            email = currentUser.getEmail();
+            user = new User(email);
+        }
 
         //seguramente haya una forma mas eficiente de hacer esto, pero me estaba dando problemas el conversor de px a dp y asi se ha quedado
         dimensiones = new int[]{
@@ -113,19 +106,25 @@ public class puzzle_porcenaje extends Fragment {
                 if(respuesta !=  0){
                     if(respuesta == porcentaje){
                         num_estrellas = 3;
-                        alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2);
+                        alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2, 10, 20);
                         subirNivel();
+                        user.incrementarDinero(10);
+                        user.incrementarExperiencia(20);
                     }else if(resultado == 1 || resultado == -1){
                         num_estrellas = 2;
-                        alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2);
+                        alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2, 5, 10);
                         subirNivel();
+                        user.incrementarDinero(5);
+                        user.incrementarExperiencia(10);
                     }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
                         num_estrellas = 1;
-                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2);
+                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, 1, 2);
                         subirNivel();
+                        user.incrementarDinero(1);
+                        user.incrementarExperiencia(2);
                     }else{
                         num_estrellas = 0;
-                        alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, num_estrellas*2);
+                        alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, num_estrellas*2, 0, 0);
                     }
                     sb.setEnabled(false);
                 }
@@ -134,11 +133,11 @@ public class puzzle_porcenaje extends Fragment {
         return v;
     }
 
-    public void alertFinalPartida(String titulo, String titulo2, int num_estrellas){
+    public void alertFinalPartida(String titulo, String titulo2, int num_estrellas, int dinero, int experiencia){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View custom_layout = getLayoutInflater().inflate(R.layout.end_game, null);
         ImageView reloadGame, backMenu, nextLevel;
-        TextView tit, tit2;
+        TextView tit, tit2, tvDinero, tvExperiencia;
         RatingBar rb;
 
         reloadGame = custom_layout.findViewById(R.id.reloadGame);
@@ -146,10 +145,14 @@ public class puzzle_porcenaje extends Fragment {
         nextLevel = custom_layout.findViewById(R.id.nextLevel);
         tit = custom_layout.findViewById(R.id.tvTitulo);
         tit2 = custom_layout.findViewById(R.id.tvTitulo2);
+        tvDinero = custom_layout.findViewById(R.id.tvGanaDinero);
+        tvExperiencia = custom_layout.findViewById(R.id.tvGanaExperiencia);
         rb = custom_layout.findViewById(R.id.ratingBar);
 
         tit.setText(titulo);
         tit2.setText(titulo2);
+        tvDinero.setText("+ " + dinero);
+        tvExperiencia.setText("+ " +    experiencia+"");
         rb.setProgress(num_estrellas);
 
         reloadGame.setOnClickListener(new View.OnClickListener() {
@@ -259,6 +262,7 @@ public class puzzle_porcenaje extends Fragment {
                     int estrellas = Integer.parseInt(documentSnapshot.getData().get("estrellas")+"");
                     if(num_estrellas > estrellas){
                         db.collection(gamemode).document(email).collection("datos_nivel").document(nivel_actual+"").update("estrellas", num_estrellas);
+
                     }
                 }catch(Exception e){
                     Log.w(TAG, "Error al acceder a las etrellas");
@@ -266,5 +270,6 @@ public class puzzle_porcenaje extends Fragment {
             }
         });
     }
+
 
 }

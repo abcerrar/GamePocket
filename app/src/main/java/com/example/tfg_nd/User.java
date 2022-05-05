@@ -27,73 +27,62 @@ import java.util.Map;
 
 public class User {
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Map<String, Object> user;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final String TAG = "Utils_db.java";
 
-    private final String TAG = "User.java";
-    private String email = "....";
-    public int dinero = 0;
+    private String email;
 
     public User(){}
 
-    public User(String correo){
-        DocumentReference docRef = db.collection("users").document(correo);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    public User(String email){
+        this.email = email;
+    }
+
+    public void incrementarDinero(int incremento){
+        db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        //Si existe rellena el usuario con los datos
-                        email = correo;
-                        dinero = Integer.parseInt(document.get("dinero")+"");
-                    } else {
-                        //Si no existe crea un usuario nuevo con ese nombre
-                        email = correo;
-                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                int dinero = Integer.parseInt(documentSnapshot.getData().get("dinero")+"");
+                db.collection("users").document(email).update("dinero", (dinero + incremento)+"")
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "dinero incrementado correctamente");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "Error al incrementar el dinero de " + email + ": " + e);
+                        }
+                    });
             }
         });
-
-        Log.d(TAG, dinero+" pollo " + getDinero());
     }
 
-    public void setDinero(int dinero){
-        this.dinero = dinero;
-    }
-
-    public int getDinero(){
-        return this.dinero;
-    }
-
-    //Aplica los datos actuales de la clase user actual a la base de datos
-    public void commit(){
-        user = new HashMap<>();
-
-        user.put("dinero", dinero);
-
-        //Si usas add te crea un documento con un ID autogenerado
-        db.collection("users").document(email).set(user)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "setDinero realizado correctamente");
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG, "Error en setDinero()", e);
-                }
-            });
+    public void incrementarExperiencia(int incremento){
+        db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                int exp = Integer.parseInt(documentSnapshot.getData().get("exp")+"");
+                db.collection("users").document(email).update("exp", (exp + incremento)+"")
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "experiencia incrementada correctamente");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "Error al incrementar la experiencia de " + email + ": " + e);
+                        }
+                    });
+            }
+        });
     }
 
 
 
-    public String getEmail(){
-        return email;
-    }
 
 }

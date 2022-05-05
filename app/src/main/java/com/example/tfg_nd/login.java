@@ -49,7 +49,6 @@ public class login extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
-
         mAuth = FirebaseAuth.getInstance();
         btnAcceder = v.findViewById(R.id.btAcceder);
         etEmail = v.findViewById(R.id.etEmail);
@@ -125,7 +124,6 @@ public class login extends Fragment {
                     }
                 });
     }
-
     public void registrarUsuario(String email, String pass){
         mAuth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
