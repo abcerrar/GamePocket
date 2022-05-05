@@ -135,6 +135,13 @@ public class perfil extends Fragment {
             }
         }
         db.collection("puzzle_2").document(email).delete();
+        for(int i=1; i<12; i++){
+            try{
+                db.collection("puzzle_2").document(email).collection("datos_nivel").document(i+"").delete();
+            }catch (Exception e){
+                Log.d(TAG, "Error en el borrado");
+            }
+        }
         db.collection("users").document(email).delete();
         currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

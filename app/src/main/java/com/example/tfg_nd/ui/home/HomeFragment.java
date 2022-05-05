@@ -1,7 +1,4 @@
 package com.example.tfg_nd.ui.home;
-
-import static androidx.navigation.Navigation.findNavController;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-
-import com.example.tfg_nd.HomeMenuActivity;
 import com.example.tfg_nd.R;
-import com.example.tfg_nd.User;
 import com.example.tfg_nd.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class HomeFragment extends Fragment {
 
@@ -35,12 +28,13 @@ public class HomeFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    ListenerRegistration listener;
     TextView dinero, tvEmail;
     String email;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        //HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -55,7 +49,7 @@ public class HomeFragment extends Fragment {
             Log.d(TAG, "Current email: " + email);
             tvEmail.setText(email);
             DocumentReference docRef = db.collection("users").document(email);
-            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            listener = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot snapshot,
                                     @Nullable FirebaseFirestoreException e) {
@@ -85,5 +79,6 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        listener.remove();
     }
 }
