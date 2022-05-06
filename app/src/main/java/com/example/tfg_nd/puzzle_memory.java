@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class puzzle_memory extends Fragment {
-
     public puzzle_memory() {
 
     }
@@ -24,8 +23,6 @@ public class puzzle_memory extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_puzzle_memory, container, false);
-
-
 
         return v;
     }

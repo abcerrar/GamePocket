@@ -101,6 +101,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btMemory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
@@ -115,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|top"
                         android:layout_marginTop="5dp"
-                        android:text="Desconocido"
+                        android:text="Memory"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 

@@ -30,7 +30,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     NavController navController;
     DrawerLayout drawer;
     FirebaseAuth mAuth;
-    manejadorPreferencias mPref_general = new manejadorPreferencias("general", this);
+    manejadorPreferencias mPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
 
         binding = ActivityHomeMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        mPref = new manejadorPreferencias("pref", this);
 
         setSupportActionBar(binding.appBarHomeMenu.toolbar);
 
@@ -92,7 +93,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.porcentajes:
                 if(currentUser!=null){
-                    mPref_general.put("gamemode", "porcentajes");
+                    mPref.put("gamemode", "porcentajes");
                     navController.navigate(R.id.niveles);
                 }else{
                     Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
@@ -100,7 +101,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.memory:
                 if(currentUser!=null){
-                    mPref_general.put("gamemode", "memory");
+                    mPref.put("gamemode", "memory");
                     navController.navigate(R.id.niveles);
                 }else{
                     Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();

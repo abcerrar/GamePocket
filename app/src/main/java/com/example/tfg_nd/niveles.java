@@ -38,7 +38,7 @@ public class niveles extends Fragment {
     private final String TAG = "Niveles.java";
     private TextView[] niveles;
     private TextView[] estrellas;
-    private manejadorPreferencias mPref_general = new manejadorPreferencias("general", getActivity());;
+    private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
     private Button btReset;
@@ -57,6 +57,7 @@ public class niveles extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_niveles, container, false);
+        mPref = new manejadorPreferencias("pref", getActivity());
         FirebaseUser current_user = mAuth.getCurrentUser();
 
         niveles = new TextView[MAX_NIVELES];
@@ -92,7 +93,7 @@ public class niveles extends Fragment {
             setOnClickLevel(i);
         }
 
-        gamemode = mPref_general.get("gamemode", "error");
+        gamemode = mPref.get("gamemode", "error");
 
         if(!gamemode.equals("error") && current_user != null){
             email = current_user.getEmail();
@@ -149,18 +150,18 @@ public class niveles extends Fragment {
 
         DocumentReference docRef = db.collection(gamemode).document(email);
         docRef.set(game)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "nueva sesion en "+ gamemode +" realizada correctamente");
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG, "Error en la creación de sesion en: "+ gamemode, e);
-                }
-            });
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "nueva sesion en "+ gamemode +" realizada correctamente");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error en la creación de sesion en: "+ gamemode, e);
+                    }
+                });
         Map<String, Object> datos_nivel = new HashMap<>();
         for(int i=0; i<MAX_NIVELES; i++){
             docRef = db.collection(gamemode).document(email).collection("datos_nivel").document((i+1)+"");
@@ -189,17 +190,16 @@ public class niveles extends Fragment {
     public void jumpToGame(int nivel){
         switch(gamemode){
             case "porcentajes":
-                manejadorPreferencias mPref_porcentaje = new manejadorPreferencias("porcentajes", getActivity());
-                mPref_porcentaje.put("nivel", (nivel+1)+"");
+                mPref.put("nivel", (nivel+1)+"");
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
                 break;
             case "memory":
-                manejadorPreferencias mPref_memory = new manejadorPreferencias("memory", getActivity());
-                mPref_memory.put("nivel", (nivel+1)+"");
+                mPref.put("nivel", (nivel+1)+"");
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_memory);
                 break;
             case "error":
                 Toast.makeText(getContext(), "Error al seleccionar un modo de juego", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Error al seleccionar un modo de juego");
         }
     }
 

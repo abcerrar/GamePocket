@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private LinearLayout btPorcentaje;
+    private LinearLayout btPorcentaje, btMemory;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         btPorcentaje = root.findViewById(R.id.btPorcentajes);
+        btMemory = root.findViewById(R.id.btMemory);
         dinero = root.findViewById(R.id.dinero);
         tvEmail = root.findViewById(R.id.tvEmail);
 
@@ -89,7 +90,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(currentUser!=null){
-                    mPref.put("gamemode", "puzzle_1");
+                    mPref.put("gamemode", "porcentajes");
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                }else{
+                    Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btMemory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentUser!=null){
+                    mPref.put("gamemode", "memory");
                     NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                 }else{
                     Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();

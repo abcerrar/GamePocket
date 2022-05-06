@@ -37,9 +37,9 @@ public class puzzle_porcenaje extends Fragment {
     private User user;
 
     private final String TAG = "puzzle_porcentaje.java";
-    private final String gamemode = "puzzle_1";
-    private String email;
-    private manejadorPreferencias mPref_porcentajes = new manejadorPreferencias("porcentajes", getActivity());
+    private final String gamemode = "porcentajes";
+    String email;
+    private manejadorPreferencias mPref;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -63,6 +63,7 @@ public class puzzle_porcenaje extends Fragment {
         tvRelleno = v.findViewById(R.id.tvRelleno);
         sb = v.findViewById(R.id.seekBar2);
         contenedor = v.findViewById(R.id.contenedor);
+        mPref = new manejadorPreferencias("pref", getActivity());
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
@@ -83,7 +84,7 @@ public class puzzle_porcenaje extends Fragment {
                 R.dimen.pc81, R.dimen.pc82, R.dimen.pc83, R.dimen.pc84, R.dimen.pc85, R.dimen.pc86, R.dimen.pc87, R.dimen.pc88, R.dimen.pc89, R.dimen.pc90,
                 R.dimen.pc91, R.dimen.pc92, R.dimen.pc93, R.dimen.pc94, R.dimen.pc95, R.dimen.pc96, R.dimen.pc97, R.dimen.pc98, R.dimen.pc99, R.dimen.pc100
         };
-        nivel_actual = Integer.parseInt(mPref_porcentajes.get("nivel", "0"));
+        nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
 
 
 
@@ -178,7 +179,7 @@ public class puzzle_porcenaje extends Fragment {
                         Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
                         NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                     }else{
-                        mPref_porcentajes.put("nivel", (nivel_actual+1)+"");
+                        mPref.put("nivel", (nivel_actual+1)+"");
                         nivel_actual++;
                         tvTitulo.setText("Nivel: " + nivel_actual);
                         reloadGame();
