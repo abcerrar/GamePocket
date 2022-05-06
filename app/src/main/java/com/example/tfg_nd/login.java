@@ -56,6 +56,7 @@ public class login extends Fragment {
         changeDisplay = v.findViewById(R.id.notengocuenta);
         etName = v.findViewById(R.id.etName);
         contraseña2 = v.findViewById(R.id.etPass2);
+        etEmail.requestFocus();
 
 
         changeDisplay.setOnClickListener(new View.OnClickListener() {
@@ -67,12 +68,14 @@ public class login extends Fragment {
                     changeDisplay.setText("Ya tengo cuenta");
                     etName.setVisibility(View.VISIBLE);
                     contraseña2.setVisibility(View.VISIBLE);
+                    etName.requestFocus();
                 }else{
                     login = true;
                     btnAcceder.setText("Iniciar sesión");
                     changeDisplay.setText("No tengo cuenta");
                     etName.setVisibility(View.INVISIBLE);
                     contraseña2.setVisibility(View.INVISIBLE);
+                    etEmail.requestFocus();
                 }
             }
         });
