@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class puzzle_porcenaje extends Fragment {
 
-    TextView tvColor, tvNumero, tvResultado, tvTitulo;
+    private TextView tvColor, tvNumero, tvResultado, tvTitulo, tvRelleno;
     int num, nivel_actual, num_estrellas = 0;
     SeekBar sb;
     int[] dimensiones;
@@ -60,6 +60,7 @@ public class puzzle_porcenaje extends Fragment {
         tvNumero = v.findViewById(R.id.tvNumero);
         tvResultado = v.findViewById(R.id.tvResultado);
         tvTitulo = v.findViewById(R.id.titulo);
+        tvRelleno = v.findViewById(R.id.tvRelleno);
         sb = v.findViewById(R.id.seekBar2);
         contenedor = v.findViewById(R.id.contenedor);
         mPref = new manejadorPreferencias("pref", getActivity());
@@ -216,9 +217,11 @@ public class puzzle_porcenaje extends Fragment {
         switch (nivel_actual){
             case 5: case 6: case 7: case 8:
                 contenedor.setImageResource(R.drawable.circle);
+                tvRelleno.setBackgroundColor(getResources().getColor(R.color.azul));
                 break;
             case 9: case 10: case 11: case 12:
                 contenedor.setImageResource(R.drawable.triangle);
+                tvRelleno.setBackgroundColor(getResources().getColor(R.color.verde));
                 break;
         }
     }

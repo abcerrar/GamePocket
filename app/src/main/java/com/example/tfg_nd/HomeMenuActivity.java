@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -112,7 +113,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                     mPref.put("gamemode", "puzzle_2");
                     navController.navigate(R.id.niveles);
                 }else{
-                    Toast.makeText(this, "Debes iniciar sesión para los juegos con pr   ogreso", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
