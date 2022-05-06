@@ -29,19 +29,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class puzzle_porcenaje extends Fragment {
 
     private TextView tvColor, tvNumero, tvResultado, tvTitulo, tvRelleno;
-    int num, nivel_actual, num_estrellas = 0;
-    SeekBar sb;
-    int[] dimensiones;
+    private int num, nivel_actual, num_estrellas = 0;
+    private SeekBar sb;
+    private int[] dimensiones;
     private AlertDialog dialog;
     private ImageView contenedor;
     private User user;
 
     private final String TAG = "puzzle_porcentaje.java";
     private final String gamemode = "porcentajes";
-    String email;
+    private String email;
     private manejadorPreferencias mPref;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public puzzle_porcenaje() {
 
