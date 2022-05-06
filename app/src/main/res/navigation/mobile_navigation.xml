@@ -44,4 +44,9 @@
         android:name="com.example.tfg_nd.puzzle_porcenaje"
         android:label="fragment_puzzle_porcenaje"
         tools:layout="@layout/fragment_puzzle_porcenaje" />
+    <fragment
+        android:id="@+id/puzzle_memory"
+        android:name="com.example.tfg_nd.puzzle_memory"
+        android:label="fragment_puzzle_memory"
+        tools:layout="@layout/fragment_puzzle_memory" />
 </navigation>

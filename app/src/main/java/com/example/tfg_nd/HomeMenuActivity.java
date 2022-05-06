@@ -1,27 +1,18 @@
 package com.example.tfg_nd;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -39,7 +30,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     NavController navController;
     DrawerLayout drawer;
     FirebaseAuth mAuth;
-    manejadorPreferencias mPref;
+    manejadorPreferencias mPref_general = new manejadorPreferencias("general", this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +38,6 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
 
         binding = ActivityHomeMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        mPref = new manejadorPreferencias("pref", this);
 
         setSupportActionBar(binding.appBarHomeMenu.toolbar);
 
@@ -100,17 +90,17 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.test:
                 navController.navigate(R.id.test);
                 break;
-            case R.id.puzzle_1:
+            case R.id.porcentajes:
                 if(currentUser!=null){
-                    mPref.put("gamemode", "puzzle_1");
+                    mPref_general.put("gamemode", "porcentajes");
                     navController.navigate(R.id.niveles);
                 }else{
                     Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.puzzle_2:
+            case R.id.memory:
                 if(currentUser!=null){
-                    mPref.put("gamemode", "puzzle_2");
+                    mPref_general.put("gamemode", "memory");
                     navController.navigate(R.id.niveles);
                 }else{
                     Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();

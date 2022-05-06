@@ -21,10 +21,10 @@
         android:id="@+id/puzzle"
         android:checkableBehavior="none">
         <item
-            android:id="@+id/puzzle_1"
-            android:title="puzzle_1"/>
+            android:id="@+id/porcentajes"
+            android:title="Porcentajes" />
         <item
-            android:id="@+id/puzzle_2"
-            android:title="puzzle_2"/>
+            android:id="@+id/memory"
+            android:title="Memory" />
     </group>
 </menu>
