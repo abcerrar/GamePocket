@@ -16,6 +16,7 @@ public class puzzle_memory extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //hola
     }
 
     @Override
