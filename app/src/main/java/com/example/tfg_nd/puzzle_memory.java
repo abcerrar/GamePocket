@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class puzzle_memory extends Fragment {
@@ -181,12 +180,12 @@ public class puzzle_memory extends Fragment {
     }
 
     public void cargarImagenes(int cantidad){
-        if(cantidad == 16){
+        if(cantidad == 16 && imagenes.size() == 12){
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage8+"");
             imagenes.add(R.drawable.memoryimage8+"");
-        }else if(cantidad == 20){
+        }else if(cantidad == 20 && imagenes.size() == 16){
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage8+"");
@@ -232,6 +231,7 @@ public class puzzle_memory extends Fragment {
                         movimientos++;
                         tvMovimientos.setText(movimientos+"");
                         comprobar = false;
+                        Toast.makeText(getContext(), "Length: " + imagenes.size(), Toast.LENGTH_SHORT).show();
 
                         if(max_parejas - parejas_completadas == 0){
                             victoria();
@@ -307,7 +307,7 @@ public class puzzle_memory extends Fragment {
         user.incrementarExperiencia(experiencia);
         user.incrementarDinero(dinero);
         user.actualizarEstrellas(estrellas, gamemode, nivel_actual);
-        user.subirNivel(gamemode, nivel_actual);
+        if(estrellas>0) user.subirNivel(gamemode, nivel_actual);
         alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia);
 
     }
