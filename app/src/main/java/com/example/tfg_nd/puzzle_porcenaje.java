@@ -111,18 +111,21 @@ public class puzzle_porcenaje extends Fragment {
                         subirNivel();
                         user.incrementarDinero(10);
                         user.incrementarExperiencia(20);
+                        user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 1 || resultado == -1){
                         num_estrellas = 2;
                         alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2, 5, 10);
                         subirNivel();
                         user.incrementarDinero(5);
                         user.incrementarExperiencia(10);
+                        user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
                         num_estrellas = 1;
                         alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, 1, 2);
                         subirNivel();
                         user.incrementarDinero(1);
                         user.incrementarExperiencia(2);
+                        user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else{
                         num_estrellas = 0;
                         alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, num_estrellas*2, 0, 0);
@@ -245,7 +248,6 @@ public class puzzle_porcenaje extends Fragment {
                             nivel++;
                             db.collection(gamemode).document(email).update("nivel", nivel+"");
                         }
-                        actualizarEstrellas();
                     } else {
                         //Si no existe crea un usuario nuevo con ese nombre
                         Toast.makeText(getContext(), "Error en updateUser()", Toast.LENGTH_SHORT).show();
@@ -256,23 +258,4 @@ public class puzzle_porcenaje extends Fragment {
             }
         });
     }
-    public void actualizarEstrellas(){
-        DocumentReference docRef = db.collection(gamemode).document(email).collection("datos_nivel").document(nivel_actual+"");
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                try{
-                    int estrellas = Integer.parseInt(documentSnapshot.getData().get("estrellas")+"");
-                    if(num_estrellas > estrellas){
-                        db.collection(gamemode).document(email).collection("datos_nivel").document(nivel_actual+"").update("estrellas", num_estrellas);
-
-                    }
-                }catch(Exception e){
-                    Log.w(TAG, "Error al acceder a las etrellas");
-                }
-            }
-        });
-    }
-
-
 }

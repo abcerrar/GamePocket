@@ -181,33 +181,34 @@ public class puzzle_memory extends Fragment {
         cartas[num_carta].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int cod_carta = Integer.parseInt(imagenes.get(num_carta));
-                cartas[num_carta].setImageResource(cod_carta);
+                if(cartas[num_carta].getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.dorso).getConstantState())){
+                    int cod_carta = Integer.parseInt(imagenes.get(num_carta));
+                    cartas[num_carta].setImageResource(cod_carta);
 
-                if(comprobar){
-                    if(cartas[num_carta].getDrawable().getConstantState().equals(cartas[last_pressed].getDrawable().getConstantState())){
-                        parejas_completadas++;
-                        tvParejas.setText(parejas_completadas+"");
+                    if(comprobar){
+                        if(cartas[num_carta].getDrawable().getConstantState().equals(cartas[last_pressed].getDrawable().getConstantState())){
+                            parejas_completadas++;
+                            tvParejas.setText(parejas_completadas+"");
+                        }else{
+                            deshabilitar_botones();
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    cartas[num_carta].setImageResource(R.drawable.dorso);
+                                    cartas[last_pressed].setImageResource(R.drawable.dorso);
+                                    habilitar_botones();
+                                }
+                            }, 1000);
+                        }
+                        movimientos++;
+                        tvMovimientos.setText(movimientos+"");
+                        comprobar = false;
                     }else{
-                        deshabilitar_botones();
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                cartas[num_carta].setImageResource(R.drawable.dorso);
-                                cartas[last_pressed].setImageResource(R.drawable.dorso);
-                                habilitar_botones();
-                            }
-                        }, 1000);
+                        last_pressed =  num_carta;
+                        comprobar = true;
                     }
-                    movimientos++;
-                    tvMovimientos.setText(movimientos+"");
-                    comprobar = false;
-                }else{
-                    last_pressed =  num_carta;
-                    comprobar = true;
                 }
-
             }
         });
     }
@@ -222,6 +223,7 @@ public class puzzle_memory extends Fragment {
             cartas[i].setEnabled(true);
         }
     }
+
 
 
 

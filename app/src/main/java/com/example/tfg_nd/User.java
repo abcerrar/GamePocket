@@ -4,6 +4,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -67,7 +68,54 @@ public class User {
         });
     }
 
+    public void actualizarEstrellas(int estrellas, String gamemode, int nivel){
+        DocumentReference docRef = db.collection(gamemode).document(email).collection("datos_nivel").document(nivel+"");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                int estrellas_actuales = Integer.parseInt(documentSnapshot.getData().get("estrellas")+"");
+
+                if(estrellas > estrellas_actuales){
+                    Log.d(TAG, estrellas+"");
+                    db.collection(gamemode).document(email).collection("datos_nivel").document(nivel+"").update("estrellas", estrellas)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d(TAG, "Estrellas incrementadas correctamente");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Error al incrementar las estrellas de " + email + ": " + e);
+                            }
+                        });
+                    }
+                }
+
+        });
+    }
+    /*
+
+    public void actualizarEstrellas(){
+        DocumentReference docRef = db.collection(gamemode).document(email).collection("datos_nivel").document(nivel_actual+"");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                try{
+                    int estrellas = Integer.parseInt(documentSnapshot.getData().get("estrellas")+"");
+                    if(num_estrellas > estrellas){
+                        db.collection(gamemode).document(email).collection("datos_nivel").document(nivel_actual+"").update("estrellas", num_estrellas);
+
+                    }
+                }catch(Exception e){
+                    Log.w(TAG, "Error al acceder a las etrellas");
+                }
+            }
+        });
+    }
 
 
+     */
 
 }
