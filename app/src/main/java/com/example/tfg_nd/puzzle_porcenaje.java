@@ -108,21 +108,21 @@ public class puzzle_porcenaje extends Fragment {
                     if(respuesta == porcentaje){
                         num_estrellas = 3;
                         alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2, 10, 20);
-                        subirNivel();
+                        user.subirNivel(gamemode, nivel_actual);
                         user.incrementarDinero(10);
                         user.incrementarExperiencia(20);
                         user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 1 || resultado == -1){
                         num_estrellas = 2;
                         alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2, 5, 10);
-                        subirNivel();
+                        user.subirNivel(gamemode, nivel_actual);
                         user.incrementarDinero(5);
                         user.incrementarExperiencia(10);
                         user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
                         num_estrellas = 1;
                         alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, 1, 2);
-                        subirNivel();
+                        user.subirNivel(gamemode, nivel_actual);
                         user.incrementarDinero(1);
                         user.incrementarExperiencia(2);
                         user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
@@ -229,33 +229,4 @@ public class puzzle_porcenaje extends Fragment {
         }
     }
 
-    public void subirNivel(){
-        DocumentReference docRef = db.collection(gamemode).document(email);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        //Subir un nivel
-                        int nivel;
-                        nivel = Integer.parseInt(document.get("nivel")+"");
-                        Log.w(TAG, nivel_actual +"--"+nivel);
-                        if(nivel == nivel_actual){
-                            Log.w(TAG, email);
-                            //Poner este nivel en completado
-                            db.collection(gamemode).document(email).collection("datos_nivel").document(nivel+"").update("completado", true);
-                            nivel++;
-                            db.collection(gamemode).document(email).update("nivel", nivel+"");
-                        }
-                    } else {
-                        //Si no existe crea un usuario nuevo con ese nombre
-                        Toast.makeText(getContext(), "Error en updateUser()", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-    }
 }

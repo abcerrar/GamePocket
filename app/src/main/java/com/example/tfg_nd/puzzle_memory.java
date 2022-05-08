@@ -307,6 +307,7 @@ public class puzzle_memory extends Fragment {
         user.incrementarExperiencia(experiencia);
         user.incrementarDinero(dinero);
         user.actualizarEstrellas(estrellas, gamemode, nivel_actual);
+        user.subirNivel(gamemode, nivel_actual);
         alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia);
 
     }
