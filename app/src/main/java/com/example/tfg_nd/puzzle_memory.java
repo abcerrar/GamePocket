@@ -1,15 +1,19 @@
 package com.example.tfg_nd;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,9 +33,10 @@ public class puzzle_memory extends Fragment {
     private final String gamemode = "memory";
     private String email;
     private User user;
+    private AlertDialog dialog;
 
     //Variables ingame
-    private TextView tvMovimientos, tvParejas;
+    private TextView tvMovimientos, tvParejas, tvTitulo;
     private int movimientos = 0, last_pressed, parejas_completadas = 0;
     private boolean comprobar = false;
 
@@ -109,8 +114,8 @@ public class puzzle_memory extends Fragment {
 
         tvMovimientos = v.findViewById(R.id.tvMovimientos);
         tvParejas = v.findViewById(R.id.tvParejas);
+        tvTitulo = v.findViewById(R.id.tvTitulo_2);
 
-        tvMovimientos.setText("0");
 
         switch (nivel_actual){
             case 1: case 2: case 3: case 4:
@@ -123,6 +128,9 @@ public class puzzle_memory extends Fragment {
                 gamemode3();
                 break;
         }
+        tvParejas.setText(max_parejas+"");
+        tvMovimientos.setText("0");
+        tvTitulo.setText("Nivel: " + nivel_actual);
 
         return v;
     }
@@ -138,6 +146,12 @@ public class puzzle_memory extends Fragment {
         cartas[19].setVisibility(View.INVISIBLE);
         cargarImagenes(12);
 
+        tvParejas.setText(max_parejas+"");
+        tvMovimientos.setText("0");
+        tvTitulo.setText("Nivel: " + nivel_actual);
+
+        parejas_completadas = 0;
+        movimientos = 0;
         max_parejas = 6;
     }
     public void gamemode2(){
@@ -146,9 +160,22 @@ public class puzzle_memory extends Fragment {
         cartas[18].setVisibility(View.INVISIBLE);
         cartas[19].setVisibility(View.INVISIBLE);
         cargarImagenes(16);
+
+        tvParejas.setText(max_parejas+"");
+        tvMovimientos.setText("0");
+        tvTitulo.setText("Nivel: " + nivel_actual);
+
+        parejas_completadas = 0;
+        movimientos = 0;
         max_parejas = 8;
     }
     public void gamemode3(){
+        tvParejas.setText(max_parejas+"");
+        tvMovimientos.setText("0");
+        tvTitulo.setText("Nivel: " + nivel_actual);
+
+        parejas_completadas = 0;
+        movimientos = 0;
         max_parejas = 10;
         cargarImagenes(20);
     }
@@ -188,7 +215,8 @@ public class puzzle_memory extends Fragment {
                     if(comprobar){
                         if(cartas[num_carta].getDrawable().getConstantState().equals(cartas[last_pressed].getDrawable().getConstantState())){
                             parejas_completadas++;
-                            tvParejas.setText(parejas_completadas+"");
+                            int parejas_restantes = max_parejas - parejas_completadas;
+                            tvParejas.setText(parejas_restantes+"");
                         }else{
                             deshabilitar_botones();
                             Handler handler = new Handler();
@@ -204,6 +232,10 @@ public class puzzle_memory extends Fragment {
                         movimientos++;
                         tvMovimientos.setText(movimientos+"");
                         comprobar = false;
+
+                        if(max_parejas - parejas_completadas == 0){
+                            victoria();
+                        }
                     }else{
                         last_pressed =  num_carta;
                         comprobar = true;
@@ -224,8 +256,124 @@ public class puzzle_memory extends Fragment {
         }
     }
 
+    public void reloadGame(){
+        switch (nivel_actual){
+            case 1: case 2: case 3: case 4:
+                gamemode1();
+                break;
+            case 5: case 6: case 7: case 8:
+                gamemode2();
+                break;
+            case 9: case 10: case 11: case 12:
+                gamemode3();
+                break;
+        }
+        dialog.dismiss();
+    }
 
+    public void victoria(){
+        int max_movimientos=0, estrellas=0, dinero=0, experiencia=0;
+        String titulo="", titutlo2="";
 
+        max_movimientos= max_parejas + (max_parejas/2);
+        Toast.makeText(getContext(), "Max movimientos: " + max_movimientos, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "movimientos: " + movimientos, Toast.LENGTH_SHORT).show();
 
+        if(movimientos <= max_movimientos){
+            titulo = "Perfecto";
+            titutlo2 = "Te lo has pasado en pocos movimientos";
+            estrellas = 3;
+            dinero = 10;
+            experiencia = 20;
+        }else if(movimientos <= max_movimientos+2){
+            titulo = "Bien";
+            titutlo2 = "Puedes pasar al siguiente nivel";
+            estrellas = 2;
+            dinero = 5;
+            experiencia = 10;
+        }else if(movimientos <= max_movimientos+4){
+            titulo = "Por poco";
+            titutlo2 = "Por poco, pero lo has superado";
+            estrellas = 1;
+            dinero = 1;
+            experiencia = 2;
+        }else{
+            titulo = "Fallaste!";
+            titutlo2 = "Has hecho demasiados movimientos";
+            estrellas = 0;
+            dinero = 0;
+            experiencia = 0;
+        }
+        user.incrementarExperiencia(experiencia);
+        user.incrementarDinero(dinero);
+        user.actualizarEstrellas(estrellas, gamemode, nivel_actual);
+        alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia);
 
+    }
+
+    public void alertFinalPartida(String titulo, String titulo2, int num_estrellas, int dinero, int experiencia){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View custom_layout = getLayoutInflater().inflate(R.layout.end_game, null);
+        ImageView reloadGame, backMenu, nextLevel;
+        TextView tit, tit2, tvDinero, tvExperiencia;
+        RatingBar rb;
+
+        reloadGame = custom_layout.findViewById(R.id.reloadGame);
+        backMenu = custom_layout.findViewById(R.id.backMenu);
+        nextLevel = custom_layout.findViewById(R.id.nextLevel);
+        tit = custom_layout.findViewById(R.id.tvTitulo);
+        tit2 = custom_layout.findViewById(R.id.tvTitulo2);
+        tvDinero = custom_layout.findViewById(R.id.tvGanaDinero);
+        tvExperiencia = custom_layout.findViewById(R.id.tvGanaExperiencia);
+        rb = custom_layout.findViewById(R.id.ratingBar);
+
+        tit.setText(titulo);
+        tit2.setText(titulo2);
+        tvDinero.setText("+ " + dinero);
+        tvExperiencia.setText("+ " +    experiencia+"");
+        rb.setProgress(num_estrellas);
+
+        reloadGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reloadGame();
+            }
+        });
+
+        if(num_estrellas==0){
+            nextLevel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Tu flipas", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            nextLevel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reloadGame();
+                    if(nivel_actual==12){
+                        Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                    }else{
+                        mPref.put("nivel", (nivel_actual+1)+"");
+                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_memory);
+                    }
+                }
+            });
+        }
+
+        backMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                dialog.dismiss();
+            }
+        });
+
+        builder.setCancelable(false);
+        builder.setView(custom_layout);
+        dialog = builder.create();
+        dialog.show();
+    }
 }

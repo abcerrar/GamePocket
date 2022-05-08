@@ -1,9 +1,14 @@
 package com.example.tfg_nd;
 
 import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -93,6 +98,36 @@ public class User {
                     }
                 }
 
+        });
+    }
+
+    public void subirNivel(String gamemode, int nivel_actual){
+        DocumentReference docRef = db.collection(gamemode).document(email);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //Subir un nivel
+                        int nivel;
+                        nivel = Integer.parseInt(document.get("nivel")+"");
+                        Log.w(TAG, nivel_actual +"--"+nivel);
+                        if(nivel == nivel_actual){
+                            Log.w(TAG, email);
+                            //Poner este nivel en completado
+                            db.collection(gamemode).document(email).collection("datos_nivel").document(nivel+"").update("completado", true);
+                            nivel++;
+                            db.collection(gamemode).document(email).update("nivel", nivel+"");
+                        }
+                    } else {
+                        //Si no existe crea un usuario nuevo con ese nombre
+                        Log.d(TAG, "Error en subir nivel");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
         });
     }
     /*
