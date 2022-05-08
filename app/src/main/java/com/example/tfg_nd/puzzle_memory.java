@@ -131,6 +131,7 @@ public class puzzle_memory extends Fragment {
         tvMovimientos.setText("0");
         tvTitulo.setText("Nivel: " + nivel_actual);
 
+        Toast.makeText(getContext(), "size: " + imagenes.size(), Toast.LENGTH_SHORT).show();
         return v;
     }
 
@@ -185,7 +186,7 @@ public class puzzle_memory extends Fragment {
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage8+"");
             imagenes.add(R.drawable.memoryimage8+"");
-        }else if(cantidad == 20 && imagenes.size() == 16){
+        }else if(cantidad == 20 && imagenes.size() == 12){
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage8+"");
@@ -231,7 +232,6 @@ public class puzzle_memory extends Fragment {
                         movimientos++;
                         tvMovimientos.setText(movimientos+"");
                         comprobar = false;
-                        Toast.makeText(getContext(), "Length: " + imagenes.size(), Toast.LENGTH_SHORT).show();
 
                         if(max_parejas - parejas_completadas == 0){
                             victoria();
