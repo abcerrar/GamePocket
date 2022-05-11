@@ -52,23 +52,35 @@ public class User {
     }
 
     public void incrementarExperiencia(int incremento){
+        Log.d(TAG, "incrementado experiencia");
         db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 int exp = Integer.parseInt(documentSnapshot.getData().get("exp")+"");
-                db.collection("users").document(email).update("exp", (exp + incremento)+"")
+                int nivel = Integer.parseInt(documentSnapshot.getData().get("nivel")+"");
+                int suma = exp + incremento;
+                Log.d(TAG, "experiencia: " + exp);
+                Log.d(TAG, "suma: " + suma);
+                if(suma >= 100){
+                    nivel++;
+                    suma = suma - 100;
+                    db.collection("users").document(email).update("nivel", nivel+"");
+                }
+                db.collection("users").document(email).update("exp", suma+"")
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Log.d(TAG, "experiencia incrementada correctamente");
+                            Log.d(TAG, "Experiencia incrementada correctamente");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "Error al incrementar la experiencia de " + email + ": " + e);
+                            Log.d(TAG, "Error al incrementar la experiencia: " + e.getMessage());
+
                         }
                     });
+
             }
         });
     }

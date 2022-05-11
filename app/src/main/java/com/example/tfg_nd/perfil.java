@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,16 +67,10 @@ public class perfil extends Fragment {
             DocumentReference docRef = db.collection("users").document(email);
             tvPerfil.setText(email);
 
-            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
-                public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                    @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
-                        Log.w(TAG, "Listen failed.", e);
-                        return;
-                    }
-
-                    if (snapshot != null && snapshot.exists()) {
+                public void onSuccess(DocumentSnapshot snapshot) {
+                    if(snapshot!=null && snapshot.exists()){
                         Log.d(TAG, "Current data: " + snapshot.getData());
                         String dinero, nombre, nivel, exp;
 
@@ -88,21 +83,11 @@ public class perfil extends Fragment {
                         exp = snapshot.getData().get("exp")+"";
                         if(exp.equals("null")) exp = "0";
 
-                        //Si la exp es 100 o mas, subir de nivel (solo de uno en uno de momento)
-                        if(Integer.parseInt(exp) >= 100){
-                            nivel = String.valueOf(Integer.parseInt(nivel)+1);
-                            exp = String.valueOf(Integer.parseInt(exp)-100);
-                            db.collection("users").document(email).update("exp", exp);
-                            db.collection("users").document(email).update("nivel", nivel);
-                        }
-
                         tvDinero.setText(dinero);
                         tvNombre.setText(nombre);
                         tvNivel.setText(nivel);
                         tvExp.setText(exp+"/100");
                         pb.setProgress(Integer.parseInt(exp));
-                    } else {
-                        Log.d(TAG, "Current data: null");
                     }
                 }
             });

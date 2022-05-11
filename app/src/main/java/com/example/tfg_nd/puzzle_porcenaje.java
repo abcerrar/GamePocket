@@ -128,7 +128,7 @@ public class puzzle_porcenaje extends Fragment {
                         num_estrellas = 1;
                         dinero = 1;
                         exp = 1;
-                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, dinero, exp);
+                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, dinero, exp   );
                         user.subirNivel(gamemode, nivel_actual);
                         user.incrementarDinero(dinero);
                         user.incrementarExperiencia(exp);
@@ -221,23 +221,18 @@ public class puzzle_porcenaje extends Fragment {
     }
 
     public void pintarFigura(){
-        //Lo del incremento visual es provisional
         num = (int)(Math.random()*99+1);
-        int incremento_visual = 0;
-        if(num > 50) incremento_visual = 2;
         switch (nivel_actual){
             case 5: case 6: case 7: case 8:
                 contenedor.setImageResource(R.drawable.circle);
                 tvRelleno.setBackgroundColor(getResources().getColor(R.color.azul));
-                if(num > 50) incremento_visual = 3;
                 break;
             case 9: case 10: case 11: case 12:
                 contenedor.setImageResource(R.drawable.triangle);
                 tvRelleno.setBackgroundColor(getResources().getColor(R.color.verde));
-                if(num > 50) incremento_visual = 4;
                 break;
         }
-        int altura = getResources().getDimensionPixelSize(dimensiones[num + incremento_visual])*3;
+        int altura = getResources().getDimensionPixelSize(dimensiones[num])*3;
         tvColor.getLayoutParams().height = altura;
     }
 
