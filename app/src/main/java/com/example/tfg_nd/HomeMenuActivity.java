@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -69,6 +70,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 || super.onSupportNavigateUp();
     }
 
+    //Botones del navigation drawer
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Log.w(TAG, item.getItemId()+"");
@@ -111,6 +113,23 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    //Botones del menu normal
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Toast.makeText(getApplicationContext(), "Aún no hay ajustes", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_home:
+                startActivity(new Intent(getApplicationContext(), HomeMenuActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public static float pxToDp(Context context, float px) {

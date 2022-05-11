@@ -104,27 +104,34 @@ public class puzzle_porcenaje extends Fragment {
                 int porcentaje = 100-num;
                 int respuesta = seekBar.getProgress();
                 int resultado = porcentaje - respuesta;
+                int dinero, exp;
                 if(respuesta !=  0){
                     if(respuesta == porcentaje){
                         num_estrellas = 3;
-                        alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2, 10, 20);
+                        dinero = 5;
+                        exp = 10;
+                        alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2, dinero, exp);
                         user.subirNivel(gamemode, nivel_actual);
-                        user.incrementarDinero(10);
-                        user.incrementarExperiencia(20);
+                        user.incrementarDinero(dinero);
+                        user.incrementarExperiencia(exp);
                         user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 1 || resultado == -1){
                         num_estrellas = 2;
-                        alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2, 5, 10);
+                        dinero = 2;
+                        exp = 5;
+                        alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2, dinero, exp);
                         user.subirNivel(gamemode, nivel_actual);
-                        user.incrementarDinero(5);
-                        user.incrementarExperiencia(10);
+                        user.incrementarDinero(dinero);
+                        user.incrementarExperiencia(exp);
                         user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
                         num_estrellas = 1;
-                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, 1, 2);
+                        dinero = 1;
+                        exp = 1;
+                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, dinero, exp);
                         user.subirNivel(gamemode, nivel_actual);
-                        user.incrementarDinero(1);
-                        user.incrementarExperiencia(2);
+                        user.incrementarDinero(dinero);
+                        user.incrementarExperiencia(exp);
                         user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else{
                         num_estrellas = 0;
@@ -214,19 +221,24 @@ public class puzzle_porcenaje extends Fragment {
     }
 
     public void pintarFigura(){
+        //Lo del incremento visual es provisional
         num = (int)(Math.random()*99+1);
-        int altura = getResources().getDimensionPixelSize(dimensiones[num])*3;
-        tvColor.getLayoutParams().height = altura;
+        int incremento_visual = 0;
+        if(num > 50) incremento_visual = 2;
         switch (nivel_actual){
             case 5: case 6: case 7: case 8:
                 contenedor.setImageResource(R.drawable.circle);
                 tvRelleno.setBackgroundColor(getResources().getColor(R.color.azul));
+                if(num > 50) incremento_visual = 3;
                 break;
             case 9: case 10: case 11: case 12:
                 contenedor.setImageResource(R.drawable.triangle);
                 tvRelleno.setBackgroundColor(getResources().getColor(R.color.verde));
+                if(num > 50) incremento_visual = 4;
                 break;
         }
+        int altura = getResources().getDimensionPixelSize(dimensiones[num + incremento_visual])*3;
+        tvColor.getLayoutParams().height = altura;
     }
 
 }
