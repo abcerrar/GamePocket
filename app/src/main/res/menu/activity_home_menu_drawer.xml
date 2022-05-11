@@ -8,23 +8,26 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/blackhome"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/test"
             android:title="Test" />
         <item
             android:id="@+id/perfil"
-            android:title="Perfil personal" />
+            android:title="Perfil personal"
+            android:icon="@drawable/profile"/>
     </group>
     <group
         android:id="@+id/puzzle"
         android:checkableBehavior="none">
         <item
             android:id="@+id/porcentajes"
-            android:title="Porcentajes" />
+            android:title="Porcentajes"
+            android:icon="@drawable/percentage"/>
         <item
             android:id="@+id/memory"
-            android:title="Memory" />
+            android:title="Memory"
+            android:icon="@drawable/brain"/>
     </group>
 </menu>
