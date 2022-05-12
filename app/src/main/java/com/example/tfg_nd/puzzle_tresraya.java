@@ -1,15 +1,19 @@
 package com.example.tfg_nd;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +32,7 @@ public class puzzle_tresraya extends Fragment {
     private User user;
     private AlertDialog dialog;
     private int nivel_actual = 0;
+    private View.OnClickListener listenerReload, listenerMenu, listenerNext;
 
     //Constantes juego
     private ImageView fichas[];
@@ -67,6 +72,27 @@ public class puzzle_tresraya extends Fragment {
         fichas[6] = v.findViewById(R.id.ficha31);
         fichas[7] = v.findViewById(R.id.ficha32);
         fichas[8] = v.findViewById(R.id.ficha33);
+        listenerReload = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                limpiar_tablero();
+                dialog.dismiss();
+            }
+        };
+        listenerMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                dialog.dismiss();
+            }
+        };
+        listenerNext = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Aun no", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        };
 
         switch (nivel_actual){
             case -1:
@@ -83,7 +109,6 @@ public class puzzle_tresraya extends Fragment {
                 break;
         }
 
-
         return v;
     }
 
@@ -94,7 +119,14 @@ public class puzzle_tresraya extends Fragment {
         //Asignar los onclick
         for(int i=0; i< fichas.length; i++){
             asignarOnClickJvj(i);
+            turno = 1;
         }
+        listenerNext = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "En JvJ no hay niveles", Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     public void limpiar_tablero(){
@@ -110,12 +142,21 @@ public class puzzle_tresraya extends Fragment {
                 if(fichas[num_ficha].getDrawable() == null){
                     if(player1){
                         fichas[num_ficha].setImageResource(R.drawable.aspa);
-                        if(turno >= 3 && checkVictory(R.drawable.aspa)) Toast.makeText(getContext(), "Ha ganado el jugador uno", Toast.LENGTH_SHORT).show();
-                        else if(turno == 5) Toast.makeText(getContext(), "Empate", Toast.LENGTH_SHORT).show();
+                        //Comprobar si el jugador 1 gana con ese movimiento
+                        if(turno >= 3 && checkVictory(R.drawable.aspa)){
+                            dialog = user.alertFinalPartida("Victoria de J1!!", "En JvJ no se gana \ndinero ni estrellas", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                            dialog.show();
+                        }
+                        else if(turno == 5){
+                            dialog = user.alertFinalPartida("Empate!!", "En JvJ no se gana \ndinero ni estrellas", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                        }
                         player1 = false;
                     } else{
                         fichas[num_ficha].setImageResource(R.drawable.circulo);
-                        if(turno >= 3 && checkVictory(R.drawable.circulo)) Toast.makeText(getContext(), "Ha ganado el jugador dos", Toast.LENGTH_SHORT).show();
+                        if(turno >= 3 && checkVictory(R.drawable.circulo)){
+                            dialog = user.alertFinalPartida("Victoria de J2!!", "En JvJ no se gana \ndinero ni estrellas", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                            dialog.show();
+                        }
                         player1 = true;
                         turno++;
                         Log.d(TAG, "Turno: " + turno);
@@ -159,15 +200,13 @@ public class puzzle_tresraya extends Fragment {
         }
         diagonal = 0;
         //Comprobar diagonal 2
-        for(int j=2; j<fichas.length; j+=4){
-            if(fichas[j].getDrawable()!=null){
+        for(int j=2; j<fichas.length; j+=2){
+            try{
                 if(fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) diagonal++;
                 else diagonal = 0;
-            }
+            }catch(NullPointerException e){}
             if(diagonal == 3) return true;
         }
         return false;
     }
-
-
 }

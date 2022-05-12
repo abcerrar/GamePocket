@@ -1,9 +1,17 @@
 package com.example.tfg_nd;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -141,6 +149,43 @@ public class User {
                 }
             }
         });
+    }
+
+    public AlertDialog alertFinalPartida(String titulo, String titulo2, int num_estrellas, int dinero, int experiencia, Activity activity, View.OnClickListener listenner1, View.OnClickListener listenner2_1, View.OnClickListener listenner2_2, View.OnClickListener listenner3, AlertDialog dialog, Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View custom_layout = activity.getLayoutInflater().inflate(R.layout.end_game, null);
+        ImageView reloadGame, backMenu, nextLevel;
+        TextView tit, tit2, tvDinero, tvExperiencia;
+        RatingBar rb;
+
+        reloadGame = custom_layout.findViewById(R.id.reloadGame);
+        backMenu = custom_layout.findViewById(R.id.backMenu);
+        nextLevel = custom_layout.findViewById(R.id.nextLevel);
+        tit = custom_layout.findViewById(R.id.tvTitulo);
+        tit2 = custom_layout.findViewById(R.id.tvTitulo2);
+        tvDinero = custom_layout.findViewById(R.id.tvGanaDinero);
+        tvExperiencia = custom_layout.findViewById(R.id.tvGanaExperiencia);
+        rb = custom_layout.findViewById(R.id.ratingBar);
+
+        tit.setText(titulo);
+        tit2.setText(titulo2);
+        tvDinero.setText("+ " + dinero);
+        tvExperiencia.setText("+ " +    experiencia+"");
+        rb.setProgress(num_estrellas);
+
+        reloadGame.setOnClickListener(listenner1);
+
+        if(num_estrellas==0){
+            nextLevel.setOnClickListener(listenner2_1);
+        }else {
+            nextLevel.setOnClickListener(listenner2_2);
+        }
+        backMenu.setOnClickListener(listenner3);
+
+        builder.setCancelable(false);
+        builder.setView(custom_layout);
+        dialog = builder.create();
+        return dialog;
     }
     /*
 
