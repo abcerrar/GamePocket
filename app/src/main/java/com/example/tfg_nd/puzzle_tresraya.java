@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class puzzle_tresraya extends Fragment {
 
     //Constantes juego
     private ImageView fichas[];
+    private int turno = 1;
 
     //Variables jvj
     private boolean player1 = true;
@@ -108,10 +110,15 @@ public class puzzle_tresraya extends Fragment {
                 if(fichas[num_ficha].getDrawable() == null){
                     if(player1){
                         fichas[num_ficha].setImageResource(R.drawable.aspa);
+                        if(turno >= 3 && checkVictory(R.drawable.aspa)) Toast.makeText(getContext(), "Ha ganado el jugador uno", Toast.LENGTH_SHORT).show();
+                        else if(turno == 5) Toast.makeText(getContext(), "Empate", Toast.LENGTH_SHORT).show();
                         player1 = false;
                     } else{
                         fichas[num_ficha].setImageResource(R.drawable.circulo);
+                        if(turno >= 3 && checkVictory(R.drawable.circulo)) Toast.makeText(getContext(), "Ha ganado el jugador dos", Toast.LENGTH_SHORT).show();
                         player1 = true;
+                        turno++;
+                        Log.d(TAG, "Turno: " + turno);
                     }
                 }else{
                     Toast.makeText(getContext(), "No puedes", Toast.LENGTH_SHORT).show();
@@ -120,5 +127,58 @@ public class puzzle_tresraya extends Fragment {
         });
     }
 
+    public boolean checkVictory(int imagen){
+        //HAY QUE LIPIAR MUCHO CODIGO DE ESTA FUNCION PERO QUIERO TESTEAR MAS
+        int fila = 0;
+        int columna = 0;
+        int diagonal = 0;
+        for(int i=0; i<9; i++){
+            //Comprobar las filas
+            if(i==3 || i==6) fila = 0;
+            if(fichas[i].getDrawable()!=null) if(fichas[i].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) fila++;
+            else fila = 0;
+            if (fila == 3) Log.d(TAG, "Tiene una fila");
+            if (fila == 3) return true;
+
+            //Comprobar columnas
+            for(int j=0; j<=2; j++){
+                for(int k=j; k<fichas.length; k+=3){
+                    if(fichas[k].getDrawable()!=null){
+                        if(fichas[k].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) columna++;
+                        else columna = 0;
+                    }
+                    if (columna == 3) Log.d(TAG, "Tiene una columna");
+                    if(columna == 3) return true;
+                }
+                columna = 0;
+            }
+        }
+        //Comprobar diagonal 1
+        for(int j=0; j<fichas.length; j+=4){
+            try{
+                if (fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())){
+                    diagonal++;
+                    Log.d(TAG, "Suma la diagonal de la posicion: "+j);
+                }
+                else diagonal = 0;
+                Log.d(TAG, "Jota vale"+j);
+            }catch(NullPointerException e){
+
+            }
+            if (diagonal == 3) Log.d(TAG, "Tiene una diagonal: " + diagonal);
+            if(diagonal == 3) return true;
+        }
+        diagonal = 0;
+        //Comprobar diagonal 2
+        for(int j=2; j<fichas.length; j+=4){
+            if(fichas[j].getDrawable()!=null){
+                if(fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) diagonal++;
+                else diagonal = 0;
+            }
+            if (diagonal == 3) Log.d(TAG, "Tiene la segunda diagonal");
+            if(diagonal == 3) return true;
+        }
+        return false;
+    }
 
 }
