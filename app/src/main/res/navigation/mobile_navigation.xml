@@ -49,4 +49,9 @@
         android:name="com.example.tfg_nd.puzzle_memory"
         android:label="fragment_puzzle_memory"
         tools:layout="@layout/fragment_puzzle_memory" />
+    <fragment
+        android:id="@+id/puzzle_tresraya"
+        android:name="com.example.tfg_nd.puzzle_tresraya"
+        android:label="3 en raya"
+        tools:layout="@layout/fragment_puzzle_tresraya" />
 </navigation>

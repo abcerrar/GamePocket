@@ -29,5 +29,9 @@
             android:id="@+id/memory"
             android:title="Memory"
             android:icon="@drawable/brain"/>
+        <item
+            android:id="@+id/tresenraya"
+            android:title="3 en raya"
+            android:icon="@drawable/tresenraya"/>
     </group>
 </menu>
