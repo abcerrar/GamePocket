@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +25,7 @@ public class puzzle_memory extends Fragment {
 
     //Constantes utiles
     private final String TAG = "puzzle_memory.java";
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private manejadorPreferencias mPref;
     private final String gamemode = "memory";
     private String email;
@@ -133,9 +131,11 @@ public class puzzle_memory extends Fragment {
                 reloadGame();
                 if(nivel_actual==12){
                     Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                    assert getParentFragment() != null;
                     NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                 }else{
                     mPref.put("nivel", (nivel_actual+1)+"");
+                    assert getParentFragment() != null;
                     NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_memory);
                 }
             }
@@ -143,6 +143,7 @@ public class puzzle_memory extends Fragment {
         listenerMenu = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                assert getParentFragment() != null;
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                 dialog.dismiss();
             }
@@ -305,8 +306,8 @@ public class puzzle_memory extends Fragment {
     }
 
     public void victoria(){
-        int max_movimientos=0, estrellas=0, dinero=0, experiencia=0;
-        String titulo="", titutlo2="";
+        int max_movimientos, estrellas, dinero, experiencia;
+        String titulo, titutlo2;
 
         max_movimientos= max_parejas + (max_parejas/2);
         Toast.makeText(getContext(), "Max movimientos: " + max_movimientos, Toast.LENGTH_SHORT).show();

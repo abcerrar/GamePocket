@@ -16,11 +16,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class puzzle_porcenaje extends Fragment {
 
-    private TextView tvColor, tvNumero, tvResultado, tvTitulo, tvRelleno;
+    private TextView tvColor, tvNumero, tvTitulo, tvRelleno;
     private int num, nivel_actual, num_estrellas = 0;
     private SeekBar sb;
     private int[] dimensiones;
@@ -31,10 +30,8 @@ public class puzzle_porcenaje extends Fragment {
 
     private final String TAG = "puzzle_porcentaje.java";
     private final String gamemode = "porcentajes";
-    private String email;
     private manejadorPreferencias mPref;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public puzzle_porcenaje() {
 
@@ -51,7 +48,6 @@ public class puzzle_porcenaje extends Fragment {
 
         tvColor = v.findViewById(R.id.tvColor);
         tvNumero = v.findViewById(R.id.tvNumero);
-        tvResultado = v.findViewById(R.id.tvResultado);
         tvTitulo = v.findViewById(R.id.titulo);
         tvRelleno = v.findViewById(R.id.tvRelleno);
         sb = v.findViewById(R.id.seekBar2);
@@ -75,6 +71,7 @@ public class puzzle_porcenaje extends Fragment {
                 reloadGame();
                 if(nivel_actual==12){
                     Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                    assert getParentFragment() != null;
                     NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                 }else{
                     mPref.put("nivel", (nivel_actual+1)+"");
@@ -87,6 +84,7 @@ public class puzzle_porcenaje extends Fragment {
         listenerMenu = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                assert getParentFragment() != null;
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                 dialog.dismiss();
             }
@@ -95,6 +93,7 @@ public class puzzle_porcenaje extends Fragment {
 
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        String email;
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
