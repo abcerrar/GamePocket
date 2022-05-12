@@ -129,15 +129,12 @@ public class puzzle_tresraya extends Fragment {
 
     public boolean checkVictory(int imagen){
         //HAY QUE LIPIAR MUCHO CODIGO DE ESTA FUNCION PERO QUIERO TESTEAR MAS
-        int fila = 0;
-        int columna = 0;
-        int diagonal = 0;
+        int fila = 0, columna = 0, diagonal = 0;
         for(int i=0; i<9; i++){
             //Comprobar las filas
             if(i==3 || i==6) fila = 0;
             if(fichas[i].getDrawable()!=null) if(fichas[i].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) fila++;
             else fila = 0;
-            if (fila == 3) Log.d(TAG, "Tiene una fila");
             if (fila == 3) return true;
 
             //Comprobar columnas
@@ -147,7 +144,6 @@ public class puzzle_tresraya extends Fragment {
                         if(fichas[k].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) columna++;
                         else columna = 0;
                     }
-                    if (columna == 3) Log.d(TAG, "Tiene una columna");
                     if(columna == 3) return true;
                 }
                 columna = 0;
@@ -156,16 +152,9 @@ public class puzzle_tresraya extends Fragment {
         //Comprobar diagonal 1
         for(int j=0; j<fichas.length; j+=4){
             try{
-                if (fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())){
-                    diagonal++;
-                    Log.d(TAG, "Suma la diagonal de la posicion: "+j);
-                }
+                if (fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) diagonal++;
                 else diagonal = 0;
-                Log.d(TAG, "Jota vale"+j);
-            }catch(NullPointerException e){
-
-            }
-            if (diagonal == 3) Log.d(TAG, "Tiene una diagonal: " + diagonal);
+            }catch(NullPointerException e){}
             if(diagonal == 3) return true;
         }
         diagonal = 0;
@@ -175,10 +164,10 @@ public class puzzle_tresraya extends Fragment {
                 if(fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) diagonal++;
                 else diagonal = 0;
             }
-            if (diagonal == 3) Log.d(TAG, "Tiene la segunda diagonal");
             if(diagonal == 3) return true;
         }
         return false;
     }
+
 
 }
