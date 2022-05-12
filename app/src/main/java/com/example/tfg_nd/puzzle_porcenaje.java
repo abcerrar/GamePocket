@@ -3,27 +3,19 @@ package com.example.tfg_nd;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class puzzle_porcenaje extends Fragment {
@@ -35,6 +27,7 @@ public class puzzle_porcenaje extends Fragment {
     private AlertDialog dialog;
     private ImageView contenedor;
     private User user;
+    private View.OnClickListener listenerReload, listenerMenu, listenerNext, listenerNext2;
 
     private final String TAG = "puzzle_porcentaje.java";
     private final String gamemode = "porcentajes";
@@ -64,6 +57,42 @@ public class puzzle_porcenaje extends Fragment {
         sb = v.findViewById(R.id.seekBar2);
         contenedor = v.findViewById(R.id.contenedor);
         mPref = new manejadorPreferencias("pref", getActivity());
+        listenerReload = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reloadGame();
+            }
+        };
+        listenerNext2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Tu flipas", Toast.LENGTH_SHORT).show();
+            }
+        };
+        listenerNext = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reloadGame();
+                if(nivel_actual==12){
+                    Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                }else{
+                    mPref.put("nivel", (nivel_actual+1)+"");
+                    nivel_actual++;
+                    tvTitulo.setText("Nivel: " + nivel_actual);
+                    reloadGame();
+                }
+            }
+        };
+        listenerMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                dialog.dismiss();
+            }
+        };
+
+
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
@@ -100,116 +129,48 @@ public class puzzle_porcenaje extends Fragment {
             public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                String titulo, titulo2;
                 int porcentaje = 100-num;
                 int respuesta = seekBar.getProgress();
                 int resultado = porcentaje - respuesta;
                 int dinero, exp;
                 if(respuesta !=  0){
                     if(respuesta == porcentaje){
+                        titulo = "Perfecto";
+                        titulo2 = "Puedes pasar al siguiente nivel";
                         num_estrellas = 3;
                         dinero = 5;
                         exp = 10;
-                        alertFinalPartida("Perfecto", "Puedes pasar al siguiente nivel", num_estrellas*2, dinero, exp);
-                        user.subirNivel(gamemode, nivel_actual);
-                        user.incrementarDinero(dinero);
-                        user.incrementarExperiencia(exp);
-                        user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 1 || resultado == -1){
+                        titulo = "Muy bien";
+                        titulo2 = "Has fallado solo por uno, era " + porcentaje;
                         num_estrellas = 2;
                         dinero = 2;
                         exp = 5;
-                        alertFinalPartida("Muy bien", "Has fallado solo por uno, era " + porcentaje, num_estrellas*2, dinero, exp);
-                        user.subirNivel(gamemode, nivel_actual);
-                        user.incrementarDinero(dinero);
-                        user.incrementarExperiencia(exp);
-                        user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
+                        titulo = "Has estado cerca";
+                        titulo2 = "Has estado cerca, puedes volver a intentarlo,\n era " + porcentaje;
                         num_estrellas = 1;
                         dinero = 1;
                         exp = 1;
-                        alertFinalPartida("Has estado cerca", "puedes volver a intentarlo,\n era " + porcentaje, num_estrellas*2, dinero, exp   );
-                        user.subirNivel(gamemode, nivel_actual);
-                        user.incrementarDinero(dinero);
-                        user.incrementarExperiencia(exp);
-                        user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else{
+                        titulo = "Has fallado";
+                        titulo2 = "Puedes volver a intentarlo,\n era: " + porcentaje;
                         num_estrellas = 0;
-                        alertFinalPartida("Has fallado", "Puedes volver a intentarlo,\n era: " + porcentaje, num_estrellas*2, 0, 0);
+                        dinero = 0;
+                        exp = 0;
                     }
+                    dialog = user.alertFinalPartida(titulo, titulo2, num_estrellas*2, dinero, exp, getActivity(), listenerReload, listenerNext, listenerNext2, listenerMenu, dialog, getContext());
+                    dialog.show();
+                    user.subirNivel(gamemode, nivel_actual);
+                    user.incrementarDinero(dinero);
+                    user.incrementarExperiencia(exp);
+                    user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     sb.setEnabled(false);
                 }
             }
         });
         return v;
-    }
-
-    public void alertFinalPartida(String titulo, String titulo2, int num_estrellas, int dinero, int experiencia){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View custom_layout = getLayoutInflater().inflate(R.layout.end_game, null);
-        ImageView reloadGame, backMenu, nextLevel;
-        TextView tit, tit2, tvDinero, tvExperiencia;
-        RatingBar rb;
-
-        reloadGame = custom_layout.findViewById(R.id.reloadGame);
-        backMenu = custom_layout.findViewById(R.id.backMenu);
-        nextLevel = custom_layout.findViewById(R.id.nextLevel);
-        tit = custom_layout.findViewById(R.id.tvTitulo);
-        tit2 = custom_layout.findViewById(R.id.tvTitulo2);
-        tvDinero = custom_layout.findViewById(R.id.tvGanaDinero);
-        tvExperiencia = custom_layout.findViewById(R.id.tvGanaExperiencia);
-        rb = custom_layout.findViewById(R.id.ratingBar);
-
-        tit.setText(titulo);
-        tit2.setText(titulo2);
-        tvDinero.setText("+ " + dinero);
-        tvExperiencia.setText("+ " +    experiencia+"");
-        rb.setProgress(num_estrellas);
-
-        reloadGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reloadGame();
-            }
-        });
-
-        if(num_estrellas==0){
-            nextLevel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Tu flipas", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }else{
-            nextLevel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    reloadGame();
-                    if(nivel_actual==12){
-                        Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
-                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
-                    }else{
-                        mPref.put("nivel", (nivel_actual+1)+"");
-                        nivel_actual++;
-                        tvTitulo.setText("Nivel: " + nivel_actual);
-                        reloadGame();
-                    }
-                }
-            });
-        }
-
-        backMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
-                dialog.dismiss();
-            }
-        });
-
-        builder.setCancelable(false);
-        builder.setView(custom_layout);
-        dialog = builder.create();
-        dialog.show();
     }
 
     public void reloadGame(){

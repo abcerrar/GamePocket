@@ -33,6 +33,7 @@ public class puzzle_memory extends Fragment {
     private String email;
     private User user;
     private AlertDialog dialog;
+    private View.OnClickListener listenerReload, listenerMenu, listenerNext, listenerNext2;
 
     //Variables ingame
     private TextView tvMovimientos, tvParejas, tvTitulo;
@@ -114,6 +115,38 @@ public class puzzle_memory extends Fragment {
         tvMovimientos = v.findViewById(R.id.tvMovimientos);
         tvParejas = v.findViewById(R.id.tvParejas);
         tvTitulo = v.findViewById(R.id.tvTitulo_2);
+        listenerReload = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reloadGame();
+            }
+        };
+        listenerNext2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Tu flipas", Toast.LENGTH_SHORT).show();
+            }
+        };
+        listenerNext = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reloadGame();
+                if(nivel_actual==12){
+                    Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                }else{
+                    mPref.put("nivel", (nivel_actual+1)+"");
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_memory);
+                }
+            }
+        };
+        listenerMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                dialog.dismiss();
+            }
+        };
 
 
         switch (nivel_actual){
@@ -308,73 +341,7 @@ public class puzzle_memory extends Fragment {
         user.incrementarDinero(dinero);
         user.actualizarEstrellas(estrellas, gamemode, nivel_actual);
         if(estrellas>0) user.subirNivel(gamemode, nivel_actual);
-        alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia);
-
-    }
-
-    public void alertFinalPartida(String titulo, String titulo2, int num_estrellas, int dinero, int experiencia){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View custom_layout = getLayoutInflater().inflate(R.layout.end_game, null);
-        ImageView reloadGame, backMenu, nextLevel;
-        TextView tit, tit2, tvDinero, tvExperiencia;
-        RatingBar rb;
-
-        reloadGame = custom_layout.findViewById(R.id.reloadGame);
-        backMenu = custom_layout.findViewById(R.id.backMenu);
-        nextLevel = custom_layout.findViewById(R.id.nextLevel);
-        tit = custom_layout.findViewById(R.id.tvTitulo);
-        tit2 = custom_layout.findViewById(R.id.tvTitulo2);
-        tvDinero = custom_layout.findViewById(R.id.tvGanaDinero);
-        tvExperiencia = custom_layout.findViewById(R.id.tvGanaExperiencia);
-        rb = custom_layout.findViewById(R.id.ratingBar);
-
-        tit.setText(titulo);
-        tit2.setText(titulo2);
-        tvDinero.setText("+ " + dinero);
-        tvExperiencia.setText("+ " +    experiencia+"");
-        rb.setProgress(num_estrellas);
-
-        reloadGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reloadGame();
-            }
-        });
-
-        if(num_estrellas==0){
-            nextLevel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Tu flipas", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }else{
-            nextLevel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    reloadGame();
-                    if(nivel_actual==12){
-                        Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
-                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
-                    }else{
-                        mPref.put("nivel", (nivel_actual+1)+"");
-                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_memory);
-                    }
-                }
-            });
-        }
-
-        backMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
-                dialog.dismiss();
-            }
-        });
-
-        builder.setCancelable(false);
-        builder.setView(custom_layout);
-        dialog = builder.create();
+        dialog = user.alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia, getActivity(), listenerReload, listenerNext, listenerNext2, listenerMenu, dialog, getContext());
         dialog.show();
     }
 }

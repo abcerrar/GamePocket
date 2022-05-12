@@ -149,6 +149,7 @@ public class puzzle_tresraya extends Fragment {
                         }
                         else if(turno == 5){
                             dialog = user.alertFinalPartida("Empate!!", "En JvJ no se gana \ndinero ni estrellas", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                            dialog.show();
                         }
                         player1 = false;
                     } else{
