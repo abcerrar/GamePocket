@@ -41,7 +41,7 @@ public class niveles extends Fragment {
     private manejadorPreferencias mPref;
     private String gamemode, email;
     private int current_level;
-    private Button btReset;
+    private Button btReset, btJvj;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -87,6 +87,7 @@ public class niveles extends Fragment {
         estrellas[10] = v.findViewById(R.id.stars11);
         estrellas[11] = v.findViewById(R.id.stars12);
         btReset = v.findViewById(R.id.btReset);
+        btJvj = v.findViewById(R.id.btJvj);
 
         //Asignar en onClick a cada TextView
         for(int i = 0; i<MAX_NIVELES; i++){
@@ -127,6 +128,14 @@ public class niveles extends Fragment {
         }else{
             Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
         }
+
+        if(gamemode.equals("tresraya")) btJvj.setVisibility(View.VISIBLE);
+        btJvj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToGame(-2); //Para pasarle -1
+            }
+        });
 
         btReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,6 +205,10 @@ public class niveles extends Fragment {
             case "memory":
                 mPref.put("nivel", (nivel+1)+"");
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_memory);
+                break;
+            case "tresraya":
+                mPref.put("nivel", (nivel+1)+"");
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_tresraya);
                 break;
             case "error":
                 Toast.makeText(getContext(), "Error al seleccionar un modo de juego", Toast.LENGTH_SHORT).show();

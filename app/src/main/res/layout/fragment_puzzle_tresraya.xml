@@ -8,42 +8,6 @@
     tools:context=".puzzle_tresraya">
 
     <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/circulo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.878" />
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/circulo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.878" />
-
-    <ImageView
-        android:id="@+id/imageView16"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/circulo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
-        app:layout_constraintHorizontal_bias="0.861"
-        app:layout_constraintStart_toStartOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.878" />
-
-    <ImageView
         android:id="@+id/imageView7"
         android:layout_width="wrap_content"
         android:layout_height="400dp"
@@ -56,10 +20,46 @@
         app:layout_constraintVertical_bias="0.438" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/ficha32"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/circulo"
+        
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.878" />
+
+    <ImageView
+        android:id="@+id/ficha31"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.878" />
+
+    <ImageView
+        android:id="@+id/ficha33"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.878" />
+
+    <ImageView
+        android:id="@+id/ficha22"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.501"
@@ -68,10 +68,10 @@
         app:layout_constraintVertical_bias="0.496" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/ficha21"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/circulo"
+        
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.123"
@@ -80,10 +80,10 @@
         app:layout_constraintVertical_bias="0.496" />
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/ficha23"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/circulo"
+        
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.864"
@@ -92,10 +92,10 @@
         app:layout_constraintVertical_bias="0.496" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/ficha11"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/circulo"
+        
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.123"
@@ -104,10 +104,10 @@
         app:layout_constraintVertical_bias="0.118" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/ficha12"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/circulo"
+        
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintStart_toStartOf="@+id/imageView7"
@@ -115,10 +115,10 @@
         app:layout_constraintVertical_bias="0.118" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/ficha13"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/circulo"
+        
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.864"

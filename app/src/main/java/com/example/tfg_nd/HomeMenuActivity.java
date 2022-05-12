@@ -109,6 +109,14 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                     Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.tresenraya:
+                if(currentUser!=null){
+                    mPref.put("gamemode", "tresraya");
+                    navController.navigate(R.id.niveles);
+                }else{
+                    Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                }
+                break;
 
         }
         drawer.closeDrawer(GravityCompat.START);

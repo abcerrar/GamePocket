@@ -135,6 +135,35 @@
                         android:layout_marginTop="10dp"
                         android:src="@drawable/porcentajes" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btTresraya"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape"
+                    android:backgroundTint="@color/fondo2"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginTop="5dp"
+                        android:text="Tres en raya"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/porcentajes" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
