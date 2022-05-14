@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -342,7 +340,7 @@ public class puzzle_memory extends Fragment {
         user.incrementarDinero(dinero);
         user.actualizarEstrellas(estrellas, gamemode, nivel_actual);
         if(estrellas>0) user.subirNivel(gamemode, nivel_actual);
-        dialog = user.alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia, getActivity(), listenerReload, listenerNext, listenerNext2, listenerMenu, dialog, getContext());
+        dialog = user.alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia, getActivity(), listenerReload, listenerNext2, listenerNext, listenerMenu, dialog, getContext());
         dialog.show();
     }
 }

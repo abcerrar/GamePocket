@@ -180,7 +180,7 @@ public class User {
         }
         backMenu.setOnClickListener(listenner3);
 
-        builder.setCancelable(false);
+        builder.setCancelable(true);
         builder.setView(custom_layout);
         dialog = builder.create();
         return dialog;

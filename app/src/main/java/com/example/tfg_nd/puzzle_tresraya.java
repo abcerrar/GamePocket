@@ -1,16 +1,20 @@
 package com.example.tfg_nd;
 
 import android.app.AlertDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,10 +32,15 @@ public class puzzle_tresraya extends Fragment {
     private AlertDialog dialog;
     private int nivel_actual = 0;
     private View.OnClickListener listenerReload, listenerMenu, listenerNext;
+    private TextView lineaAspa, lineaCirculo, j1, j2;
 
     //Constantes juego
     private ImageView fichas[];
     private int turno = 1;
+    private ImageView btAspa, btCirculo;
+
+    //Variables pve
+    private int imagenj1 = R.drawable.aspa, imagenj2 = R.drawable.circulo;
 
     //Variables jvj
     private boolean player1 = true;
@@ -67,6 +76,13 @@ public class puzzle_tresraya extends Fragment {
         fichas[6] = v.findViewById(R.id.ficha31);
         fichas[7] = v.findViewById(R.id.ficha32);
         fichas[8] = v.findViewById(R.id.ficha33);
+        btAspa = v.findViewById(R.id.btAspa);
+        btCirculo = v.findViewById(R.id.btCirculo);
+        lineaAspa = v.findViewById(R.id.lineaAspa);
+        lineaCirculo = v.findViewById(R.id.lineaCirculo);
+        j1 = v.findViewById(R.id.j1);
+        j2 = v.findViewById(R.id.j2);
+
         listenerReload = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +104,24 @@ public class puzzle_tresraya extends Fragment {
                 dialog.dismiss();
             }
         };
+        btAspa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagenj2 = R.drawable.circulo;
+                imagenj1 = R.drawable.aspa;
+                lineaAspa.setVisibility(View.VISIBLE);
+                lineaCirculo.setVisibility(View.INVISIBLE);
+            }
+        });
+        btCirculo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagenj2 = R.drawable.aspa;
+                imagenj1 = R.drawable.circulo;
+                lineaAspa.setVisibility(View.INVISIBLE);
+                lineaCirculo.setVisibility(View.VISIBLE);
+            }
+        });
 
         switch (nivel_actual){
             case -1:
@@ -107,15 +141,25 @@ public class puzzle_tresraya extends Fragment {
         return v;
     }
 
-    public void gamemode_facil(){}
+    public void gamemode_facil(){
+        for(int i=0; i< fichas.length; i++){
+            asignarOnClick(i, 1);
+        }
+        turno = 1;
+    }
     public void gamemode_normal(){}
     public void gamemode_dificil(){}
     public void gamemode_jvj(){
+        j1.setVisibility(View.VISIBLE);
+        j2.setVisibility(View.VISIBLE);
+        btCirculo.setClickable(false);
+        btAspa.setClickable(false);
+        lineaAspa.setVisibility(View.INVISIBLE);
         //Asignar los onclick
         for(int i=0; i< fichas.length; i++){
             asignarOnClickJvj(i);
-            turno = 1;
         }
+        turno = 1;
         listenerNext = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +172,69 @@ public class puzzle_tresraya extends Fragment {
         for(int i=0; i< fichas.length; i++){
             fichas[i].setImageDrawable(null);
         }
+        turno = 1;
+        player1 = true;
+    }
+
+    public void asignarOnClick(int num_ficha, int dificultad){
+        fichas[num_ficha].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fichas[num_ficha].getDrawable() == null){
+                    fichas[num_ficha].setImageResource(imagenj1);
+
+                    if (checkVictory(imagenj1)) {
+                        dialog = user.alertFinalPartida("Victoria!!", "Enhorabuena!", 6, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                        dialog.show();
+                    }else{
+                        deshabilitarBotones();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                switch (dificultad){
+                                    case 1:
+                                        respuestaFacil();
+                                        break;
+                                }
+                                habilitarBotones();
+                            }
+                        }, 1000);
+
+                    }
+                    if(checkVictory(imagenj2)) {
+                        dialog = user.alertFinalPartida("Has perdido...", "Y este era el más fácil", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                        dialog.show();
+                    }
+                    turno++;
+                }
+            }
+        });
+    }
+
+    public void deshabilitarBotones(){
+        for(int i=0; i<fichas.length; i++){
+            fichas[i].setEnabled(false);
+        }
+    }
+
+    public void habilitarBotones(){
+        for(int i=0; i<fichas.length; i++){
+            fichas[i].setEnabled(true);
+        }
+    }
+
+    public void respuestaFacil(){
+        int num;
+        do{
+            num = (int)(Math.random()*fichas.length+1);
+            if(turno == 5) break;
+        }while(fichas[num-1].getDrawable()!=null);
+        fichas[num-1].setImageResource(imagenj2);
+    }
+
+    public void respuestaMedia(){
+
     }
 
     public void asignarOnClickJvj(int num_ficha){
@@ -136,20 +243,16 @@ public class puzzle_tresraya extends Fragment {
             public void onClick(View v) {
                 if(fichas[num_ficha].getDrawable() == null){
                     if(player1){
-                        fichas[num_ficha].setImageResource(R.drawable.aspa);
+                        fichas[num_ficha].setImageResource(imagenj1);
                         //Comprobar si el jugador 1 gana con ese movimiento
-                        if(turno >= 3 && checkVictory(R.drawable.aspa)){
+                        if(turno >= 3 && checkVictory(imagenj1)){
                             dialog = user.alertFinalPartida("Victoria de J1!!", "En JvJ no se gana \ndinero ni estrellas", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
-                            dialog.show();
-                        }
-                        else if(turno == 5){
-                            dialog = user.alertFinalPartida("Empate!!", "En JvJ no se gana \ndinero ni estrellas", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
                             dialog.show();
                         }
                         player1 = false;
                     } else{
-                        fichas[num_ficha].setImageResource(R.drawable.circulo);
-                        if(turno >= 3 && checkVictory(R.drawable.circulo)){
+                        fichas[num_ficha].setImageResource(imagenj2);
+                        if(turno >= 3 && checkVictory(imagenj2)){
                             dialog = user.alertFinalPartida("Victoria de J2!!", "En JvJ no se gana \ndinero ni estrellas", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
                             dialog.show();
                         }
@@ -166,43 +269,48 @@ public class puzzle_tresraya extends Fragment {
 
     public boolean checkVictory(int imagen){
         //HAY QUE LIPIAR MUCHO CODIGO DE ESTA FUNCION PERO QUIERO TESTEAR MAS
-        int fila = 0, columna = 0, diagonal = 0;
+        int fila = 0, columna = 0;
+        Drawable.ConstantState state_imagen = getResources().getDrawable(imagen).getConstantState();
         for(int i=0; i<9; i++){
             //Comprobar las filas
             if(i==3 || i==6) fila = 0;
-            if(fichas[i].getDrawable()!=null) if(fichas[i].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) fila++;
+            if(fichas[i].getDrawable()!=null) if(fichas[i].getDrawable().getConstantState().equals(state_imagen)) fila++;
             else fila = 0;
-            if (fila == 3) return true;
+            if (fila == 3) {
+                Log.d(TAG, "fila conseguida");
+                return true;
+            }
 
             //Comprobar columnas
             for(int j=0; j<=2; j++){
                 for(int k=j; k<fichas.length; k+=3){
                     if(fichas[k].getDrawable()!=null){
-                        if(fichas[k].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) columna++;
+                        if(fichas[k].getDrawable().getConstantState().equals(state_imagen)) columna++;
                         else columna = 0;
                     }
-                    if(columna == 3) return true;
+                    if(columna == 3) {
+                        Log.d(TAG, "columna conseguida");
+                        return true;
+                    }
                 }
                 columna = 0;
             }
         }
-        //Comprobar diagonal 1
-        for(int j=0; j<fichas.length; j+=4){
-            try{
-                if (fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) diagonal++;
-                else diagonal = 0;
-            }catch(NullPointerException e){}
-            if(diagonal == 3) return true;
-        }
-        diagonal = 0;
-        //Comprobar diagonal 2
-        for(int j=2; j<fichas.length; j+=2){
-            try{
-                if(fichas[j].getDrawable().getConstantState().equals(getResources().getDrawable(imagen).getConstantState())) diagonal++;
-                else diagonal = 0;
-            }catch(NullPointerException e){}
-            if(diagonal == 3) return true;
-        }
+        //Comprobar diagonales
+        try{
+            if (fichas[0].getDrawable().getConstantState().equals(state_imagen) && fichas[4].getDrawable().getConstantState().equals(state_imagen) && fichas[8].getDrawable().getConstantState().equals(state_imagen)){
+                Log.d(TAG, "diagonal 1 conseguida");
+                return true;
+            }else return false;
+        }catch(NullPointerException e){}
+        try{
+            if (fichas[2].getDrawable().getConstantState().equals(state_imagen) && fichas[4].getDrawable().getConstantState().equals(state_imagen) && fichas[6].getDrawable().getConstantState().equals(state_imagen)){
+                Log.d(TAG, "diagonal 2 conseguida");
+                return true;
+            }else return false;
+        }catch(NullPointerException e){}
+
+
         return false;
     }
 }

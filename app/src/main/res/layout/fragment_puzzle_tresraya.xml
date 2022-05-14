@@ -128,7 +128,7 @@
         app:layout_constraintVertical_bias="0.878" />
 
     <ImageView
-        android:id="@+id/imageView17"
+        android:id="@+id/btAspa"
         android:layout_width="60dp"
         android:layout_height="56dp"
         android:layout_marginTop="32dp"
@@ -136,43 +136,68 @@
         android:src="@drawable/aspa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/j1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/btCirculo"
         android:layout_width="60dp"
         android:layout_height="56dp"
-        android:layout_marginStart="228dp"
+        android:layout_marginStart="208dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/circulo"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/j1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/j2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="J2"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/j1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="J1"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lineaAspa"
+        android:layout_width="80dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/fondo2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btAspa" />
+
+    <TextView
+        android:id="@+id/lineaCirculo"
+        android:layout_width="80dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/fondo2"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btCirculo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
