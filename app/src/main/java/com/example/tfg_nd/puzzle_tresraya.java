@@ -20,6 +20,11 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class puzzle_tresraya extends Fragment {
 
     //Constantes utiles
@@ -198,15 +203,20 @@ public class puzzle_tresraya extends Fragment {
                                         break;
                                 }
                                 habilitarBotones();
+                                if(checkVictory(imagenj2)) {
+                                    dialog = user.alertFinalPartida("Has perdido...", "Y este era el más fácil", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                                    dialog.show();
+                                }
                             }
                         }, 1000);
-
                     }
-                    if(checkVictory(imagenj2)) {
-                        dialog = user.alertFinalPartida("Has perdido...", "Y este era el más fácil", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                    boolean empate = true;
+                    for(int i=0; i<fichas.length; i++) if(fichas[i] == null) empate = false;
+
+                    if(empate){
+                        dialog = user.alertFinalPartida("Empate.", "Puedes intentarlo de nuevo", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
                         dialog.show();
                     }
-                    turno++;
                 }
             }
         });
@@ -225,12 +235,15 @@ public class puzzle_tresraya extends Fragment {
     }
 
     public void respuestaFacil(){
-        int num;
-        do{
-            num = (int)(Math.random()*fichas.length+1);
-            if(turno == 5) break;
-        }while(fichas[num-1].getDrawable()!=null);
-        fichas[num-1].setImageResource(imagenj2);
+        List<ImageView> imagenes = new ArrayList<ImageView>();
+        int i;
+        for(i=0; i< fichas.length; i++)
+            if(fichas[i].getDrawable()==null) imagenes.add(fichas[i]);
+
+        if(imagenes.size()!=0){
+            Collections.shuffle(imagenes);
+            imagenes.get(0).setImageResource(imagenj2);
+        }
     }
 
     public void respuestaMedia(){
@@ -268,49 +281,40 @@ public class puzzle_tresraya extends Fragment {
     }
 
     public boolean checkVictory(int imagen){
-        //HAY QUE LIPIAR MUCHO CODIGO DE ESTA FUNCION PERO QUIERO TESTEAR MAS
         int fila = 0, columna = 0;
         Drawable.ConstantState state_imagen = getResources().getDrawable(imagen).getConstantState();
         for(int i=0; i<9; i++){
             //Comprobar las filas
             if(i==3 || i==6) fila = 0;
-            if(fichas[i].getDrawable()!=null) if(fichas[i].getDrawable().getConstantState().equals(state_imagen)) fila++;
+            if(fichas[i].getDrawable()!=null) if(getState(fichas[i]).equals(state_imagen)) fila++;
             else fila = 0;
-            if (fila == 3) {
-                Log.d(TAG, "fila conseguida");
-                return true;
-            }
+            if (fila == 3) return true;
 
             //Comprobar columnas
             for(int j=0; j<=2; j++){
                 for(int k=j; k<fichas.length; k+=3){
                     if(fichas[k].getDrawable()!=null){
-                        if(fichas[k].getDrawable().getConstantState().equals(state_imagen)) columna++;
+                        if(getState(fichas[k]).equals(state_imagen)) columna++;
                         else columna = 0;
                     }
-                    if(columna == 3) {
-                        Log.d(TAG, "columna conseguida");
-                        return true;
-                    }
+                    if(columna == 3) return true;
                 }
                 columna = 0;
             }
         }
         //Comprobar diagonales
         try{
-            if (fichas[0].getDrawable().getConstantState().equals(state_imagen) && fichas[4].getDrawable().getConstantState().equals(state_imagen) && fichas[8].getDrawable().getConstantState().equals(state_imagen)){
-                Log.d(TAG, "diagonal 1 conseguida");
-                return true;
-            }else return false;
+            if (getState(fichas[0]).equals(state_imagen) && getState(fichas[4]).equals(state_imagen) && getState(fichas[8]).equals(state_imagen)) return true;
+            else return false;
         }catch(NullPointerException e){}
         try{
-            if (fichas[2].getDrawable().getConstantState().equals(state_imagen) && fichas[4].getDrawable().getConstantState().equals(state_imagen) && fichas[6].getDrawable().getConstantState().equals(state_imagen)){
-                Log.d(TAG, "diagonal 2 conseguida");
-                return true;
-            }else return false;
+            if (getState(fichas[2]).equals(state_imagen) && getState(fichas[4]).equals(state_imagen) && getState(fichas[6]).equals(state_imagen)) return true;
+            else return false;
         }catch(NullPointerException e){}
 
-
         return false;
+    }
+    public Drawable.ConstantState getState(ImageView img){
+        return img.getDrawable().getConstantState();
     }
 }
