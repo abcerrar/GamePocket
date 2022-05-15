@@ -152,7 +152,12 @@ public class puzzle_tresraya extends Fragment {
         }
         turno = 1;
     }
-    public void gamemode_normal(){}
+    public void gamemode_normal(){
+        for(int i=0; i< fichas.length; i++){
+            asignarOnClick(i, 2);
+        }
+        turno = 1;
+    }
     public void gamemode_dificil(){}
     public void gamemode_jvj(){
         j1.setVisibility(View.VISIBLE);
@@ -201,6 +206,9 @@ public class puzzle_tresraya extends Fragment {
                                     case 1:
                                         respuestaFacil();
                                         break;
+                                    case 2:
+                                        respuestaMedia();
+                                        break;
                                 }
                                 habilitarBotones();
                                 if(checkVictory(imagenj2)) {
@@ -211,7 +219,7 @@ public class puzzle_tresraya extends Fragment {
                         }, 1000);
                     }
                     boolean empate = true;
-                    for(int i=0; i<fichas.length; i++) if(fichas[i] == null) empate = false;
+                    for(int i=0; i<fichas.length; i++) if(fichas[i].getDrawable() == null) empate = false;
 
                     if(empate){
                         dialog = user.alertFinalPartida("Empate.", "Puedes intentarlo de nuevo", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
@@ -247,7 +255,34 @@ public class puzzle_tresraya extends Fragment {
     }
 
     public void respuestaMedia(){
+        int num = (int)(Math.random()*3), num2;
 
+        if((num2=checkLinea(0, imagenj1, true))!=-1) fichas[num2].setImageResource(imagenj2);
+    }
+
+    public int checkLinea(int num_linea, int imagen, boolean fila){
+        int cont = 0, incremento;
+
+        if(fila) incremento = 3;
+        else incremento = 7;
+
+        if(fila){
+            if(num_linea == 1) num_linea = 3;
+            else if (num_linea == 2) num_linea = 6;
+        }
+
+        for(int i=num_linea; i<num_linea + incremento; i++){
+            try{
+                if(getState(fichas[i]) == getResources().getDrawable(imagen).getConstantState()) cont++;
+            }catch(NullPointerException e){}
+        }
+        if(cont == 2){
+            for(int i=num_linea; i<(num_linea + incremento); i++)
+                try{
+                    if(fichas[i].getDrawable() == null) return i;
+                }catch(NullPointerException e){}
+        }
+        return -1;
     }
 
     public void asignarOnClickJvj(int num_ficha){
