@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
@@ -21,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,8 +34,8 @@ public class puzzle_tresraya extends Fragment {
     private User user;
     private AlertDialog dialog;
     private int nivel_actual = 0;
-    private View.OnClickListener listenerReload, listenerMenu, listenerNext;
-    private TextView lineaAspa, lineaCirculo, j1, j2;
+    private View.OnClickListener listenerReload, listenerMenu, listenerNext2, listenerNext;
+    private TextView lineaAspa, lineaCirculo, j1, j2, titulo_nivel;
 
     //Constantes juego
     private ImageView fichas[];
@@ -70,7 +68,7 @@ public class puzzle_tresraya extends Fragment {
             user = new User(email);
         }
         nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
-
+        Toast.makeText(getContext(), "Nivel: " + nivel_actual, Toast.LENGTH_SHORT).show();
         fichas = new ImageView[9];
         fichas[0] = v.findViewById(R.id.ficha11);
         fichas[1] = v.findViewById(R.id.ficha12);
@@ -85,6 +83,7 @@ public class puzzle_tresraya extends Fragment {
         btCirculo = v.findViewById(R.id.btCirculo);
         lineaAspa = v.findViewById(R.id.lineaAspa);
         lineaCirculo = v.findViewById(R.id.lineaCirculo);
+        titulo_nivel = v.findViewById(R.id.tituloNivelTresraya);
         j1 = v.findViewById(R.id.j1);
         j2 = v.findViewById(R.id.j2);
 
@@ -105,10 +104,26 @@ public class puzzle_tresraya extends Fragment {
         listenerNext = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Aun no", Toast.LENGTH_SHORT).show();
+                if(nivel_actual==12){
+                    Toast.makeText(getContext(), "Ya te has pasado todos los niveles", Toast.LENGTH_SHORT).show();
+                    assert getParentFragment() != null;
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                }else{
+                    mPref.put("nivel", (nivel_actual+1)+"");
+                    nivel_actual++;
+                    titulo_nivel.setText("Nivel: " + nivel_actual);
+                    limpiar_tablero();
+                }
                 dialog.dismiss();
             }
         };
+        listenerNext2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Tu flipas", Toast.LENGTH_SHORT).show();
+            }
+        };
+
         btAspa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +143,7 @@ public class puzzle_tresraya extends Fragment {
             }
         });
 
+        titulo_nivel.setText("Nivel: " + nivel_actual);
         switch (nivel_actual){
             case -1:
                 gamemode_jvj();
@@ -150,15 +166,70 @@ public class puzzle_tresraya extends Fragment {
         for(int i=0; i< fichas.length; i++){
             asignarOnClick(i, 1);
         }
-        turno = 1;
     }
     public void gamemode_normal(){
         for(int i=0; i< fichas.length; i++){
             asignarOnClick(i, 2);
         }
-        turno = 1;
     }
-    public void gamemode_dificil(){}
+    public void gamemode_dificil(){
+        for(int i=0; i< fichas.length; i++){
+            fichas[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getContext(), "En este nivel debes elegir antes con que forma jugar", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        lineaAspa.setVisibility(View.INVISIBLE);
+        lineaCirculo.setVisibility(View.INVISIBLE);
+
+        btAspa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lineaAspa.setVisibility(View.VISIBLE);
+                btCirculo.setClickable(false);
+                imagenj2 = R.drawable.circulo;
+                imagenj1 = R.drawable.aspa;
+
+                for(int i=0; i< fichas.length; i++){
+                    asignarOnClick(i, 3);
+                }
+                deshabilitarBotones();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fichas[4].setImageResource(imagenj2);
+                        habilitarBotones();
+                    }
+                }, 1000);
+            }
+        });
+        btCirculo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lineaCirculo.setVisibility(View.VISIBLE);
+                btAspa.setClickable(false);
+                imagenj2 = R.drawable.aspa;
+                imagenj1 = R.drawable.circulo;
+
+                for(int i=0; i< fichas.length; i++){
+                    asignarOnClick(i, 3);
+                }
+
+                deshabilitarBotones();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fichas[4].setImageResource(imagenj2);
+                        habilitarBotones();
+                    }
+                }, 1000);
+            }
+        });
+    }
     public void gamemode_jvj(){
         j1.setVisibility(View.VISIBLE);
         j2.setVisibility(View.VISIBLE);
@@ -179,6 +250,20 @@ public class puzzle_tresraya extends Fragment {
     }
 
     public void limpiar_tablero(){
+        switch (nivel_actual){
+            case -1:
+                gamemode_jvj();
+                break;
+            case 1: case 2: case 3: case 4:
+                gamemode_facil();
+                break;
+            case 5: case 6: case 7: case 8:
+                gamemode_normal();
+                break;
+            case 9: case 10: case 11: case 12:
+                gamemode_dificil();
+                break;
+        }
         for(int i=0; i< fichas.length; i++){
             fichas[i].setImageDrawable(null);
         }
@@ -190,12 +275,38 @@ public class puzzle_tresraya extends Fragment {
         fichas[num_ficha].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int dinero=0, exp=0;
+                String tit1="", tit2="";
                 if(fichas[num_ficha].getDrawable() == null){
                     fichas[num_ficha].setImageResource(imagenj1);
 
                     if (checkVictory(imagenj1)) {
-                        dialog = user.alertFinalPartida("Victoria!!", "Enhorabuena!", 6, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                        switch (dificultad){
+                            case 1:
+                                tit1 = "Enhorabuena";
+                                tit2 = "Has superado el nivel facil";
+                                dinero = 1;
+                                exp = 2;
+                                break;
+                            case 2:
+                                tit1 = "Victoria!!";
+                                tit2 = "Has superado el nivel medio";
+                                dinero = 2;
+                                exp = 5;
+                                break;
+                            case 3:
+                                tit1 = "Enhorabuena!!!";
+                                tit2 = "Has superado el nivel más dificil";
+                                dinero = 5;
+                                exp = 10;
+                                break;
+                        }
+                        dialog = user.alertFinalPartida(tit1, tit2, 6, dinero, exp, getActivity(), listenerReload, listenerNext2, listenerNext, listenerMenu, dialog, getContext());
                         dialog.show();
+                        user.subirNivel(gamemode, nivel_actual);
+                        user.actualizarEstrellas(3, gamemode, nivel_actual);
+                        user.incrementarDinero(dinero);
+                        user.incrementarExperiencia(exp);
                     }else{
                         deshabilitarBotones();
                         Handler handler = new Handler();
@@ -210,25 +321,30 @@ public class puzzle_tresraya extends Fragment {
                                         tit2 = "Y este era el nivel más facil...";
                                         break;
                                     case 2:
-                                        respuestaMedia();
+                                        if(!respuestaMedia()) respuestaFacil();
                                         tit1 = "Has perdido";
                                         tit2 = "Y ni siquiera era el nivel más dificil...";
+                                        break;
+                                    case 3:
+                                        if(!respuestaDificil()) Toast.makeText(getContext(), "Error respondiendo", Toast.LENGTH_SHORT).show();
+                                        tit1 = "Has perdido";
+                                        tit2 = "Este es el nivel más dificil";
                                         break;
                                 }
                                 habilitarBotones();
                                 if(checkVictory(imagenj2)) {
-                                    dialog = user.alertFinalPartida(tit1, tit2, 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                                    dialog = user.alertFinalPartida(tit1, tit2, 0, 0, 0, getActivity(), listenerReload, listenerNext2, listenerNext, listenerMenu, dialog, getContext());
+                                    dialog.show();
+                                }
+                                boolean empate = true;
+                                for(int i=0; i<fichas.length; i++) if(fichas[i].getDrawable() == null) empate = false;
+
+                                if(empate){
+                                    dialog = user.alertFinalPartida("Empate.", "Puedes intentarlo de nuevo", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
                                     dialog.show();
                                 }
                             }
                         }, 1000);
-                    }
-                    boolean empate = true;
-                    for(int i=0; i<fichas.length; i++) if(fichas[i].getDrawable() == null) empate = false;
-
-                    if(empate){
-                        dialog = user.alertFinalPartida("Empate.", "Puedes intentarlo de nuevo", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
-                        dialog.show();
                     }
                 }
             }
@@ -259,40 +375,62 @@ public class puzzle_tresraya extends Fragment {
         }
     }
 
-    public void respuestaMedia(){
+    public boolean respuestaMedia(){
         int num2;
-        boolean sw = true;
 
-        for(int i=0; i<3 && sw; i++){
+        for(int i=0; i<3; i++){
             if((num2=checkLinea(i, imagenj2, false))!=-1){
                 fichas[num2].setImageResource(imagenj2);
-                sw = false;
-            }else if((num2=checkLinea(i, imagenj2, true))!=-1){
+                return true;
+            }
+            if((num2=checkLinea(i, imagenj2, true))!=-1){
                 fichas[num2].setImageResource(imagenj2);
-                sw = false;
+                return true;
             }
         }
 
-        for(int i=0; i<3 && sw; i++){
+        for(int i=0; i<3; i++){
             if((num2=checkLinea(i, imagenj1, false))!=-1){
                 fichas[num2].setImageResource(imagenj2);
-                sw = false;
+                return true;
             }else if((num2=checkLinea(i, imagenj1, true))!=-1){
                 fichas[num2].setImageResource(imagenj2);
-                sw = false;
+                return true;
             }
         }
-        if((num2=checkDiagonal(imagenj1, true))!=-1 && sw){
+        if((num2=checkDiagonal(imagenj1, true))!=-1){
             fichas[num2].setImageResource(imagenj2);
-            sw = false;
+            return true;
         }
-        if((num2=checkDiagonal(imagenj1, false))!=-1 && sw){
+        if((num2=checkDiagonal(imagenj1, false))!=-1){
             fichas[num2].setImageResource(imagenj2);
-            sw = false;
+            return true;
         }
+        return false;
+    }
 
-        if(sw){
+    public boolean respuestaDificil(){
+        if(!respuestaMedia()){
+            if(fichas[0].getDrawable() == null){
+                fichas[0].setImageResource(imagenj2);
+                return true;
+            }
+            if(fichas[2].getDrawable() == null) {
+                fichas[2].setImageResource(imagenj2);
+                return true;
+            }
+            if(fichas[6].getDrawable() == null){
+                fichas[6].setImageResource(imagenj2);
+                return true;
+            }
+            if(fichas[8].getDrawable() == null) {
+                fichas[8].setImageResource(imagenj2);
+                return true;
+            }
             respuestaFacil();
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -405,11 +543,9 @@ public class puzzle_tresraya extends Fragment {
         //Comprobar diagonales
         try{
             if (getState(fichas[0]).equals(state_imagen) && getState(fichas[4]).equals(state_imagen) && getState(fichas[8]).equals(state_imagen)) return true;
-            else return false;
         }catch(NullPointerException e){}
         try{
             if (getState(fichas[2]).equals(state_imagen) && getState(fichas[4]).equals(state_imagen) && getState(fichas[6]).equals(state_imagen)) return true;
-            else return false;
         }catch(NullPointerException e){}
 
         return false;
