@@ -202,17 +202,22 @@ public class puzzle_tresraya extends Fragment {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                String tit1="", tit2="";
                                 switch (dificultad){
                                     case 1:
                                         respuestaFacil();
+                                        tit1 = "Has perdido";
+                                        tit2 = "Y este era el nivel más facil...";
                                         break;
                                     case 2:
                                         respuestaMedia();
+                                        tit1 = "Has perdido";
+                                        tit2 = "Y ni siquiera era el nivel más dificil...";
                                         break;
                                 }
                                 habilitarBotones();
                                 if(checkVictory(imagenj2)) {
-                                    dialog = user.alertFinalPartida("Has perdido...", "Y este era el más fácil", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                                    dialog = user.alertFinalPartida(tit1, tit2, 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
                                     dialog.show();
                                 }
                             }
@@ -255,29 +260,89 @@ public class puzzle_tresraya extends Fragment {
     }
 
     public void respuestaMedia(){
-        int num = (int)(Math.random()*3), num2;
+        int num2;
+        boolean sw = true;
 
-        if((num2=checkLinea(0, imagenj1, true))!=-1) fichas[num2].setImageResource(imagenj2);
+        for(int i=0; i<3 && sw; i++){
+            if((num2=checkLinea(i, imagenj2, false))!=-1){
+                fichas[num2].setImageResource(imagenj2);
+                sw = false;
+            }else if((num2=checkLinea(i, imagenj2, true))!=-1){
+                fichas[num2].setImageResource(imagenj2);
+                sw = false;
+            }
+        }
+
+        for(int i=0; i<3 && sw; i++){
+            if((num2=checkLinea(i, imagenj1, false))!=-1){
+                fichas[num2].setImageResource(imagenj2);
+                sw = false;
+            }else if((num2=checkLinea(i, imagenj1, true))!=-1){
+                fichas[num2].setImageResource(imagenj2);
+                sw = false;
+            }
+        }
+        if((num2=checkDiagonal(imagenj1, true))!=-1 && sw){
+            fichas[num2].setImageResource(imagenj2);
+            sw = false;
+        }
+        if((num2=checkDiagonal(imagenj1, false))!=-1 && sw){
+            fichas[num2].setImageResource(imagenj2);
+            sw = false;
+        }
+
+        if(sw){
+            respuestaFacil();
+        }
     }
 
     public int checkLinea(int num_linea, int imagen, boolean fila){
-        int cont = 0, incremento;
-
-        if(fila) incremento = 3;
-        else incremento = 7;
+        int cont = 0, max, incremento;
 
         if(fila){
+            max = 3;
+            incremento = 1;
+
             if(num_linea == 1) num_linea = 3;
             else if (num_linea == 2) num_linea = 6;
+        }else{
+            max = 7;
+            incremento = 3;
         }
 
-        for(int i=num_linea; i<num_linea + incremento; i++){
+        for(int i=num_linea; i<num_linea + max; i+=incremento){
             try{
                 if(getState(fichas[i]) == getResources().getDrawable(imagen).getConstantState()) cont++;
             }catch(NullPointerException e){}
         }
         if(cont == 2){
-            for(int i=num_linea; i<(num_linea + incremento); i++)
+            for(int i=num_linea; i<(num_linea + max); i+=incremento)
+                try{
+                    if(fichas[i].getDrawable() == null) return i;
+                }catch(NullPointerException e){}
+        }
+        return -1;
+    }
+
+    public int checkDiagonal(int imagen, boolean diagonal1){
+        int cont = 0, inicio, maximo, incremento;
+        if(diagonal1){
+            inicio = 0;
+            maximo = fichas.length;
+            incremento = 4;
+        }else{
+            inicio = 2;
+            maximo = 7;
+            incremento = 2;
+        }
+
+        for(int i = inicio; i < maximo; i+=incremento){
+            try{
+                if(getState(fichas[i]) == getResources().getDrawable(imagen).getConstantState()) cont++;
+            }catch(NullPointerException e){}
+        }
+        if(cont == 2){
+            for(int i = inicio; i < maximo; i+=incremento)
                 try{
                     if(fichas[i].getDrawable() == null) return i;
                 }catch(NullPointerException e){}
