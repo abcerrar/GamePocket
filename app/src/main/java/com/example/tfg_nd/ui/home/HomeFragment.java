@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private LinearLayout btPorcentaje, btMemory, btTresraya;
+    private LinearLayout btPorcentaje, btMemory, btTresraya, btEstadísticas, btTienda;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
@@ -54,6 +54,8 @@ public class HomeFragment extends Fragment {
         btTresraya = root.findViewById(R.id.btTresraya);
         dinero = root.findViewById(R.id.dinero);
         tvEmail = root.findViewById(R.id.tvEmail);
+        btEstadísticas = root.findViewById(R.id.btEstadisticas);
+        btTienda = root.findViewById(R.id.btTienda);
 
         mAuth = FirebaseAuth.getInstance();
         mPref = new manejadorPreferencias("pref", getActivity());
@@ -123,6 +125,20 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        btEstadísticas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Aun no esta implementado", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btTienda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tienda);
+            }
+        });
+
         return root;
     }
     /*
@@ -151,7 +167,7 @@ public class HomeFragment extends Fragment {
         try{
             listener.remove();
         }catch(Exception e){
-            Log.d(TAG, "Erro al remover el listenner");
+            Log.d(TAG, "Error al remover el listenner");
         }
     }
 }

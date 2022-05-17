@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -116,6 +117,9 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 }else{
                     Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.tienda:
+                navController.navigate(R.id.tienda);
                 break;
 
         }

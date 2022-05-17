@@ -9,11 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.example.tfg_nd.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_nav_home_to_perfil"
-            app:destination="@id/perfil" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/test"
@@ -24,11 +20,7 @@
         android:id="@+id/login"
         android:name="com.example.tfg_nd.login"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_login_to_perfil"
-            app:destination="@id/perfil" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/perfil"
         android:name="com.example.tfg_nd.perfil"
@@ -54,4 +46,9 @@
         android:name="com.example.tfg_nd.puzzle_tresraya"
         android:label="3 en raya"
         tools:layout="@layout/fragment_puzzle_tresraya" />
+    <fragment
+        android:id="@+id/tienda"
+        android:name="com.example.tfg_nd.tienda"
+        android:label="Tienda"
+        tools:layout="@layout/fragment_tienda" />
 </navigation>

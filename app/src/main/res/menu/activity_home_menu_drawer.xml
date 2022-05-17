@@ -17,6 +17,10 @@
             android:id="@+id/perfil"
             android:title="Perfil personal"
             android:icon="@drawable/profile"/>
+        <item
+            android:id="@+id/tienda"
+            android:icon="@drawable/shop"
+            android:title="Tienda" />
     </group>
     <group
         android:id="@+id/puzzle"
