@@ -94,19 +94,6 @@ public class puzzle_memory extends Fragment {
         cartas[17] = v.findViewById(R.id.catrta18);
         cartas[18] = v.findViewById(R.id.catrta19);
         cartas[19] = v.findViewById(R.id.catrta20);
-        //Luce contraproducente el meterlo en un arraylist pero es por el shuffle
-        imagenes.add(R.drawable.memoryimage1+"");
-        imagenes.add(R.drawable.memoryimage1+"");
-        imagenes.add(R.drawable.memoryimage2+"");
-        imagenes.add(R.drawable.memoryimage2+"");
-        imagenes.add(R.drawable.memoryimage3+"");
-        imagenes.add(R.drawable.memoryimage3+"");
-        imagenes.add(R.drawable.memoryimage4+"");
-        imagenes.add(R.drawable.memoryimage4+"");
-        imagenes.add(R.drawable.memoryimage5+"");
-        imagenes.add(R.drawable.memoryimage5+"");
-        imagenes.add(R.drawable.memoryimage6+"");
-        imagenes.add(R.drawable.memoryimage6+"");
 
         tvMovimientos = v.findViewById(R.id.tvMovimientos);
         tvParejas = v.findViewById(R.id.tvParejas);
@@ -213,6 +200,18 @@ public class puzzle_memory extends Fragment {
     }
 
     public void cargarImagenes(int cantidad){
+        imagenes.add(R.drawable.memoryimage1+"");
+        imagenes.add(R.drawable.memoryimage1+"");
+        imagenes.add(R.drawable.memoryimage2+"");
+        imagenes.add(R.drawable.memoryimage2+"");
+        imagenes.add(R.drawable.memoryimage3+"");
+        imagenes.add(R.drawable.memoryimage3+"");
+        imagenes.add(R.drawable.memoryimage4+"");
+        imagenes.add(R.drawable.memoryimage4+"");
+        imagenes.add(R.drawable.memoryimage5+"");
+        imagenes.add(R.drawable.memoryimage5+"");
+        imagenes.add(R.drawable.memoryimage6+"");
+        imagenes.add(R.drawable.memoryimage6+"");
         if(cantidad == 16 && imagenes.size() == 12){
             imagenes.add(R.drawable.memoryimage7+"");
             imagenes.add(R.drawable.memoryimage7+"");
