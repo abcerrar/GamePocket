@@ -18,6 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class User {
 
@@ -25,12 +29,23 @@ public class User {
     private final String TAG = "Utils_db.java";
 
     private final String email;
+    private int dinero;
 
     public User(String email){
         this.email = email;
+        db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                dinero = Integer.parseInt(documentSnapshot.getData().get("dinero")+"");
+            }
+        });
     }
 
-    public void incrementarDinero(int incremento){
+    public boolean incrementarDinero(int incremento){
+
+        if((dinero + incremento) < 0) return false;
+        else{
+
         db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -55,6 +70,8 @@ public class User {
                     });
             }
         });
+        }
+        return true;
     }
 
     public void incrementarExperiencia(int incremento){
@@ -185,6 +202,16 @@ public class User {
         dialog = builder.create();
         return dialog;
     }
+
+    public void addProduct(String nombre){
+        Map<String, Object> nada = new HashMap<>();
+        db.collection("users").document(email).collection("productos").document(nombre).set(nada);
+    }
+
+    public void selectProduct(String nombre){
+        db.collection("users").document(email).update("current_product", nombre);
+    }
+
     /*
 
     public void actualizarEstrellas(){

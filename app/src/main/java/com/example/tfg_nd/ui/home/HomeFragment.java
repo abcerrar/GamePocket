@@ -83,6 +83,9 @@ public class HomeFragment extends Fragment {
                     }
                 }
             });
+
+            //Cargar los dorsos
+
         }else{
             Log.d(TAG, "No estás logeado");
             dinero.setText("????");
