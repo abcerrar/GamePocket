@@ -78,6 +78,16 @@ public class HomeFragment extends Fragment {
                     if (snapshot != null && snapshot.exists()) {
                         Log.d(TAG, "Current data: " + snapshot.getData());
                         dinero.setText(snapshot.getData().get("dinero")+"");
+                        String dorso_actual="", ficha_actual="";
+                        try{
+                            dorso_actual = snapshot.getData().get("current_dorso")+"";
+                            ficha_actual = snapshot.getData().get("current_ficha")+"";
+                        }catch(NullPointerException ex){
+                            Toast.makeText(getContext(), "Error al leer el dorso o ficha actual", Toast.LENGTH_SHORT).show();
+                        }
+                        mPref.put("dorso_memory", dorso_actual);
+                        mPref.put("fichas_tresraya", ficha_actual);
+
                     } else {
                         Log.d(TAG, "Current data: null");
                     }

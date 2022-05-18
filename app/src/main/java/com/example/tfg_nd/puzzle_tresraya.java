@@ -41,9 +41,10 @@ public class puzzle_tresraya extends Fragment {
     private ImageView fichas[];
     private int turno = 1;
     private ImageView btAspa, btCirculo;
+    private  int imgcirculo, imgaspa;
 
     //Variables pve
-    private int imagenj1 = R.drawable.aspa, imagenj2 = R.drawable.circulo;
+    private int imagenj1, imagenj2;
 
     //Variables jvj
     private boolean player1 = true;
@@ -67,6 +68,7 @@ public class puzzle_tresraya extends Fragment {
             email = currentUser.getEmail();
             user = new User(email);
         }
+
         nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
         Toast.makeText(getContext(), "Nivel: " + nivel_actual, Toast.LENGTH_SHORT).show();
         fichas = new ImageView[9];
@@ -88,6 +90,28 @@ public class puzzle_tresraya extends Fragment {
         j1 = v.findViewById(R.id.j1);
         j2 = v.findViewById(R.id.j2);
 
+        String ficha_actual = mPref.get("fichas_tresraya", "fichas_normales");
+
+        switch (ficha_actual){
+            case "fichas_normales":
+                imgcirculo = R.drawable.circulo;
+                imgaspa = R.drawable.aspa;
+                break;
+            case "fichas_rojas":
+                imgcirculo = R.drawable.circulorojo;
+                imgaspa = R.drawable.asparoja;
+                btAspa.setImageResource(R.drawable.asparoja);
+                btCirculo.setImageResource(R.drawable.circulorojo);
+                break;
+            case "fichas_rosazul":
+                imgcirculo = R.drawable.circuloazul;
+                imgaspa = R.drawable.asparosa;
+                btAspa.setImageResource(R.drawable.asparosa);
+                btCirculo.setImageResource(R.drawable.circuloazul);
+                break;
+        }
+        imagenj1 = imgaspa;
+        imagenj2 = imgcirculo;
         listenerReload = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,8 +152,8 @@ public class puzzle_tresraya extends Fragment {
         btAspa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagenj2 = R.drawable.circulo;
-                imagenj1 = R.drawable.aspa;
+                imagenj2 = imgcirculo;
+                imagenj1 = imgaspa;
                 lineaAspa.setVisibility(View.VISIBLE);
                 lineaCirculo.setVisibility(View.INVISIBLE);
             }
@@ -137,8 +161,8 @@ public class puzzle_tresraya extends Fragment {
         btCirculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagenj2 = R.drawable.aspa;
-                imagenj1 = R.drawable.circulo;
+                imagenj2 = imgaspa;
+                imagenj1 = imgcirculo;
                 lineaAspa.setVisibility(View.INVISIBLE);
                 lineaCirculo.setVisibility(View.VISIBLE);
             }
@@ -191,8 +215,8 @@ public class puzzle_tresraya extends Fragment {
             public void onClick(View view) {
                 lineaAspa.setVisibility(View.VISIBLE);
                 btCirculo.setClickable(false);
-                imagenj2 = R.drawable.circulo;
-                imagenj1 = R.drawable.aspa;
+                imagenj2 = imgcirculo;
+                imagenj1 = imgaspa;
 
                 for(int i=0; i< fichas.length; i++){
                     asignarOnClick(i, 3);
@@ -213,8 +237,8 @@ public class puzzle_tresraya extends Fragment {
             public void onClick(View view) {
                 lineaCirculo.setVisibility(View.VISIBLE);
                 btAspa.setClickable(false);
-                imagenj2 = R.drawable.aspa;
-                imagenj1 = R.drawable.circulo;
+                imagenj2 = imgaspa;
+                imagenj1 = imgcirculo;
 
                 for(int i=0; i< fichas.length; i++){
                     asignarOnClick(i, 3);

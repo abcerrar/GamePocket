@@ -44,7 +44,7 @@ public class puzzle_memory extends Fragment {
     private ImageView[] cartas;
     private ArrayList<String> imagenes;
     private int max_parejas;
-
+    private int dorso = R.drawable.dorso;
 
 
     public puzzle_memory() {
@@ -68,6 +68,18 @@ public class puzzle_memory extends Fragment {
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
+        }
+        String dorso_actual = mPref.get("dorso_memory", "dorso_rata");
+        switch (dorso_actual){
+            case "dorso_rata":
+                dorso = R.drawable.dorso;
+                break;
+            case "dorso_dollar":
+                dorso = R.drawable.dorsodollar;
+                break;
+            case "dorso_sombra":
+                dorso = R.drawable.dorsosombra;
+                break;
         }
 
         nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
@@ -230,7 +242,7 @@ public class puzzle_memory extends Fragment {
 
         Collections.shuffle(imagenes);
         for(int i=0; i<cantidad; i++){
-            cartas[i].setImageResource(R.drawable.dorso);
+            cartas[i].setImageResource(dorso);
             onClickRevelar(i);
         }
     }
@@ -239,7 +251,7 @@ public class puzzle_memory extends Fragment {
         cartas[num_carta].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cartas[num_carta].getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.dorso).getConstantState())){
+                if(cartas[num_carta].getDrawable().getConstantState().equals(getResources().getDrawable(dorso).getConstantState())){
                     int cod_carta = Integer.parseInt(imagenes.get(num_carta));
                     cartas[num_carta].setImageResource(cod_carta);
 
@@ -254,8 +266,8 @@ public class puzzle_memory extends Fragment {
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    cartas[num_carta].setImageResource(R.drawable.dorso);
-                                    cartas[last_pressed].setImageResource(R.drawable.dorso);
+                                    cartas[num_carta].setImageResource(dorso);
+                                    cartas[last_pressed].setImageResource(dorso);
                                     habilitar_botones();
                                 }
                             }, 1000);

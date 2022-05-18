@@ -72,6 +72,7 @@ public class tienda extends Fragment {
 
         fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_normales));
         fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_rojas));
+        fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_rojazul));
 
         tvDinero = v.findViewById(R.id.desc_dinero);
 
