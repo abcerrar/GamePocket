@@ -51,4 +51,9 @@
         android:name="com.example.tfg_nd.tienda"
         android:label="Tienda"
         tools:layout="@layout/fragment_tienda" />
+    <fragment
+        android:id="@+id/estadisticas"
+        android:name="com.example.tfg_nd.estadisticas"
+        android:label="fragment_estadisticas"
+        tools:layout="@layout/fragment_estadisticas" />
 </navigation>
