@@ -208,8 +208,15 @@ public class User {
         db.collection("users").document(email).collection("productos").document(nombre).set(nada);
     }
 
-    public void selectProduct(String nombre){
-        db.collection("users").document(email).update("current_product", nombre);
+    public void selectProduct(String nombre, String juego){
+        switch (juego){
+            case "memory":
+                db.collection("users").document(email).update("current_dorso", nombre);
+                break;
+            case "tresraya":
+                db.collection("users").document(email).update("current_ficha", nombre);
+                break;
+        }
     }
 
     /*

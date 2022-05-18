@@ -33,10 +33,14 @@ import java.util.List;
 public class tienda extends Fragment {
 
     private final String TAG = "tienda.java";
+
     private List<ImageView> img_memory = new ArrayList<>();
+    private List<ImageView> fichas_tresraya = new ArrayList<>();
+
+    private manejadorPreferencias mPref;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private String email;
+    private String email, gamemode;
     private User user;
     private ListenerRegistration listener;
     private TextView tvDinero;
@@ -54,6 +58,7 @@ public class tienda extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tienda, container, false);
+        mPref = new manejadorPreferencias("pref", getActivity());
         if(mAuth.getCurrentUser() != null){
             email = mAuth.getCurrentUser().getEmail();
             user = new User(email);
@@ -65,12 +70,19 @@ public class tienda extends Fragment {
         img_memory.add(v.findViewById(R.id.mem_dorso_sombra));
         img_memory.add(v.findViewById(R.id.mem_dorso_rata));
 
+        fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_normales));
+        fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_rojas));
+
         tvDinero = v.findViewById(R.id.desc_dinero);
 
-
+        fichas_tresraya.get(0).setColorFilter(getResources().getColor(R.color.black));
         for(int i=0; i<img_memory.size(); i++){
-            asignarOnClick(i);
+            asignarOnClick(i, "memory");
         }
+        for(int i=0; i<fichas_tresraya.size(); i++){
+            asignarOnClick(i, "tresraya");
+        }
+
 
         DocumentReference docRef = db.collection("users").document(email);
         listener = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -94,20 +106,43 @@ public class tienda extends Fragment {
         return v;
     }
 
-    public void asignarOnClick(int num){
-        img_memory.get(num).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Drawable imagen = img_memory.get(num).getDrawable();
-                String nombre = "";
-                try{
-                    nombre = img_memory.get(num).getTag().toString();
-                }catch(NullPointerException e) {
-                    Toast.makeText(getContext(), "Error leyendo el tag de la imagen", Toast.LENGTH_SHORT).show();
-                }
-                ver_producto(nombre, imagen);
-            }
-        });
+    public void asignarOnClick(int num, String juego){
+        //Ya pensaré como optimizar esto
+        switch (juego){
+            case "memory":
+                img_memory.get(num).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gamemode = "memory";
+                        Drawable imagen = img_memory.get(num).getDrawable();
+                        String nombre = "";
+                        try{
+                            nombre = img_memory.get(num).getTag().toString();
+                        }catch(NullPointerException e) {
+                            Toast.makeText(getContext(), "Error leyendo el tag de la imagen", Toast.LENGTH_SHORT).show();
+                        }
+                        ver_producto(nombre, imagen);
+                    }
+                });
+                break;
+            case "tresraya":
+                fichas_tresraya.get(num).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gamemode = "tresraya";
+                        Drawable imagen = fichas_tresraya.get(num).getDrawable();
+                        String nombre = "";
+                        try{
+                            nombre = fichas_tresraya.get(num).getTag().toString();
+                        }catch(NullPointerException e) {
+                            Toast.makeText(getContext(), "Error leyendo el tag de la imagen", Toast.LENGTH_SHORT).show();
+                        }
+                        ver_producto(nombre, imagen);
+                    }
+                });
+                break;
+        }
+
     }
 
     public void ver_producto(String nombre, Drawable imagen){
@@ -188,7 +223,17 @@ public class tienda extends Fragment {
     }
     public void seleccionarProducto(String nombre){
         Toast.makeText(getContext(), "Seleccionando " + nombre, Toast.LENGTH_SHORT).show();
-        user.selectProduct(nombre);
+        user.selectProduct(nombre, gamemode);
+
+        switch (gamemode){
+            case "memory":
+                mPref.put("dorso_memory", nombre);
+                break;
+            case "tresraya":
+                mPref.put("fichas_tresraya", nombre);
+                break;
+        }
+
     }
     @Override
     public void onDestroyView() {
