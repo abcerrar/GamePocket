@@ -7,7 +7,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo1"
     android:orientation="vertical"
-    tools:context=".HomeMenuActivity">
+    tools:context=".Klondike">
+
+    <ImageView
+        android:id="@+id/atras"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        android:onClick="exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/goback" />
 
     <ImageView
         android:id="@+id/draw"
@@ -198,7 +211,7 @@
         android:layout_width="15dp"
         android:layout_height="14dp"
         android:foregroundGravity="center"
-        
+        android:onClick="seeMore"
         android:tag="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -213,7 +226,7 @@
         android:layout_width="15dp"
         android:layout_height="14dp"
         android:foregroundGravity="center"
-        
+        android:onClick="seeMore"
         android:tag="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -228,11 +241,11 @@
         android:layout_width="15dp"
         android:layout_height="14dp"
         android:foregroundGravity="center"
-        
+        android:onClick="seeMore"
         android:tag="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
+        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.648"
@@ -243,7 +256,7 @@
         android:layout_width="15dp"
         android:layout_height="14dp"
         android:foregroundGravity="center"
-        
+        android:onClick="seeMore"
         android:tag="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -258,7 +271,7 @@
         android:layout_width="15dp"
         android:layout_height="14dp"
         android:foregroundGravity="center"
-        
+        android:onClick="seeMore"
         android:tag="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -273,7 +286,7 @@
         android:layout_width="15dp"
         android:layout_height="14dp"
         android:foregroundGravity="center"
-        
+        android:onClick="seeMore"
         android:tag="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -287,7 +300,7 @@
         android:layout_width="15dp"
         android:layout_height="14dp"
         android:foregroundGravity="center"
-        
+        android:onClick="seeMore"
         android:tag="6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -296,4 +309,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.889"
         app:srcCompat="@drawable/seemore" />
+
+    <TextView
+        android:id="@+id/tvCarta"
+        android:layout_width="134dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tfg_nd">
         <activity
+            android:name=".Klondike"
+            android:exported="false" />
+        <activity
             android:name=".CardView"
             android:exported="false" />
         <activity

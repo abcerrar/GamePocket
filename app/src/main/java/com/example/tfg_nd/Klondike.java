@@ -1,78 +1,63 @@
 package com.example.tfg_nd;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class klondike<ImageView> extends Fragment {
-
+public class Klondike extends AppCompatActivity {
     ArrayList<Card>[] piles = new ArrayList[12];
     //TextView drawView, wasteView, stack1View, stack2View, stack3View, stack4View, pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View;
-    android.widget.ImageView drawView, wasteView, stack1View, stack2View, stack3View, stack4View, pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View;
-    android.widget.ImageView movingCard = null;
-    android.widget.ImageView more, more2, more3, more4, more5, more6, more7;
-    public klondike() {
-        // Required empty public constructor
-    }
+    ImageView drawView, wasteView, stack1View, stack2View, stack3View, stack4View, pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View;
+    ImageView movingCard = null;
+    public Context context = this;
+    TextView tvCarta;
+    //  TextView [] onClickSetter = {waste, stack1, stack2, stack3, stack4, pile1, pile2, pile3, pile4, pile5, pile6, pile7};
 
-    // TODO: Rename and change types and number of parameters
-    public static klondike newInstance(String param1, String param2) {
-        klondike fragment = new klondike();
-        return fragment;
-    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_klondike, container, false);
+        setContentView(R.layout.activity_klondike);
 
         Baraja baraja = new Baraja();
         piles = baraja.repartoKlondike();
 
-        pile1View =  v.findViewById(R.id.pile1);
-        pile2View =  v.findViewById(R.id.pile2);
-        pile3View =  v.findViewById(R.id.pile3);
-        pile4View =  v.findViewById(R.id.pile4);
-        pile5View =  v.findViewById(R.id.pile5);
-        pile6View =  v.findViewById(R.id.pile6);
-        pile7View =  v.findViewById(R.id.pile7);
-        drawView=  v.findViewById(R.id.draw);
-        wasteView = v.findViewById(R.id.waste);
-        stack1View = v.findViewById(R.id.stack1);
-        stack2View = v.findViewById(R.id.stack2);
-        stack3View = v.findViewById(R.id.stack3);
-        stack4View = v.findViewById(R.id.stack4);
-        more = v.findViewById(R.id.more);
-        more2 = v.findViewById(R.id.more2);
-        more3 = v.findViewById(R.id.more3);
-        more4 = v.findViewById(R.id.more4);
-        more5 = v.findViewById(R.id.more5);
-        more6 = v.findViewById(R.id.more6);
-        more7 = v.findViewById(R.id.more7);
 
-        android.widget.ImageView[]moresetter = {more, more2, more3, more4, more5, more6, more7};
+        pile1View = findViewById(R.id.pile1);
+        pile2View = findViewById(R.id.pile2);
+        pile3View = findViewById(R.id.pile3);
+        pile4View = findViewById(R.id.pile4);
+        pile5View = findViewById(R.id.pile5);
+        pile6View = findViewById(R.id.pile6);
+        pile7View = findViewById(R.id.pile7);
+        drawView= findViewById(R.id.draw);
+        wasteView = findViewById(R.id.waste);
+        stack1View = findViewById(R.id.stack1);
+        stack2View = findViewById(R.id.stack2);
+        stack3View = findViewById(R.id.stack3);
+        stack4View = findViewById(R.id.stack4);
+        tvCarta = findViewById(R.id.tvCarta);
 
-        pile2View.setImageResource(piles[1].get(piles[1].size()-1).getImageId());
         pile1View.setImageResource(piles[0].get(piles[0].size()-1).getImageId());
+        pile2View.setImageResource(piles[1].get(piles[1].size()-1).getImageId());
         pile3View.setImageResource(piles[2].get(piles[2].size()-1).getImageId());
         pile4View.setImageResource(piles[3].get(piles[3].size()-1).getImageId());
         pile5View.setImageResource(piles[4].get(piles[4].size()-1).getImageId());
@@ -83,7 +68,8 @@ public class klondike<ImageView> extends Fragment {
         stack3View.setImageResource(piles[9].get(0).getImageId());
         stack4View.setImageResource(piles[10].get(0).getImageId());
 
-        android.widget.ImageView [] onClickSetter = {pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View, stack1View, stack2View, stack3View, stack4View};
+
+        ImageView [] onClickSetter = {pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View, stack1View, stack2View, stack3View, stack4View};
 
 
         //Click para el mazo
@@ -94,7 +80,7 @@ public class klondike<ImageView> extends Fragment {
                 wasteView.setImageResource(drawn.getImageId());
                 if(drawn.getNum()==0){
                     v.setEnabled(false);
-                    ((android.widget.ImageView) (v)).setImageResource(R.drawable.empty);
+                    ((ImageView) (v)).setImageResource(R.drawable.empty);
                 }
             }
         });
@@ -108,9 +94,9 @@ public class klondike<ImageView> extends Fragment {
                 /*Comprobar so hay carta para robar y cogerla en caso afirmativo
                  *Cancelar el movimiento al volver a clicar
                  */
-                if(movingCard == null&&!((android.widget.ImageView) v).getDrawable().equals(R.drawable.empty)){
+                if(movingCard == null&&!((ImageView) v).getDrawable().equals(R.drawable.empty)){
                     Toast.makeText(v.getContext(),"Robo", Toast.LENGTH_SHORT).show();
-                    movingCard = v.findViewById(v.getId());
+                    movingCard = findViewById(v.getId());
                 }
                 else{
                     Toast.makeText(v.getContext(),"Cancelo Robo", Toast.LENGTH_SHORT).show();
@@ -118,6 +104,8 @@ public class klondike<ImageView> extends Fragment {
                 }
             }
         });
+
+
 
         //Clicks para las pilas
         for (int i = 0; i < onClickSetter.length-4; i++) {
@@ -129,7 +117,7 @@ public class klondike<ImageView> extends Fragment {
                     /* Comprobar si hay carta para robar
                      * o si se está moviendo un rey a la posición vacía
                      */
-                    if(!((android.widget.ImageView) v).getDrawable().equals(R.drawable.empty)){
+                    if(piles[Integer.parseInt(v.getTag().toString())].get(piles[Integer.parseInt(v.getTag().toString())].size()-1).getNum()!=-1){
 
 
                         /* Si no se está moviendo ninguna carta seleccionar la primera de la pila
@@ -139,7 +127,7 @@ public class klondike<ImageView> extends Fragment {
                         if(movingCard==null){
                             Toast toast = Toast.makeText(v.getContext(),"entro en click set moving card", Toast.LENGTH_SHORT);
                             toast.show();
-                            movingCard= v.findViewById(v.getId());
+                            movingCard= findViewById(v.getId());
                         }
                         else if(movingCard!=null&&movingCard.getId() == v.getId()){
                             Toast toast = Toast.makeText(v.getContext(),"entro en click deshabilitar", Toast.LENGTH_SHORT);
@@ -160,14 +148,17 @@ public class klondike<ImageView> extends Fragment {
                                 int valorClickado = carta1.getNum();
                                 int valorComparado = carta2.getNum();
 
+
                                 Toast.makeText(v.getContext(),carta1.getColor() +" "+valorClickado, Toast.LENGTH_SHORT).show();
 
                                 Toast.makeText(v.getContext(),carta2.getColor() +" "+valorComparado, Toast.LENGTH_SHORT).show();
 
+
+
                                 if (valorClickado==valorComparado-1 && carta1.getColor()!=carta2.getColor()){
                                     piles[otrapila].add(carta1);
                                     piles[pila].remove(carta1);
-                                    ((android.widget.ImageView) v.findViewById(v.getId())).setImageDrawable(movingCard.getDrawable());
+                                    ((ImageView) findViewById(v.getId())).setImageDrawable(movingCard.getDrawable());
                                     try {
                                         movingCard.setImageResource(piles[pila].get(piles[pila].size()-1).getImageId());
                                     }
@@ -177,8 +168,11 @@ public class klondike<ImageView> extends Fragment {
 
                                     movingCard = null;
                                 }
+
                             }
+
                         }
+
                     }
                     else {
                         if (movingCard != null) {
@@ -196,7 +190,7 @@ public class klondike<ImageView> extends Fragment {
                                 piles[otrapila].add(carta1);
                                 piles[pila].remove(carta1);
 
-                                ((android.widget.ImageView) v.findViewById(v.getId())).setImageDrawable(movingCard.getDrawable());
+                                ((ImageView) findViewById(v.getId())).setImageDrawable(movingCard.getDrawable());
 
                                 movingCard.setImageResource(piles[pila].get(piles[pila].size() - 1).getImageId());
 
@@ -230,14 +224,16 @@ public class klondike<ImageView> extends Fragment {
 
                         Toast.makeText(v.getContext(),carta2.getColor() +" "+valorComparado, Toast.LENGTH_SHORT).show();
 
+
                         if (valorClickado==valorComparado+1&&paloClickado==paloComparado){
                             piles[otrapila].add(piles[pila].get(piles[pila].size()-1));
                             piles[pila].remove(piles[pila].get(piles[pila].size()-1));
 
-                            ((android.widget.ImageView) v.findViewById(v.getId())).setImageDrawable(movingCard.getDrawable());
+                            ((ImageView) findViewById(v.getId())).setImageDrawable(movingCard.getDrawable());
 
                             movingCard.setImageResource(piles[pila].get(piles[pila].size()-1).getImageId());
                             movingCard = null;
+                            winCondition(piles[7],piles[8],piles[9],piles[10]);
                         }
                     }
 
@@ -246,33 +242,30 @@ public class klondike<ImageView> extends Fragment {
             });
         }
 
+    }
 
-        for (int i = 0; i < moresetter.length; i++) {
-            moresetter[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    seeMore(v);
-                }
-            });
+    public void winCondition(ArrayList stack1,ArrayList stack2,ArrayList stack3,ArrayList stack4){
+        if (stack1.size()==12&&stack2.size()==12&&stack3.size()==12&&stack4.size()==12){
+            Toast.makeText(getApplicationContext(),"Yay you win", Toast.LENGTH_SHORT).show();
         }
+        else{
 
-        // Inflate the layout for this fragment
-        return v;
+        }
     }
 
     public void seeMore(View v){
-        Context context = getActivity();
         int pila = Integer.parseInt(v.getTag().toString());
-        ArrayList<Card> pile = piles[pila];
+        ArrayList<Card> pile = new ArrayList<Card>(piles[pila]);
+        pile.remove(0);
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Klondike.this);
         LayoutInflater inflater = getLayoutInflater();
         View convertView = inflater.inflate(R.layout.activity_card_view, null);
         alertDialog.setView(convertView);
 
 
         RecyclerView list = convertView.findViewById(R.id.list);
-        list.setLayoutManager(new LinearLayoutManager(context));
+        list.setLayoutManager(new LinearLayoutManager(this));
         list.setHasFixedSize(true);
 
         Adapter adapter = new Adapter(context, pile);
@@ -285,14 +278,19 @@ public class klondike<ImageView> extends Fragment {
 
 
         dialog.show();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels/4;
+        int width = (int) (displayMetrics.widthPixels);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        //getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-
-        int width = HomeMenuActivity.width;
-        int height = HomeMenuActivity.height;
         dialog.getWindow().setLayout(width , height);
 
         adapter.notifyDataSetChanged();
     }
 
-
+    public void exit(View v){
+        finish();
+    }
 }

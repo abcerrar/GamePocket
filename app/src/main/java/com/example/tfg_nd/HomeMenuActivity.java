@@ -124,11 +124,10 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 navController.navigate(R.id.tienda);
                 break;
             case R.id.flappy:
-                Intent intent = new Intent(this, StartGame.class);
-                HomeMenuActivity.this.startActivity(intent);
+                HomeMenuActivity.this.startActivity(new Intent(this, StartGame.class));
                 break;
             case R.id.klondike:
-                navController.navigate(R.id.klondike);
+                HomeMenuActivity.this.startActivity(new Intent(this, Klondike.class));
                 break;
 
 
