@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Random;
 
@@ -57,12 +58,10 @@ public class GameView extends View {
 
     int compareScore;
     public int score = 0;
-    StartGame startGame;
+    StartGame startGame = new StartGame();
     Boolean added = false;
     Boolean retrieved = false;
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://nopou-7c660-default-rtdb.europe-west1.firebasedatabase.app/");
-    DatabaseReference highScore = database.getReference("HighScore");
-    DatabaseReference latestScore = database.getReference("LatestScore");
+
 
 
     public GameView(Context context) {
@@ -161,31 +160,10 @@ public class GameView extends View {
 
         if (gameOver) {
 
-            if (!added) {
-                highScore.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        compareScore = dataSnapshot.getValue(Integer.class);
-                        if(score> compareScore){
-                            highScore.setValue(score);
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                        compareScore=100000000;
-                    }
-                });
-
-
-                latestScore.setValue(score);
-                added = true;
-            }
-
-
             canvas.drawText("Current Score: " + score, canvas.getWidth() / 6, canvas.getHeight() / 2, scorePaint);
-            canvas.drawText("Best Score: " + compareScore, canvas.getWidth() / 5, canvas.getHeight() / 3, scorePaint);
+            canvas.drawText("Best Score: " + startGame.getRecord(), canvas.getWidth() / 5, canvas.getHeight() / 3, scorePaint);
 
+            if(startGame.getRecord() < score) startGame.setRecord(score);
 
         }
 
