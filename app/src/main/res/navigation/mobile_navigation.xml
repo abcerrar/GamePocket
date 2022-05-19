@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/niveles"
         android:name="com.example.tfg_nd.niveles"
-        android:label="fragment_niveles"
+        android:label="Niveles"
         tools:layout="@layout/fragment_niveles" />
     <fragment
         android:id="@+id/puzzle_porcenaje"
@@ -54,6 +54,11 @@
     <fragment
         android:id="@+id/estadisticas"
         android:name="com.example.tfg_nd.estadisticas"
-        android:label="fragment_estadisticas"
+        android:label="Estadísticas"
         tools:layout="@layout/fragment_estadisticas" />
+    <fragment
+        android:id="@+id/klondike"
+        android:name="com.example.tfg_nd.klondike"
+        android:label="Solitario"
+        tools:layout="@layout/fragment_klondike" />
 </navigation>

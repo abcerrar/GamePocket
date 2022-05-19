@@ -33,6 +33,8 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     DrawerLayout drawer;
     FirebaseAuth mAuth;
     manejadorPreferencias mPref;
+    static public int width;
+    static public int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +126,9 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.flappy:
                 Intent intent = new Intent(this, StartGame.class);
                 HomeMenuActivity.this.startActivity(intent);
+                break;
+            case R.id.klondike:
+                navController.navigate(R.id.klondike);
                 break;
 
 

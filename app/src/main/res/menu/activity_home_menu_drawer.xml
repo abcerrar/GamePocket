@@ -40,5 +40,8 @@
         <item
             android:id="@+id/flappy"
             android:title="Flappy birds" />
+        <item
+            android:id="@+id/klondike"
+            android:title="klondike" />
     </group>
 </menu>
