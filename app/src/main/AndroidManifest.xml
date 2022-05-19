@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tfg_nd">
         <activity
+            android:name=".StartGame"
+            android:exported="false" />
+        <activity
             android:name=".HomeMenuActivity"
             android:exported="true"
             android:label="@string/app_name"

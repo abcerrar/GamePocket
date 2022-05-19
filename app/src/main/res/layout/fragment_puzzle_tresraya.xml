@@ -204,7 +204,7 @@
         android:id="@+id/tituloNivelTresraya"
         android:layout_width="115dp"
         android:layout_height="43dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Nivel 1"
         android:textSize="28sp"

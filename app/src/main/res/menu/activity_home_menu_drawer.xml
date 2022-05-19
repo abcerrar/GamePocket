@@ -37,5 +37,8 @@
             android:id="@+id/tresenraya"
             android:title="3 en raya"
             android:icon="@drawable/tresenraya"/>
+        <item
+            android:id="@+id/flappy"
+            android:title="Flappy birds" />
     </group>
 </menu>

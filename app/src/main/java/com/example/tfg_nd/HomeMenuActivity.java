@@ -121,6 +121,11 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.tienda:
                 navController.navigate(R.id.tienda);
                 break;
+            case R.id.flappy:
+                Intent intent = new Intent(this, StartGame.class);
+                HomeMenuActivity.this.startActivity(intent);
+                break;
+
 
         }
         drawer.closeDrawer(GravityCompat.START);
