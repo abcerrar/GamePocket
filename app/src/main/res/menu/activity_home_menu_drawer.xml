@@ -21,6 +21,9 @@
             android:id="@+id/tienda"
             android:icon="@drawable/shop"
             android:title="Tienda" />
+        <item
+            android:id="@+id/estadisticas"
+            android:title="Estadísticas" />
     </group>
     <group
         android:id="@+id/puzzle"

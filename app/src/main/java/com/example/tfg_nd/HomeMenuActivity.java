@@ -129,6 +129,9 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.klondike:
                 HomeMenuActivity.this.startActivity(new Intent(this, Klondike.class));
                 break;
+            case R.id.estadisticas:
+                navController.navigate(R.id.estadisticas);
+                break;
 
 
         }

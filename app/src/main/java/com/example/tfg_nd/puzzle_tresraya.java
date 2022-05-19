@@ -91,7 +91,6 @@ public class puzzle_tresraya extends Fragment {
         j2 = v.findViewById(R.id.j2);
 
         String ficha_actual = mPref.get("fichas_tresraya", "fichas_normales");
-
         switch (ficha_actual){
             case "fichas_normales":
                 imgcirculo = R.drawable.circulo;
@@ -109,7 +108,12 @@ public class puzzle_tresraya extends Fragment {
                 btAspa.setImageResource(R.drawable.asparosa);
                 btCirculo.setImageResource(R.drawable.circuloazul);
                 break;
+            default:
+                imgcirculo = R.drawable.circulo;
+                imgaspa = R.drawable.aspa;
+                break;
         }
+        Toast.makeText(getContext(), "Fichas: " + imgcirculo + ", " + imgaspa, Toast.LENGTH_SHORT).show();
         imagenj1 = imgaspa;
         imagenj2 = imgcirculo;
         listenerReload = new View.OnClickListener() {
