@@ -6,54 +6,44 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class SplashActivity extends AppCompatActivity {
 
-    ProgressBar progressBar;
+    Animation topAnimation, bottomAnimation;
+    ImageView imageView;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        progressBar = findViewById(R.id.progressBar);
-        access();
+        topAnimation = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        bottomAnimation = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
-    }
+        imageView = findViewById(R.id.img_logo);
+        textView = findViewById(R.id.txt_logo);
 
-    private void loading(){
-        try {
-            Thread.sleep(700);
-        }catch (InterruptedException e){}
-    }
+        imageView.setAnimation(topAnimation);
+        textView.setAnimation(bottomAnimation);
 
-    public void access(){
-        progressBar.setVisibility(View.VISIBLE);
-        new Thread(new Runnable() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                progressBar.post(new Runnable() {
-                    @Override
-                    public void run() {progressBar.setProgress(0);}
-                });
-                for(int i=0;i<=10;i++){
-                    loading();
-                    progressBar.post(new Runnable() {
-                        @Override
-                        public void run() {progressBar.incrementProgressBy(10);}
-                    });
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(SplashActivity.this,HomeMenuActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                startActivity(new Intent(SplashActivity.this,HomeMenuActivity.class));
+                finish();
             }
-        }).start();
+        },4000);
 
     }
+
 
 }
