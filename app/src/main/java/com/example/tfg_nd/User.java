@@ -136,6 +136,47 @@ public class User {
         });
     }
 
+    //Este metodo solo es para el solitario
+    public void incrementarTiempoRecord(int tiempo){
+        DocumentReference docRef = db.collection("solitario").document(email);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                if(!documentSnapshot.exists() || documentSnapshot == null){
+                    Map<String, Object> datos = new HashMap<>();
+                    datos.put("record_tiempo", 0);
+                    db.collection("solitario").document(email).set(datos);
+                }
+
+                int tiempo_actual = 99;
+                try{
+                    Integer.parseInt(documentSnapshot.getData().get("record_tiempo")+"");
+                }catch (NullPointerException e){
+                    tiempo_actual = -1;
+                    Log.d(TAG, "Error al leer el tiempo");
+                }
+
+                if(tiempo < tiempo_actual && tiempo_actual != -1){
+                    db.collection("solitario").document(email).update("record_tiempo", tiempo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d(TAG, "tiempo record incrementados correctamente");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Error al incrementar el tiempo de " + email + ": " + e);
+                            }
+                        });
+                }
+            }
+
+        });
+    }
+
     public void subirNivel(String gamemode, int nivel_actual){
         DocumentReference docRef = db.collection(gamemode).document(email);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

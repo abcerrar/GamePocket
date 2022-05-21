@@ -1,26 +1,22 @@
 package com.example.tfg_nd;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -31,6 +27,9 @@ public class Klondike extends AppCompatActivity {
     ImageView movingCard = null;
     public Context context = this;
     TextView tvCarta;
+    Chronometer cronometro;
+    AlertDialog dialog;
+    private View.OnClickListener listenerReload, listenerMenu, listenerNext;
     //  TextView [] onClickSetter = {waste, stack1, stack2, stack3, stack4, pile1, pile2, pile3, pile4, pile5, pile6, pile7};
 
 
@@ -41,8 +40,31 @@ public class Klondike extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        cronometro = (Chronometer) findViewById(R.id.chronometerExample);
+        cronometro.start();
+
         Baraja baraja = new Baraja();
         piles = baraja.repartoKlondike();
+        listenerMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Klondike.this.startActivity(new Intent(getApplicationContext(), HomeMenuActivity.class));
+            }
+        };
+        listenerReload = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Klondike.this.startActivity(new Intent(getApplicationContext(), Klondike.class));
+            }
+        };
+        listenerNext = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "En este modo de juego no hay más niveles", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+
 
 
         pile1View = findViewById(R.id.pile1);
@@ -72,6 +94,12 @@ public class Klondike extends AppCompatActivity {
         stack3View.setImageResource(piles[9].get(0).getImageId());
         stack4View.setImageResource(piles[10].get(0).getImageId());
 
+        tvCarta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                victoria();
+            }
+        });
 
         ImageView [] onClickSetter = {pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View, stack1View, stack2View, stack3View, stack4View};
 
@@ -178,11 +206,8 @@ public class Klondike extends AppCompatActivity {
                                     movingCard = null;
                                     tvCarta.setText("Ninguna");
                                 }
-
                             }
-
                         }
-
                     }
                     else {
                         if (movingCard != null) {
@@ -265,6 +290,62 @@ public class Klondike extends AppCompatActivity {
         }
     }
 
+    public void victoria(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        try{
+            String email = mAuth.getCurrentUser().getEmail();
+            User user = new User(email);
+
+            String tiempo = cronometro.getText()+"";
+            Toast.makeText(Klondike.this, "Tiempo tardado: " + tiempo, Toast.LENGTH_SHORT).show();
+            cronometro.stop();
+            int tiempo_tardado = 0;
+            try{
+                tiempo_tardado = Integer.parseInt(tiempo.substring(0,2));
+            }catch (NumberFormatException ex){
+                Toast.makeText(Klondike.this, "Error al pasar el timempo tardado a int", Toast.LENGTH_SHORT).show();
+            }
+
+            int estrellas, dinero, experiencia;
+            String titulo, titutlo2;
+
+            if(tiempo_tardado < 2){
+                estrellas = 3;
+                dinero = 30;
+                experiencia = 60;
+                titulo = "Enhorabuena!!";
+                titutlo2 = "Te lo has pasado en menos\n de 2 minútos";
+            }else if(tiempo_tardado < 5){
+                estrellas = 2;
+                dinero = 15;
+                experiencia = 30;
+                titulo = "No está mal!!";
+                titutlo2 = "Te lo has pasado en menos\n de 5 minútos";
+            }else if(tiempo_tardado < 8){
+                estrellas = 1;
+                dinero = 5;
+                experiencia = 10;
+                titulo = "Por poco";
+                titutlo2 = "Te lo has pasado en menos\n de 8 minútos";
+            }else{
+                estrellas = 0;
+                dinero = 0;
+                experiencia = 0;
+                titulo = "No lo has superado";
+                titutlo2 = tiempo_tardado + "minutos es demasiado para recibir recompensas";
+            }
+
+            user.incrementarExperiencia(experiencia);
+            user.incrementarDinero(dinero);
+            user.incrementarTiempoRecord(tiempo_tardado);
+            dialog = user.alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia, this, listenerReload, listenerNext, listenerNext, listenerMenu, dialog, this);
+            dialog.show();
+
+        }catch(NullPointerException ex){
+            Toast.makeText(Klondike.this, "No recibes recompensas porque no estás logeado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void seeMore(View v){
         int pila = Integer.parseInt(v.getTag().toString());
         ArrayList<Card> pile = new ArrayList<Card>(piles[pila]);
@@ -287,7 +368,7 @@ public class Klondike extends AppCompatActivity {
         AlertDialog dialog = alertDialog.create();
 
 
-
+        Toast.makeText(Klondike.this, "Tiempo: " + cronometro.getText(), Toast.LENGTH_SHORT).show();
 
         dialog.show();
         DisplayMetrics displayMetrics = new DisplayMetrics();

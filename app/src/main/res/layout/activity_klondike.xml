@@ -9,6 +9,19 @@
     android:orientation="vertical"
     tools:context=".Klondike">
 
+    <Chronometer
+        android:id="@+id/chronometerExample"
+        android:layout_width="85dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/atras"
         android:layout_width="61dp"
