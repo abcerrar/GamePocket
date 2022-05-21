@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -159,4 +161,6 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     public static float pxToDp(Context context, float px) {
         return px / context.getResources().getDisplayMetrics().density;
     }
+
+
 }

@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
         btEstadísticas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Aun no esta implementado", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.estadisticas);
             }
         });
 

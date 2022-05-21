@@ -1,6 +1,8 @@
 package com.example.tfg_nd;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +38,8 @@ public class Klondike extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_klondike);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Baraja baraja = new Baraja();
         piles = baraja.repartoKlondike();
