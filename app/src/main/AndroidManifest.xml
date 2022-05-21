@@ -21,6 +21,10 @@
         <activity
             android:name=".HomeMenuActivity"
             android:exported="true"
+            android:theme="@style/Theme.Tfg_nd.NoActionBar"/>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Tfg_nd.NoActionBar">
             <intent-filter>
@@ -29,6 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
