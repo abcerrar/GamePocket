@@ -95,12 +95,15 @@ public class Klondike extends AppCompatActivity {
                  *Cancelar el movimiento al volver a clicar
                  */
                 if(movingCard == null&&!((ImageView) v).getDrawable().equals(R.drawable.empty)){
-                    Toast.makeText(v.getContext(),"Robo", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(v.getContext(),"Robo", Toast.LENGTH_SHORT).show();
+
                     movingCard = findViewById(v.getId());
+                    tvCarta.setText(piles[(Integer.parseInt(movingCard.getTag().toString()))].get(piles[(Integer.parseInt(movingCard.getTag().toString()))].size()-1).getCard());
                 }
                 else{
                     Toast.makeText(v.getContext(),"Cancelo Robo", Toast.LENGTH_SHORT).show();
                     movingCard=null;
+                    tvCarta.setText("Ninguna");
                 }
             }
         });
@@ -128,11 +131,13 @@ public class Klondike extends AppCompatActivity {
                             Toast toast = Toast.makeText(v.getContext(),"entro en click set moving card", Toast.LENGTH_SHORT);
                             toast.show();
                             movingCard= findViewById(v.getId());
+                            tvCarta.setText(piles[(Integer.parseInt(movingCard.getTag().toString()))].get(piles[(Integer.parseInt(movingCard.getTag().toString()))].size()-1).getCard());
+
                         }
                         else if(movingCard!=null&&movingCard.getId() == v.getId()){
                             Toast toast = Toast.makeText(v.getContext(),"entro en click deshabilitar", Toast.LENGTH_SHORT);
                             toast.show();
-
+                            tvCarta.setText("Ninguna");
                             movingCard=null;
                         }
                         else if(movingCard!=null){
@@ -167,6 +172,7 @@ public class Klondike extends AppCompatActivity {
                                     }
 
                                     movingCard = null;
+                                    tvCarta.setText("Ninguna");
                                 }
 
                             }
@@ -193,7 +199,8 @@ public class Klondike extends AppCompatActivity {
                                 ((ImageView) findViewById(v.getId())).setImageDrawable(movingCard.getDrawable());
 
                                 movingCard.setImageResource(piles[pila].get(piles[pila].size() - 1).getImageId());
-
+                                movingCard = null;
+                                tvCarta.setText("Ninguna");
                             }
                         }
                     }
@@ -233,6 +240,7 @@ public class Klondike extends AppCompatActivity {
 
                             movingCard.setImageResource(piles[pila].get(piles[pila].size()-1).getImageId());
                             movingCard = null;
+                            tvCarta.setText("Ninguna");
                             winCondition(piles[7],piles[8],piles[9],piles[10]);
                         }
                     }
