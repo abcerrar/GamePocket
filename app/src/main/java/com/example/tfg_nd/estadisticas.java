@@ -67,7 +67,7 @@ public class estadisticas extends Fragment {
         recyclerView = v.findViewById(R.id.lista);
         spinner = v.findViewById(R.id.spinner);
 
-        spinneador(spinner, new String[]{"Porcentajes", "Memory", "Tres en raya", "Solitario", "Flappy bids"});
+        spinneador(spinner, new String[]{"Porcentajes", "Memory", "Tres en raya", "Solitario", "Flappy bids", "Dinero"});
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -117,6 +117,24 @@ public class estadisticas extends Fragment {
                             }
                         });
                         break;
+                    case "Dinero":
+                        tvNumero.setText("Dinero");
+                        nombres.clear();
+                        numeros.clear();
+                        imagenes.clear();
+                        db.collection("users").orderBy("dinero", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                List<DocumentSnapshot> documentos =  queryDocumentSnapshots.getDocuments();
+                                for(int i=0; i<documentos.size(); i++){
+                                    nombres.add(documentos.get(i).getId());
+                                    numeros.add(documentos.get(i).getData().get("dinero")+"");
+                                    imagenes.add(R.drawable.coin+"");
+                                }
+                                cargarRecycler();
+                            }
+                        });
+                        break;
 
                 }
             }
@@ -159,7 +177,7 @@ public class estadisticas extends Fragment {
 
         recyclerView.setLayoutManager(layout);
 
-        Adapter_stats adapter = new Adapter_stats(getContext(), nombres, numeros, imagenes);
+        Adapter_stats adapter = new Adapter_stats(getActivity(), getContext(), getParentFragment(), nombres, numeros, imagenes);
         recyclerView.setAdapter(adapter);
 
     };

@@ -63,7 +63,17 @@ public class perfil extends Fragment {
         pb = v.findViewById(R.id.profile_pb);
 
         if(currentUser!=null){
+
+            manejadorPreferencias mPref = new manejadorPreferencias("pref", getActivity());
             email = currentUser.getEmail();
+            //Si hay otro correo aqui es que se quiere consultar el perfil de otro usuario
+            String email_externo = mPref.get("email_externo", email);
+            if(!email_externo.equals(email)) {
+                email = email_externo;
+                //Se pone de nuevo el email del usuario logeado por si quiere consultar su perfil
+                mPref.put("email_externo", currentUser.getEmail());
+            }
+
             DocumentReference docRef = db.collection("users").document(email);
             tvPerfil.setText(email);
 

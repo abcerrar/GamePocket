@@ -2,6 +2,9 @@ package com.example.tfg_nd;
 
 
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -13,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,13 +31,17 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
     private List<String> numero;
     private List<String> imagen;
     private LayoutInflater mInflater;
+    private Activity activity;
+    private androidx.fragment.app.Fragment fragment;
 
     //Constructor
-    public Adapter_stats(Context context, List<String> nombre, List<String> numero, List<String> imagen){
+    public Adapter_stats(Activity activity, Context context, Fragment fragment, List<String> nombre, List<String> numero, List<String> imagen){
         this.mInflater= LayoutInflater.from(context);
         this.nombre = nombre;
         this.numero = numero;
         this.imagen = imagen;
+        this.activity = activity;
+        this.fragment = fragment;
     }
 
     @Override
@@ -66,8 +75,10 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         holder.tvNombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                manejadorPreferencias mPref = new manejadorPreferencias("pref", activity);
                 String nom = nombre.get(position);
-                Toast.makeText(mInflater.getContext(), "Esto te llevará al perfil del jugador: " + nom, Toast.LENGTH_SHORT).show();
+                mPref.put("email_externo", nom);
+                NavHostFragment.findNavController(fragment).navigate(R.id.perfil);
             }
         });
     }

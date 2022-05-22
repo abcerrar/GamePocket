@@ -56,7 +56,7 @@ public class User {
                 }catch(NullPointerException e){
                     Log.d(TAG, "Error al acceder al dinero de " + email);
                 }
-                db.collection("users").document(email).update("dinero", (dinero + incremento)+"")
+                db.collection("users").document(email).update("dinero", (dinero + incremento))
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

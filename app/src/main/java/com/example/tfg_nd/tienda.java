@@ -192,6 +192,7 @@ public class tienda extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 comprarProducto(nombre, precio);
+                                seleccionarProducto(nombre);
                                 dialog.dismiss();
                             }
                         });

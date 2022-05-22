@@ -161,7 +161,7 @@ public class puzzle_porcenaje extends Fragment {
                     }
                     dialog = user.alertFinalPartida(titulo, titulo2, num_estrellas*2, dinero, exp, getActivity(), listenerReload, listenerNext2, listenerNext, listenerMenu, dialog, getContext());
                     dialog.show();
-                    user.subirNivel(gamemode, nivel_actual);
+                    if(num_estrellas > 0) user.subirNivel(gamemode, nivel_actual);
                     user.incrementarDinero(dinero);
                     user.incrementarExperiencia(exp);
                     user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
