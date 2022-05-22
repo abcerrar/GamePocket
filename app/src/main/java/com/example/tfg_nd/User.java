@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -130,14 +131,35 @@ public class User {
                                 Log.d(TAG, "Error al incrementar las estrellas de " + email + ": " + e);
                             }
                         });
-                    }
+                    //Aumentar el total de estrellas
+                    db.collection(gamemode).document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                            if(!documentSnapshot.exists() || documentSnapshot == null){
+                                db.collection(gamemode).document(email).update("total_estrellas", 0);
+                            }
+
+                            int total_estrellas=0;
+                            try{
+                                total_estrellas = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
+                            }catch (NullPointerException e){
+                                Log.w(TAG, "Error al leer el total de estrellas de " + email);
+                            }catch (NumberFormatException ex){
+                                Log.w(TAG, "Error al pasasr a int las estrellas de " + email);
+                            }
+
+                            db.collection(gamemode).document(email).update("total_estrellas", total_estrellas + estrellas);
+                        }
+                    });
                 }
 
+            }
         });
     }
 
     //Este metodo solo es para el solitario
-    public void incrementarTiempoRecord(int tiempo){
+    public void incrementarTiempoRecord(int minutos, int segundos){
         DocumentReference docRef = db.collection("solitario").document(email);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -145,36 +167,43 @@ public class User {
 
                 if(!documentSnapshot.exists() || documentSnapshot == null){
                     Map<String, Object> datos = new HashMap<>();
-                    datos.put("record_tiempo", 0);
+                    datos.put("record_tiempo", "00:00");
                     db.collection("solitario").document(email).set(datos);
                 }
 
-                int tiempo_actual = 99;
+                int minutos_actual = 99, segundos_actuales = 0;
                 try{
-                    Integer.parseInt(documentSnapshot.getData().get("record_tiempo")+"");
+                    minutos_actual = Integer.parseInt(documentSnapshot.getData().get("record_tiempo").toString().substring(0,2));
+                    segundos_actuales = Integer.parseInt(documentSnapshot.getData().get("record_tiempo").toString().substring(3,5));
                 }catch (NullPointerException e){
-                    tiempo_actual = -1;
+                    minutos_actual = -1;
                     Log.d(TAG, "Error al leer el tiempo");
                 }
 
-                if(tiempo < tiempo_actual && tiempo_actual != -1){
-                    db.collection("solitario").document(email).update("record_tiempo", tiempo)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Log.d(TAG, "tiempo record incrementados correctamente");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "Error al incrementar el tiempo de " + email + ": " + e);
-                            }
-                        });
+                if(minutos_actual != -1){
+                    if(minutos == minutos_actual){
+                        if(segundos < segundos_actuales){
+                            db.collection("solitario").document(email).update("record_tiempo", time_format(minutos, segundos));
+                            Log.d(TAG, "Has batido tu record por " + (segundos_actuales - segundos) + " sehundos");
+                        }
+                    }else if(minutos < minutos_actual){
+                        db.collection("solitario").document(email).update("record_tiempo", time_format(minutos, segundos));
+                    }
                 }
             }
 
         });
+    }
+
+    public String time_format(int minutos, int segundos){
+        String mins, segs;
+        if(minutos/10 < 1) mins = "0" + minutos;
+        else mins = minutos + "";
+
+        if(segundos/10 < 1) segs = "0" + segundos;
+        else segs = segundos + "";
+
+        return mins + ":" + segs;
     }
 
     public void subirNivel(String gamemode, int nivel_actual){

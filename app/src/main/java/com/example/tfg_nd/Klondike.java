@@ -32,6 +32,10 @@ public class Klondike extends AppCompatActivity {
     private View.OnClickListener listenerReload, listenerMenu, listenerNext;
     //  TextView [] onClickSetter = {waste, stack1, stack2, stack3, stack4, pile1, pile2, pile3, pile4, pile5, pile6, pile7};
 
+    @Override
+    public void onBackPressed() {
+        Klondike.this.startActivity(new Intent(getApplicationContext(), HomeMenuActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +98,15 @@ public class Klondike extends AppCompatActivity {
         stack3View.setImageResource(piles[9].get(0).getImageId());
         stack4View.setImageResource(piles[10].get(0).getImageId());
 
-        tvCarta.setOnClickListener(new View.OnClickListener() {
+        tvCarta.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 victoria();
+                return false;
             }
         });
 
-        ImageView [] onClickSetter = {pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View, stack1View, stack2View, stack3View, stack4View};
+                ImageView[] onClickSetter = {pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View, stack1View, stack2View, stack3View, stack4View};
 
 
         //Click para el mazo
@@ -292,20 +297,21 @@ public class Klondike extends AppCompatActivity {
 
     public void victoria(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        cronometro.stop();
         try{
             String email = mAuth.getCurrentUser().getEmail();
             User user = new User(email);
 
             String tiempo = cronometro.getText()+"";
             Toast.makeText(Klondike.this, "Tiempo tardado: " + tiempo, Toast.LENGTH_SHORT).show();
-            cronometro.stop();
-            int tiempo_tardado = 0;
+            int tiempo_tardado = 0, segundos = 0;
             try{
                 tiempo_tardado = Integer.parseInt(tiempo.substring(0,2));
+                segundos = Integer.parseInt(tiempo.substring(3,5));
             }catch (NumberFormatException ex){
                 Toast.makeText(Klondike.this, "Error al pasar el timempo tardado a int", Toast.LENGTH_SHORT).show();
             }
-
+            Toast.makeText(Klondike.this, "segundos: " + segundos, Toast.LENGTH_SHORT).show();
             int estrellas, dinero, experiencia;
             String titulo, titutlo2;
 
@@ -337,7 +343,7 @@ public class Klondike extends AppCompatActivity {
 
             user.incrementarExperiencia(experiencia);
             user.incrementarDinero(dinero);
-            user.incrementarTiempoRecord(tiempo_tardado);
+            user.incrementarTiempoRecord(tiempo_tardado, segundos);
             dialog = user.alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia, this, listenerReload, listenerNext, listenerNext, listenerMenu, dialog, this);
             dialog.show();
 

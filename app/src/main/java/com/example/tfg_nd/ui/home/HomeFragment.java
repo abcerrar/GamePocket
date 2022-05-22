@@ -151,6 +151,12 @@ public class HomeFragment extends Fragment {
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tienda);
             }
         });
+        dinero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tienda);
+            }
+        });
 
         return root;
     }
