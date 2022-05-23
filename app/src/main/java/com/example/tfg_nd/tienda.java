@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -46,6 +47,8 @@ public class tienda extends Fragment {
     private TextView tvDinero;
     private AlertDialog dialog;
 
+    Dialog anim_dialog;
+
     public tienda() {
     }
 
@@ -59,6 +62,8 @@ public class tienda extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tienda, container, false);
         mPref = new manejadorPreferencias("pref", getActivity());
+        anim_dialog =  new comp_estadisticas().getAnim(getContext());
+
         if(mAuth.getCurrentUser() != null){
             email = mAuth.getCurrentUser().getEmail();
             user = new User(email);
@@ -122,6 +127,7 @@ public class tienda extends Fragment {
                         }catch(NullPointerException e) {
                             Toast.makeText(getContext(), "Error leyendo el tag de la imagen", Toast.LENGTH_SHORT).show();
                         }
+                        anim_dialog.show();
                         ver_producto(nombre, imagen);
                     }
                 });
@@ -138,6 +144,7 @@ public class tienda extends Fragment {
                         }catch(NullPointerException e) {
                             Toast.makeText(getContext(), "Error leyendo el tag de la imagen", Toast.LENGTH_SHORT).show();
                         }
+                        anim_dialog.show();
                         ver_producto(nombre, imagen);
                     }
                 });
@@ -170,6 +177,7 @@ public class tienda extends Fragment {
         db.collection("productos").document(nombre).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                anim_dialog.dismiss();
                 String nom = nombre;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 View custom_layout = getActivity().getLayoutInflater().inflate(R.layout.desc_producto, null);

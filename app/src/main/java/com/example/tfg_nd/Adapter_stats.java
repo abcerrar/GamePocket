@@ -4,6 +4,7 @@ package com.example.tfg_nd;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +40,7 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
     private Activity activity;
     private Context context;
     private androidx.fragment.app.Fragment fragment;
+    Dialog dialog;
 
     //Variables para el fragment extra
     int star1, star2, star3, recordFlappy, nivel, dinero;
@@ -53,6 +56,7 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         this.imagen = imagen;
         this.activity = activity;
         this.fragment = fragment;
+        this.dialog = new comp_estadisticas().getAnim(context);
     }
 
     @Override
@@ -90,6 +94,7 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                 String nom = nombre.get(holder.getAdapterPosition());
                 //mPref.put("email_externo", nom);
                 //NavHostFragment.findNavController(fragment).navigate(R.id.perfil);
+                dialog.show();
                 cargarStatsGenerales(nom);
             }
         });
@@ -166,6 +171,7 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                                                             nom_stats = "error";
                                                         }
                                                         pintarStats();
+                                                        dialog.dismiss();
                                                     }
                                                 });
                                             }
@@ -228,6 +234,7 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         dialog.show();
 
     }
+
 
 }
 

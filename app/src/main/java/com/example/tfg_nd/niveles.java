@@ -1,5 +1,6 @@
 package com.example.tfg_nd;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,8 @@ public class niveles extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    private Dialog dialog;
+
     public niveles() {
     }
 
@@ -59,6 +62,7 @@ public class niveles extends Fragment {
         View v = inflater.inflate(R.layout.fragment_niveles, container, false);
         mPref = new manejadorPreferencias("pref", getActivity());
         FirebaseUser current_user = mAuth.getCurrentUser();
+        dialog = new comp_estadisticas().getAnim(getContext());
 
         niveles = new TextView[MAX_NIVELES];
         estrellas = new TextView[MAX_NIVELES];
@@ -88,6 +92,7 @@ public class niveles extends Fragment {
         estrellas[11] = v.findViewById(R.id.stars12);
         btReset = v.findViewById(R.id.btReset);
         btJvj = v.findViewById(R.id.btJvj);
+        dialog.show();
 
         //Asignar en onClick a cada TextView
         for(int i = 0; i<MAX_NIVELES; i++){
@@ -117,6 +122,7 @@ public class niveles extends Fragment {
                                 estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
                             }
                         }
+                        dialog.dismiss();
                     } else {
                         crearPartida();
                     }
@@ -163,6 +169,7 @@ public class niveles extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "nueva sesion en "+ gamemode +" realizada correctamente");
+                        dialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

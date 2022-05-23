@@ -2,6 +2,7 @@ package com.example.tfg_nd;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;

@@ -11,9 +11,6 @@
             android:icon="@drawable/blackhome"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/test"
-            android:title="Test" />
-        <item
             android:id="@+id/perfil"
             android:title="Perfil personal"
             android:icon="@drawable/profile"/>
@@ -23,6 +20,7 @@
             android:title="Tienda" />
         <item
             android:id="@+id/estadisticas"
+            android:icon="@drawable/stats"
             android:title="Estadísticas" />
     </group>
     <group
@@ -39,7 +37,7 @@
         <item
             android:id="@+id/tresenraya"
             android:title="3 en raya"
-            android:icon="@drawable/tresenraya"/>
+            android:icon="@drawable/xo_negro"/>
         <item
             android:id="@+id/flappy"
             android:title="Flappy birds" />

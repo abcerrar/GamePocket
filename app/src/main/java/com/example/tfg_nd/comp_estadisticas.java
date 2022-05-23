@@ -1,6 +1,8 @@
 package com.example.tfg_nd;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,9 @@ public class comp_estadisticas extends Fragment {
     int star1, star2, star3, recordFlappy, nivel, dinero;
     String recordSolitario, nombre, temporal_email;
     TextView tvStar1, tvStar2, tvStar3, tvSolitario, tvFlappy, tvNombre, tvNivel, tvDinero, tvEmail;
+
+    //animaciones
+    Dialog dialog;
 
     public comp_estadisticas() {
         // Required empty public constructor
@@ -59,9 +65,22 @@ public class comp_estadisticas extends Fragment {
         tvEmail = v.findViewById(R.id.email);
 
 
+        dialog = getAnim(getContext());
+        dialog.show();
+
         cargarStatsGenerales(email);
 
         return v;
+    }
+
+    //La idea es que este metodo esté en una clase "Utils"
+    public Dialog getAnim(Context context){
+        Dialog dialog;
+        dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_progressbar);
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 
     public void cargarStatsGenerales(String email){
@@ -116,6 +135,7 @@ public class comp_estadisticas extends Fragment {
                                                             dinero = -1;
                                                             nombre = "error";
                                                         }
+                                                        dialog.dismiss();
                                                         pintarStats();
                                                     }
                                                 });
