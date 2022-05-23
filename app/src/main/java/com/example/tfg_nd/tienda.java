@@ -192,7 +192,6 @@ public class tienda extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 comprarProducto(nombre, precio);
-                                seleccionarProducto(nombre);
                                 dialog.dismiss();
                             }
                         });
@@ -221,7 +220,10 @@ public class tienda extends Fragment {
     public void comprarProducto(String nombre, int precio){
         Toast.makeText(getContext(), "Comprando " + nombre + " por " + precio + " monedas", Toast.LENGTH_SHORT).show();
         if(!user.incrementarDinero(-precio)) Toast.makeText(getContext(), "No tienes tanto dinero", Toast.LENGTH_SHORT).show();
-        else user.addProduct(nombre);
+        else{
+            user.addProduct(nombre);
+            seleccionarProducto(nombre);
+        }
     }
     public void seleccionarProducto(String nombre){
         Toast.makeText(getContext(), "Seleccionando " + nombre, Toast.LENGTH_SHORT).show();

@@ -60,6 +60,8 @@ public class HomeFragment extends Fragment {
         tvEmail = root.findViewById(R.id.tvEmail);
         btEstadísticas = root.findViewById(R.id.btEstadisticas);
         btTienda = root.findViewById(R.id.btTienda);
+        btFlappy = root.findViewById(R.id.btFlappy);
+        btSolitario = root.findViewById(R.id.btSolitario);
 
         mAuth = FirebaseAuth.getInstance();
         mPref = new manejadorPreferencias("pref", getActivity());
@@ -155,21 +157,23 @@ public class HomeFragment extends Fragment {
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tienda);
             }
         });
-        /*
+
         btFlappy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getContext(), StartGame.class));
+                Intent i = new Intent(getContext(), StartGame.class);
+                startActivity(i);
             }
         });
 
         btSolitario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getContext(), Klondike.class));
+                Intent i = new Intent(getContext(), Klondike.class);
+                startActivity(i);
             }
         });
-        */
+
 
 
         dinero.setOnClickListener(new View.OnClickListener() {
