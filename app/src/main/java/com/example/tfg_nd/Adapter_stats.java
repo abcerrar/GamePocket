@@ -69,10 +69,10 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         String email = "";
         if(user != null) email = user.getEmail();
 
-        String nom = nombre.get(position);
+        String nom = nombre.get(holder.getAdapterPosition());
         holder.tvNombre.setText(nom);
 
-        String num = numero.get(position);
+        String num = numero.get(holder.getAdapterPosition());
         holder.tvNumero.setText(num);
 
         if(email.equals(nom)) {
@@ -80,14 +80,14 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
             holder.tvNumero.setTextColor(-16776961);
         }
 
-        int img = Integer.parseInt(imagen.get(position));
+        int img = Integer.parseInt(imagen.get(holder.getAdapterPosition()));
         holder.img.setImageResource(img);
 
         holder.tvNombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 manejadorPreferencias mPref = new manejadorPreferencias("pref", activity);
-                String nom = nombre.get(position);
+                String nom = nombre.get(holder.getAdapterPosition());
                 //mPref.put("email_externo", nom);
                 //NavHostFragment.findNavController(fragment).navigate(R.id.perfil);
                 cargarStatsGenerales(nom);
@@ -151,7 +151,7 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                                                 else try{
                                                     recordFlappy = Integer.parseInt(documentSnapshot.getData().get("record")+"");
                                                 }catch (NumberFormatException e){
-                                                    recordFlappy=0;
+                                                    recordFlappy= 0;
                                                 }
                                                 db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                     @Override

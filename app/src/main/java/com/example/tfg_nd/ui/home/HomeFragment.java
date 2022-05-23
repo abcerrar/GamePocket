@@ -1,4 +1,5 @@
 package com.example.tfg_nd.ui.home;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.tfg_nd.HomeMenuActivity;
+import com.example.tfg_nd.Klondike;
 import com.example.tfg_nd.R;
+import com.example.tfg_nd.StartGame;
 import com.example.tfg_nd.databinding.FragmentHomeBinding;
 import com.example.tfg_nd.manejadorPreferencias;
 import com.example.tfg_nd.niveles;
@@ -37,7 +41,7 @@ public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private LinearLayout btPorcentaje, btMemory, btTresraya, btEstadísticas, btTienda;
+    private LinearLayout btPorcentaje, btMemory, btTresraya, btEstadísticas, btTienda, btSolitario, btFlappy;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
@@ -141,7 +145,7 @@ public class HomeFragment extends Fragment {
         btEstadísticas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.estadisticas);
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tabs_estadisticas);
             }
         });
 
@@ -151,6 +155,23 @@ public class HomeFragment extends Fragment {
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tienda);
             }
         });
+        /*
+        btFlappy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(new Intent(getContext(), StartGame.class));
+            }
+        });
+
+        btSolitario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(new Intent(getContext(), Klondike.class));
+            }
+        });
+        */
+
+
         dinero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
