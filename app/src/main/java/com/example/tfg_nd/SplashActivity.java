@@ -2,10 +2,13 @@ package com.example.tfg_nd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
     Animation topAnimation, bottomAnimation;
     ImageView imageView;
     TextView textView;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +38,26 @@ public class SplashActivity extends AppCompatActivity {
         imageView.setAnimation(topAnimation);
         textView.setAnimation(bottomAnimation);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        dialog = new Dialog(SplashActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_progressbar);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        new CountDownTimer(4000,1000){
+
             @Override
-            public void run() {
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                dialog.dismiss();
                 startActivity(new Intent(SplashActivity.this,HomeMenuActivity.class));
                 finish();
             }
-        },4000);
+        }.start();
 
     }
 
