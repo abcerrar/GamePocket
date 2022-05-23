@@ -34,12 +34,12 @@
     <fragment
         android:id="@+id/puzzle_porcenaje"
         android:name="com.example.tfg_nd.puzzle_porcenaje"
-        android:label="fragment_puzzle_porcenaje"
+        android:label="Porcentajes"
         tools:layout="@layout/fragment_puzzle_porcenaje" />
     <fragment
         android:id="@+id/puzzle_memory"
         android:name="com.example.tfg_nd.puzzle_memory"
-        android:label="fragment_puzzle_memory"
+        android:label="Memory"
         tools:layout="@layout/fragment_puzzle_memory" />
     <fragment
         android:id="@+id/puzzle_tresraya"
@@ -57,8 +57,8 @@
         android:label="Estadísticas"
         tools:layout="@layout/fragment_estadisticas" />
     <fragment
-        android:id="@+id/klondike"
-        android:name="com.example.tfg_nd.klondike"
-        android:label="Solitario"
-        tools:layout="@layout/fragment_klondike" />
+        android:id="@+id/comp_estadisticas"
+        android:name="com.example.tfg_nd.comp_estadisticas"
+        android:label="fragment_comp_estadisticas"
+        tools:layout="@layout/fragment_comp_estadisticas" />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.tfg_nd;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,8 @@ public class estadisticas extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String email;
 
+
+
     public estadisticas() {
         // Required empty public constructor
     }
@@ -67,6 +70,8 @@ public class estadisticas extends Fragment {
         recyclerView = v.findViewById(R.id.lista);
         spinner = v.findViewById(R.id.spinner);
 
+        Toast.makeText(getContext(), "Pulsa el correo de alguien para ver sus estadísticas", Toast.LENGTH_SHORT).show();
+
         spinneador(spinner, new String[]{"Porcentajes", "Memory", "Tres en raya", "Solitario", "Flappy bids", "Dinero"});
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -85,7 +90,7 @@ public class estadisticas extends Fragment {
                         nombres.clear();
                         numeros.clear();
                         imagenes.clear();
-                        tvNumero.setText("Tiempo mínimo");
+                        tvNumero.setText("Tiempo record");
                         db.collection("solitario").orderBy("record_tiempo").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -145,9 +150,6 @@ public class estadisticas extends Fragment {
             }
         });
 
-
-
-
         return v;
     }
 
@@ -169,6 +171,11 @@ public class estadisticas extends Fragment {
             }
         });
     }
+
+
+
+
+
     public void cargarRecycler(){
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
 

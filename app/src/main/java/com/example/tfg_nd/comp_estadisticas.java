@@ -1,25 +1,15 @@
 package com.example.tfg_nd;
 
-
-
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Rect;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,92 +17,53 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.List;
-
-public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder> {
-
-    private List<String> nombre;
-    private List<String> numero;
-    private List<String> imagen;
-    private LayoutInflater mInflater;
-    private Activity activity;
-    private Context context;
-    private androidx.fragment.app.Fragment fragment;
+public class comp_estadisticas extends Fragment {
+    private manejadorPreferencias mPref;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    String email;
 
     //Variables para el fragment extra
     int star1, star2, star3, recordFlappy, nivel, dinero;
-    String recordSolitario, nom_stats, temporal_email;
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String recordSolitario, nombre, temporal_email;
+    TextView tvStar1, tvStar2, tvStar3, tvSolitario, tvFlappy, tvNombre, tvNivel, tvDinero, tvEmail;
 
-    //Constructor
-    public Adapter_stats(Activity activity, Context context, Fragment fragment, List<String> nombre, List<String> numero, List<String> imagen){
-        this.mInflater= LayoutInflater.from(context);
-        this.context = context;
-        this.nombre = nombre;
-        this.numero = numero;
-        this.imagen = imagen;
-        this.activity = activity;
-        this.fragment = fragment;
+    public comp_estadisticas() {
+        // Required empty public constructor
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view = mInflater.inflate(R.layout.row_stats, parent, false);
-        return new ViewHolder(view);
-    }
-
-
-    @Override
-    public void onBindViewHolder (ViewHolder holder, int position){
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String email = "";
-        if(user != null) email = user.getEmail();
-
-        String nom = nombre.get(position);
-        holder.tvNombre.setText(nom);
-
-        String num = numero.get(position);
-        holder.tvNumero.setText(num);
-
-        if(email.equals(nom)) {
-            holder.tvNombre.setTextColor(-16776961);
-            holder.tvNumero.setTextColor(-16776961);
-        }
-
-        int img = Integer.parseInt(imagen.get(position));
-        holder.img.setImageResource(img);
-
-        holder.tvNombre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manejadorPreferencias mPref = new manejadorPreferencias("pref", activity);
-                String nom = nombre.get(position);
-                //mPref.put("email_externo", nom);
-                //NavHostFragment.findNavController(fragment).navigate(R.id.perfil);
-                cargarStatsGenerales(nom);
-            }
-        });
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public int getItemCount(){
-        return nombre.size();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_comp_estadisticas, container, false);
+
+        mPref = new manejadorPreferencias("pref", getActivity());
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null) email = currentUser.getEmail();
+
+        tvStar1 = v.findViewById(R.id.progress_porcentaje);
+        tvStar2 = v.findViewById(R.id.progress_memory);
+        tvStar3 = v.findViewById(R.id.progress_tresraya);
+        tvSolitario = v.findViewById(R.id.tvRecordSolitario);
+        tvFlappy = v.findViewById(R.id.tvRecordFlappy);
+        tvNombre = v.findViewById(R.id.tvStatsNombre);
+        tvNivel = v.findViewById(R.id.tvStatsNivel);
+        tvDinero = v.findViewById(R.id.tvStatsDinero);
+        tvEmail = v.findViewById(R.id.email);
+
+
+        cargarStatsGenerales(email);
+
+        return v;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvNombre;
-        TextView tvNumero;
-        ImageView img;
-        LinearLayout plantilla;
-        ViewHolder (View itenView){
-            super(itenView);
-            tvNombre = itenView.findViewById(R.id.row_name);
-            tvNumero = itenView.findViewById(R.id.row_num);
-            img = itenView.findViewById(R.id.row_img);
-            plantilla = itenView.findViewById(R.id.plantilla);
-        }
-    }
     public void cargarStatsGenerales(String email){
         temporal_email = email;
         db.collection("porcentajes").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -159,11 +110,11 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                                                         try{
                                                             nivel = Integer.parseInt(documentSnapshot.getData().get("nivel")+"");
                                                             dinero = Integer.parseInt(documentSnapshot.getData().get("dinero")+"");
-                                                            nom_stats = documentSnapshot.getData().get("nombre")+"";
+                                                            nombre = documentSnapshot.getData().get("nombre")+"";
                                                         }catch (NumberFormatException e){
                                                             nivel = -1;
                                                             dinero = -1;
-                                                            nom_stats = "error";
+                                                            nombre = "error";
                                                         }
                                                         pintarStats();
                                                     }
@@ -180,22 +131,6 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         });
     }
     public void pintarStats(){
-        Toast.makeText(context, star1 + ", " + star2 + ", " + star3 + ", " + recordSolitario + ", " + recordFlappy, Toast.LENGTH_SHORT).show();
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View custom_layout = activity.getLayoutInflater().inflate(R.layout.fragment_comp_estadisticas, null);
-        TextView tvStar1, tvStar2, tvStar3, tvSolitario, tvFlappy, tvNombre, tvNivel, tvDinero, tvEmail;
-
-        tvStar1 = custom_layout.findViewById(R.id.progress_porcentaje);
-        tvStar2 = custom_layout.findViewById(R.id.progress_memory);
-        tvStar3 = custom_layout.findViewById(R.id.progress_tresraya);
-        tvSolitario = custom_layout.findViewById(R.id.tvRecordSolitario);
-        tvFlappy = custom_layout.findViewById(R.id.tvRecordFlappy);
-        tvNombre = custom_layout.findViewById(R.id.tvStatsNombre);
-        tvNivel = custom_layout.findViewById(R.id.tvStatsNivel);
-        tvDinero = custom_layout.findViewById(R.id.tvStatsDinero);
-        tvEmail = custom_layout.findViewById(R.id.email);
-
-
         int[] dimensiones = new int[]{
                 R.dimen.pc1, R.dimen.pc2, R.dimen.pc3, R.dimen.pc4, R.dimen.pc5, R.dimen.pc6, R.dimen.pc7, R.dimen.pc8, R.dimen.pc9, R.dimen.pc10,
                 R.dimen.pc11, R.dimen.pc12, R.dimen.pc13, R.dimen.pc14, R.dimen.pc15, R.dimen.pc16, R.dimen.pc17, R.dimen.pc18, R.dimen.pc19, R.dimen.pc20,
@@ -210,24 +145,17 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         };
 
         tvEmail.setText(temporal_email);
-        tvStar1.getLayoutParams().width = activity.getResources().getDimensionPixelSize(dimensiones[star1])*4;
+        tvStar1.getLayoutParams().width = getResources().getDimensionPixelSize(dimensiones[star1])*4;
         if(star1>4) tvStar1.setText(star1+"★");
-        tvStar2.getLayoutParams().width = activity.getResources().getDimensionPixelSize(dimensiones[star2])*4;
+        tvStar2.getLayoutParams().width = getResources().getDimensionPixelSize(dimensiones[star2])*4;
         if(star2>4) tvStar2.setText(star2+"★");
-        tvStar3.getLayoutParams().width = activity.getResources().getDimensionPixelSize(dimensiones[star3])*4;
+        tvStar3.getLayoutParams().width = getResources().getDimensionPixelSize(dimensiones[star3])*4;
         if(star3>4) tvStar3.setText(star3+"★");
         tvSolitario.setText(recordSolitario+"");
         tvFlappy.setText(recordFlappy+"");
-        tvNombre.setText(nom_stats+"");
+        tvNombre.setText(nombre+"");
         tvNivel.setText(nivel+"");
         tvDinero.setText(dinero+"");
-
-        builder.setCancelable(true);
-        builder.setView(custom_layout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
     }
 
 }
-
