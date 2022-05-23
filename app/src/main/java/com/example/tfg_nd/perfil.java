@@ -39,6 +39,8 @@ public class perfil extends Fragment {
     TextView tvPerfil, tvDinero, tvNombre, tvNivel, tvExp;
     ProgressBar pb;
 
+    private String current_dorso, current_ficha;
+
     public perfil() {
 
     }
