@@ -42,8 +42,8 @@ public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private LinearLayout btEstadísticas, btTienda, btSolitario, btFlappy;
-    private ImageView btPorcentaje, btMemory, btTresraya;
+    private LinearLayout btEstadísticas, btTienda;
+    private ImageView btPorcentaje, btMemory, btTresraya, btSolitario, btFlappy;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
@@ -73,6 +73,8 @@ public class HomeFragment extends Fragment {
         actionButton(btPorcentaje, R.drawable.boton_porcentaje, R.drawable.boton_porcentaje_pulsado);
         actionButton(btMemory, R.drawable.boton_memory, R.drawable.boton_memory_pulsado);
         actionButton(btTresraya, R.drawable.boton_tresraya, R.drawable.boton_tresraya_pulsado);
+        actionButton(btSolitario, R.drawable.boton_solitario, R.drawable.boton_solitario_pulsado);
+        actionButton(btFlappy, R.drawable.boton_flappy, R.drawable.boton_flappy_pulsado);
 
         if(currentUser != null){
             email = currentUser.getEmail();

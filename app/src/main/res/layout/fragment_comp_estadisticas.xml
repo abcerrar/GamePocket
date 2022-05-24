@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondonegro"
     android:orientation="vertical"
     android:padding="15dp"
     android:paddingStart="30dp"
@@ -12,22 +13,28 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/pesstart"
         android:gravity="center"
+        android:textColor="@color/white"
         android:textSize="19sp" />
 
     <TextView
         android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/ka"
         android:text="Puzzles"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <TextView
         android:id="@+id/textView29"
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="5dp"
         android:background="@color/fondo2"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -39,18 +46,21 @@
 
         <TextView
             android:id="@+id/textView25"
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraftia"
             android:text="Porcentajes"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/progress_porcentaje"
             android:layout_width="15dp"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:background="@android:color/holo_blue_light"
+            android:background="@color/amarillo"
             android:gravity="center"
+            android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -63,18 +73,21 @@
 
         <TextView
             android:id="@+id/textView26"
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraftia"
             android:text="Memory"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/progress_memory"
             android:layout_width="15dp"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:background="@color/verde"
+            android:background="@color/azul"
             android:gravity="center"
+            android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -87,18 +100,21 @@
 
         <TextView
             android:id="@+id/textView27"
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraftia"
             android:text="Tres en raya"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/progress_tresraya"
             android:layout_width="15dp"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:background="@android:color/holo_red_light"
+            android:background="@color/rosa"
             android:gravity="center"
+            android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -106,15 +122,19 @@
         android:id="@+id/textView30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/ka"
         android:text="Solitario"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <TextView
         android:id="@+id/textView31"
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="5dp"
         android:background="@color/fondo2"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -128,15 +148,20 @@
             android:id="@+id/textView28"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraftia"
             android:text="Record: "
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvRecordSolitario"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/minecraftia"
             android:gravity="center|start"
+            android:textColor="@color/verde"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -145,14 +170,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
+        android:fontFamily="@font/ka"
         android:text="Flappy birds"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <TextView
         android:id="@+id/textView34"
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="5dp"
         android:background="@color/fondo2"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -166,15 +195,20 @@
             android:id="@+id/textView40"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraftia"
             android:text="Record: "
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvRecordFlappy"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/minecraftia"
             android:gravity="center|start"
+            android:textColor="@color/naranja"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -183,14 +217,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
+        android:fontFamily="@font/ka"
         android:text="General"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <TextView
         android:id="@+id/textView39"
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="5dp"
         android:background="@color/fondo2"
+        android:textColor="@color/white"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -204,15 +242,20 @@
             android:id="@+id/textView44"
             android:layout_width="80dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/minecraftia"
             android:text="Nombre: "
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvStatsNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/minecraftia"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -226,15 +269,20 @@
             android:id="@+id/textView45"
             android:layout_width="80dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/minecraftia"
             android:text="Nivel: "
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvStatsNivel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/minecraftia"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -247,15 +295,20 @@
             android:id="@+id/textView46"
             android:layout_width="80dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/minecraftia"
             android:text="Dinero: "
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvStatsDinero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/minecraftia"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/imageView12"
