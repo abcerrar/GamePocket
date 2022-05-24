@@ -6,39 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".puzzle_porcenaje">
 
-    <TextView
-        android:id="@+id/tvColor"
-        android:layout_width="300dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="76dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/contenedor"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/contenedor"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvRelleno"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#CF6C6C"
-        app:layout_constraintBottom_toBottomOf="@+id/contenedor"
-        app:layout_constraintEnd_toEndOf="@+id/contenedor"
-        app:layout_constraintStart_toStartOf="@+id/contenedor"
-        app:layout_constraintTop_toBottomOf="@+id/tvColor" />
-
-    <ImageView
-        android:id="@+id/contenedor"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/square"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvColor"
-        app:layout_constraintVertical_bias="0.0" />
-
     <SeekBar
         android:id="@+id/seekBar2"
         android:layout_width="340dp"
@@ -91,5 +58,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.421" />
+
+    <TextView
+        android:id="@+id/tvColor"
+        android:layout_width="300dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="76dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/contenedor"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/contenedor"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvRelleno"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CF6C6C"
+        app:layout_constraintBottom_toBottomOf="@+id/contenedor"
+        app:layout_constraintEnd_toEndOf="@+id/contenedor"
+        app:layout_constraintStart_toStartOf="@+id/contenedor"
+        app:layout_constraintTop_toBottomOf="@+id/tvColor" />
+
+    <ImageView
+        android:id="@+id/contenedor"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/square"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvColor"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Memory"
+                android:text="Drosos Memory"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Tres en raya"
+                android:text="Fichas tres en raya"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 

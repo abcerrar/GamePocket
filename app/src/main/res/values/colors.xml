@@ -7,8 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="cuadro_nivel">#AC50BC</color>
-    <color name="cuadro_nivel_completo">#FFC107</color>
+    <color name="cuadro_nivel">#036063</color>
+    <color name="cuadro_nivel_completo">#CDDC39</color>
     <color name="azul">#5590BF</color>
     <color name="verde">#73BD76</color>
     <color name="rojo">#B5514A</color>
