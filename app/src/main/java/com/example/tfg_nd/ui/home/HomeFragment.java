@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,8 @@ public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private LinearLayout btPorcentaje, btMemory, btTresraya, btEstadísticas, btTienda, btSolitario, btFlappy;
+    private LinearLayout btEstadísticas, btTienda, btSolitario, btFlappy;
+    private ImageView btPorcentaje, btMemory, btTresraya;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
@@ -53,7 +55,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        btPorcentaje = root.findViewById(R.id.btPorcentajes);
+        btPorcentaje = root.findViewById(R.id.btPorcentaje);
         btMemory = root.findViewById(R.id.btMemory);
         btTresraya = root.findViewById(R.id.btTresraya);
         dinero = root.findViewById(R.id.dinero);
@@ -66,6 +68,11 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mPref = new manejadorPreferencias("pref", getActivity());
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        //Asignar la imagen del boton pulsado cuando le pulsas
+        actionButton(btPorcentaje, R.drawable.boton_porcentaje, R.drawable.boton_porcentaje_pulsado);
+        actionButton(btMemory, R.drawable.boton_memory, R.drawable.boton_memory_pulsado);
+        actionButton(btTresraya, R.drawable.boton_tresraya, R.drawable.boton_tresraya_pulsado);
 
         if(currentUser != null){
             email = currentUser.getEmail();
@@ -187,24 +194,28 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-    /*
-    public void botonGris (LinearLayout layout){
-        layout.setOnTouchListener(new View.OnTouchListener() {
+
+    public static void actionButton (ImageView boton, int imagen1, int imagen2){
+        boton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_UP:
-                        layout.setBackgroundColor(getResources().getColor(R.color.fondo3));
+                        boton.setImageResource(imagen1);
                         break;
                     case MotionEvent.ACTION_DOWN:
-                        layout.setBackground(getResources().get
+                        boton.setImageResource(imagen2);
                         break;
+                    case MotionEvent.ACTION_HOVER_EXIT:
+                        boton.setImageResource(imagen2);
+                        break;
+
                 }
                 return false;
             }
         });
     }
-     */
+
 
     @Override
     public void onDestroyView() {

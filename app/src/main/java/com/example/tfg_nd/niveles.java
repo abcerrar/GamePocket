@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.rpc.context.AttributeContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +47,10 @@ public class niveles extends Fragment {
     private Button btReset, btJvj;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    //Colores
+    int cuadro_nivel, cuadro_nivelCompleto;
+
 
     private Dialog dialog;
 
@@ -102,6 +108,25 @@ public class niveles extends Fragment {
         gamemode = mPref.get("gamemode", "error");
 
         if(!gamemode.equals("error") && current_user != null){
+
+            //Elegir los colores en funcion del juego
+            switch (gamemode){
+                case "porcentajes":
+                    cuadro_nivel = getResources().getColor(R.color.morado);
+                    cuadro_nivelCompleto = getResources().getColor(R.color.amarillo);
+                    break;
+                case "memory":
+                    cuadro_nivel = getResources().getColor(R.color.naranja);
+                    cuadro_nivelCompleto = getResources().getColor(R.color.azul);
+                    break;
+                case "tresraya":
+                    cuadro_nivel = getResources().getColor(R.color.amarillo_2);
+                    cuadro_nivelCompleto = getResources().getColor(R.color.rosa);
+                    break;
+                default:
+                    Toast.makeText(getContext(), "Error cargando el gamemode", Toast.LENGTH_SHORT).show();
+            }
+
             email = current_user.getEmail();
             DocumentReference docRef = db.collection(gamemode).document(email);
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -113,13 +138,13 @@ public class niveles extends Fragment {
                         //Pintar los niveles completados
                         for(int i=0; i<MAX_NIVELES; i++){
                             if(i<current_level){
-                                niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
-                                estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
+                                niveles[i].setBackgroundColor(cuadro_nivel);
+                                estrellas[i].setBackgroundColor(cuadro_nivel);
                                 asignatEstrellas((i+1));
                                 //★
                             }else{
-                                niveles[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
-                                estrellas[i].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel));
+                                niveles[i].setBackgroundColor(cuadro_nivelCompleto);
+                                estrellas[i].setBackgroundColor(cuadro_nivelCompleto);
                             }
                         }
                         dialog.dismiss();
@@ -160,8 +185,8 @@ public class niveles extends Fragment {
         Map<String, Object> game = new HashMap<>();
         current_level = 1;
         game.put("nivel", 1);
-        niveles[0].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
-        estrellas[0].setBackgroundColor(getResources().getColor(R.color.cuadro_nivel_completo));
+        niveles[0].setBackgroundColor(cuadro_nivel);
+        estrellas[0].setBackgroundColor(cuadro_nivel);
 
         DocumentReference docRef = db.collection(gamemode).document(email);
         docRef.set(game)
