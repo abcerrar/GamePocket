@@ -182,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Porcentajes"
+                android:text="Flappy Birds"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -208,28 +208,31 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:id="@+id/imageView20"
+                        android:id="@+id/pajaro_pou"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
-                        android:src="@drawable/reload" />
+                        android:src="@drawable/flying_pouresized"
+                        android:tag="pajaro_pou"/>
 
                     <ImageView
-                        android:id="@+id/imageView21"
+                        android:id="@+id/pajaro_azul"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="15dp"
                         android:layout_weight="1"
-                        android:src="@drawable/reload" />
+                        android:src="@drawable/pajaro1"
+                        android:tag="pajaro_azul"/>
 
                     <ImageView
-                        android:id="@+id/imageView22"
+                        android:id="@+id/pajaro_hamb"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="15dp"
                         android:layout_weight="1"
-                        android:src="@drawable/reload" />
+                        android:src="@drawable/pajaro_hamb1"
+                        android:tag="pajaro_hamb"/>
 
                     <ImageView
                         android:id="@+id/imageView23"

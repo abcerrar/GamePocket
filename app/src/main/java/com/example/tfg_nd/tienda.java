@@ -37,6 +37,7 @@ public class tienda extends Fragment {
 
     private List<ImageView> img_memory = new ArrayList<>();
     private List<ImageView> fichas_tresraya = new ArrayList<>();
+    private List<ImageView> pajaros_flappy = new ArrayList<>();
 
     private manejadorPreferencias mPref;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -79,6 +80,10 @@ public class tienda extends Fragment {
         fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_rojas));
         fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_rojazul));
 
+        pajaros_flappy.add(v.findViewById(R.id.pajaro_pou));
+        pajaros_flappy.add(v.findViewById(R.id.pajaro_azul));
+        pajaros_flappy.add(v.findViewById(R.id.pajaro_hamb));
+
         tvDinero = v.findViewById(R.id.desc_dinero);
 
         fichas_tresraya.get(0).setColorFilter(getResources().getColor(R.color.black));
@@ -88,6 +93,10 @@ public class tienda extends Fragment {
         for(int i=0; i<fichas_tresraya.size(); i++){
             asignarOnClick(i, "tresraya");
         }
+        for(int i=0; i<pajaros_flappy.size(); i++){
+            asignarOnClick(i, "flappy");
+        }
+
 
 
         DocumentReference docRef = db.collection("users").document(email);
@@ -149,6 +158,24 @@ public class tienda extends Fragment {
                     }
                 });
                 break;
+            case "flappy":
+                pajaros_flappy.get(num).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gamemode = "flappy";
+                        Drawable imagen = pajaros_flappy.get(num).getDrawable();
+                        String nombre = "";
+                        try{
+                            nombre = pajaros_flappy.get(num).getTag().toString();
+                        }catch(NullPointerException e) {
+                            Toast.makeText(getContext(), "Error leyendo el tag de la imagen", Toast.LENGTH_SHORT).show();
+                        }
+                        anim_dialog.show();
+                        ver_producto(nombre, imagen);
+                    }
+                });
+                break;
+
         }
 
     }
@@ -244,6 +271,11 @@ public class tienda extends Fragment {
             case "tresraya":
                 mPref.put("fichas_tresraya", nombre);
                 break;
+            case "flappy":
+                mPref.put("pajaro", nombre);
+                Log.d("ola", nombre);
+                break;
+
         }
 
     }

@@ -287,6 +287,9 @@ public class User {
             case "tresraya":
                 db.collection("users").document(email).update("current_ficha", nombre);
                 break;
+            case "flappy":
+                db.collection("users").document(email).update("current_pajaro", nombre);
+                break;
         }
     }
 

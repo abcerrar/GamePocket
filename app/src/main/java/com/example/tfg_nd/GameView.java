@@ -16,19 +16,11 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.Random;
-
-import static android.content.ContentValues.TAG;
 
 public class GameView extends View {
 
+    manejadorPreferencias mPref;
     Handler handler;
     Runnable runnable;
     final int UPDATE_MILLIS = 30;
@@ -56,13 +48,8 @@ public class GameView extends View {
     int colliderVerticalOffset = 100;
     int colliderHorizontalOffset = 70;
 
-    int compareScore;
     public int score = 0;
     StartGame startGame = new StartGame();
-    Boolean added = false;
-    Boolean retrieved = false;
-
-
 
     public GameView(Context context) {
         super(context);
@@ -89,8 +76,24 @@ public class GameView extends View {
         dHeight = point.y;
         rect = new Rect(0, 0, dWidth, dHeight);
         birds = new Bitmap[2];
-        birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pouresized);
-        birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pou_2resized);
+        mPref = new manejadorPreferencias("pref", (Activity) context);
+        String pajaro = mPref.get("pajaro", "pou");
+        switch (pajaro){
+            case "pajaro_azul":
+                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro1);
+                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro2);
+                break;
+            case "pajaro_hamb":
+                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro_hamb1);
+                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro_hamb1);
+                break;
+            default:
+                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pouresized);
+                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pou_2resized);
+                break;
+        }
+
+
         birdX = dWidth / 2 - birds[0].getWidth() / 2;
         birdY = dHeight / 2 - birds[0].getHeight() / 2;
         distanceBetweenTubes = dWidth * 5 / 4;
