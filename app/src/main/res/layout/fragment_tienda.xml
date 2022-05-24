@@ -208,22 +208,22 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:id="@+id/pajaro_pou"
+                        android:id="@+id/pajaro_azul"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
-                        android:src="@drawable/flying_pouresized"
-                        android:tag="pajaro_pou"/>
+                        android:src="@drawable/pajaro1"
+                        android:tag="pajaro_azul" />
 
                     <ImageView
-                        android:id="@+id/pajaro_azul"
+                        android:id="@+id/pajaro_pou"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="15dp"
                         android:layout_weight="1"
-                        android:src="@drawable/pajaro1"
-                        android:tag="pajaro_azul"/>
+                        android:src="@drawable/flying_pouresized"
+                        android:tag="pajaro_pou" />
 
                     <ImageView
                         android:id="@+id/pajaro_hamb"
@@ -232,7 +232,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:src="@drawable/pajaro_hamb1"
-                        android:tag="pajaro_hamb"/>
+                        android:tag="pajaro_hamb" />
 
                     <ImageView
                         android:id="@+id/imageView23"

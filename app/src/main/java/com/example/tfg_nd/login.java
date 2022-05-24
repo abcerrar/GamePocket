@@ -154,6 +154,7 @@ public class login extends Fragment {
                         Map<String, Object> nada = new HashMap<>();
                         db.collection("users").document(email).collection("productos").document("dorso_rata").set(nada);
                         db.collection("users").document(email).collection("productos").document("fichas_normales").set(nada);
+                        db.collection("users").document(email).collection("productos").document("pajaro_azul").set(nada);
 
                         Log.d("TAG", "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
