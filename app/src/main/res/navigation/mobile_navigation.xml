@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/perfil"
         android:name="com.example.tfg_nd.perfil"
-        android:label="fragment_perfil"
+        android:label="Perfil"
         tools:layout="@layout/fragment_perfil" />
     <fragment
         android:id="@+id/niveles"
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/comp_estadisticas"
         android:name="com.example.tfg_nd.comp_estadisticas"
-        android:label="fragment_comp_estadisticas"
+        android:label="Estadísticas"
         tools:layout="@layout/fragment_comp_estadisticas" />
     <fragment
         android:id="@+id/tabs_estadisticas"

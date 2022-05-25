@@ -5,15 +5,19 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondonegro"
     tools:context=".tienda">
 
     <TextView
         android:id="@+id/desc_dinero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="23dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="4dp"
+        android:fontFamily="@font/pesstart"
+        android:gravity="center"
         android:text="430"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/imageView10"
@@ -50,7 +54,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:fontFamily="@font/minecraftia"
                 android:text="Drosos Memory"
+                android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -60,7 +66,7 @@
                 android:layout_height="3dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@color/fondo2"
+                android:background="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -116,7 +122,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/minecraftia"
                 android:text="Fichas tres en raya"
+                android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -126,7 +134,7 @@
                 android:layout_height="3dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@color/fondo2"
+                android:background="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -182,7 +190,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/minecraftia"
                 android:text="Flappy Birds"
+                android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -192,7 +202,7 @@
                 android:layout_height="3dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@color/fondo2"
+                android:background="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -214,7 +224,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
                         android:src="@drawable/flying_pouresized"
-                        android:tag="pajaro_pou"/>
+                        android:tag="pajaro_pou" />
 
                     <ImageView
                         android:id="@+id/pajaro_azul"
@@ -223,7 +233,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:src="@drawable/pajaro1"
-                        android:tag="pajaro_azul"/>
+                        android:tag="pajaro_azul" />
 
                     <ImageView
                         android:id="@+id/pajaro_hamb"
@@ -232,7 +242,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:src="@drawable/pajaro_hamb1"
-                        android:tag="pajaro_hamb"/>
+                        android:tag="pajaro_hamb" />
 
                     <ImageView
                         android:id="@+id/imageView23"

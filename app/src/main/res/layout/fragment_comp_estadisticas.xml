@@ -16,7 +16,7 @@
         android:fontFamily="@font/pesstart"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="19sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView24"
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
-        android:background="@color/fondo2"
+        android:background="@color/morado"
         android:textColor="@color/white"
         android:textSize="23sp" />
 
@@ -133,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
-        android:background="@color/fondo2"
+        android:background="@color/morado"
         android:textColor="@color/white"
         android:textSize="23sp" />
 
@@ -180,7 +180,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
-        android:background="@color/fondo2"
+        android:background="@color/morado"
         android:textColor="@color/white"
         android:textSize="23sp" />
 
@@ -227,7 +227,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
-        android:background="@color/fondo2"
+        android:background="@color/morado"
         android:textColor="@color/white"
         android:textSize="23sp" />
 
