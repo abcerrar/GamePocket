@@ -138,7 +138,7 @@ public class Klondike extends AppCompatActivity {
                     try{
                         tvCarta.setText(piles[(Integer.parseInt(movingCard.getTag().toString()))].get(piles[(Integer.parseInt(movingCard.getTag().toString()))].size()-1).getCard());
                     }catch (ArrayIndexOutOfBoundsException e){
-                        tvCarta.setText("Empty");
+
                     }
                 }
                 else{
@@ -294,17 +294,21 @@ public class Klondike extends AppCompatActivity {
         if (stack1.size()==12&&stack2.size()==12&&stack3.size()==12&&stack4.size()==12){
             Toast.makeText(getApplicationContext(),"Yay you win", Toast.LENGTH_SHORT).show();
         }
-        else{
-
-        }
+        else{        }
     }
 
     public void victoria(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         cronometro.stop();
+        User user;
         try{
-            String email = mAuth.getCurrentUser().getEmail();
-            User user = new User(email);
+            String email = "sin_email";
+            if(mAuth.getCurrentUser()!=null) {
+                email = mAuth.getCurrentUser().getEmail();
+                user = new User(email);
+            }else{
+                user = new User();
+            }
 
             String tiempo = cronometro.getText()+"";
             Toast.makeText(Klondike.this, "Tiempo tardado: " + tiempo, Toast.LENGTH_SHORT).show();
@@ -345,14 +349,21 @@ public class Klondike extends AppCompatActivity {
                 titutlo2 = tiempo_tardado + "minutos es demasiado para recibir recompensas";
             }
 
-            user.incrementarExperiencia(experiencia);
-            user.incrementarDinero(dinero);
-            user.incrementarTiempoRecord(tiempo_tardado, segundos);
+            if(!email.equals("sin_email")){
+                user.incrementarExperiencia(experiencia);
+                user.incrementarDinero(dinero);
+                user.incrementarTiempoRecord(tiempo_tardado, segundos);
+            }else{
+                dinero = 0;
+                experiencia = 0;
+                titutlo2 = "Debes logearte para conseguir recompensas";
+            }
+
             dialog = user.alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia, this, listenerReload, listenerNext, listenerNext, listenerMenu, dialog, this);
             dialog.show();
 
         }catch(NullPointerException ex){
-            Toast.makeText(Klondike.this, "No recibes recompensas porque no estás logeado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Klondike.this, "Error por no estar logeadp", Toast.LENGTH_SHORT).show();
         }
     }
 

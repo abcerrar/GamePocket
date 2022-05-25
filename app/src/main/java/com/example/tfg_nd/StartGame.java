@@ -25,13 +25,12 @@ import java.util.Map;
 
 public class StartGame extends Activity {
 
-    AlertDialog dialog;
     GameView gameView;
     String email, record;
 
     public StartGame activity;
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     @Override
@@ -42,20 +41,21 @@ public class StartGame extends Activity {
     }
 
     public StartGame(){
-        FirebaseUser current_user = mAuth.getCurrentUser();
-        if(current_user!=null) email = current_user.getEmail();
-        database.collection("flappy").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists() && documentSnapshot!=null){
-                    record = documentSnapshot.getData().get("record")+"";
-                }else{
-                    Map<String, Object> datos = new HashMap<>();
-                    datos.put("record", 0);
-                    database.collection("flappy").document(email).set(datos);
+        if(current_user != null) {
+            email = current_user.getEmail();
+            database.collection("flappy").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if(documentSnapshot.exists() && documentSnapshot!=null){
+                        record = documentSnapshot.getData().get("record")+"";
+                    }else{
+                        Map<String, Object> datos = new HashMap<>();
+                        datos.put("record", 0);
+                        database.collection("flappy").document(email).set(datos);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public int getRecord(){
@@ -67,9 +67,10 @@ public class StartGame extends Activity {
     }
 
     public void setRecord(int record){
-        FirebaseUser current_user = mAuth.getCurrentUser();
-        if(current_user!=null) email = current_user.getEmail();
-        database.collection("flappy").document(email).update("record", record);
+        if(current_user!=null) {
+            email = current_user.getEmail();
+            database.collection("flappy").document(email).update("record", record);
+        }
     }
 
     public void exitGame(){

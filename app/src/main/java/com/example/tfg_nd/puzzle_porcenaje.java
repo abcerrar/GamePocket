@@ -73,7 +73,6 @@ public class puzzle_porcenaje extends Fragment {
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
-            nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
             tvTitulo.setText("Nivel: " + nivel_actual);
         }else{
             user = new User();
@@ -81,6 +80,7 @@ public class puzzle_porcenaje extends Fragment {
             tvTitulo.setText("");
         }
         mPref = new manejadorPreferencias(email, getActivity());
+        nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
 
         listenerReload = new View.OnClickListener() {
             @Override

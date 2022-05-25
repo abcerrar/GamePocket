@@ -140,7 +140,8 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 HomeMenuActivity.this.startActivity(new Intent(this, Klondike.class));
                 break;
             case R.id.estadisticas:
-                navController.navigate(R.id.tabs_estadisticas);
+                if(currentUser != null) navController.navigate(R.id.tabs_estadisticas);
+                else Toast.makeText(HomeMenuActivity.this, "Debes iniciar sesión para ver las estadísticas", Toast.LENGTH_SHORT).show();
                 break;
 
 

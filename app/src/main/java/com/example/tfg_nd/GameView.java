@@ -84,17 +84,17 @@ public class GameView extends View {
         mPref = new manejadorPreferencias(email, (Activity) context);
         String pajaro = mPref.get("pajaro", "pou");
         switch (pajaro){
-            case "pajaro_azul":
-                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro1);
-                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro2);
+            case "pajaro_pou":
+                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pouresized);
+                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pou_2resized);
                 break;
             case "pajaro_hamb":
                 birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro_hamb1);
                 birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro_hamb1);
                 break;
             default:
-                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pouresized);
-                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.flying_pou_2resized);
+                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro1);
+                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro2);
                 break;
         }
 

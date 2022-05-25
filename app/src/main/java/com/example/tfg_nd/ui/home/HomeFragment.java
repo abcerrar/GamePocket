@@ -165,7 +165,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(currentUser != null) NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tabs_estadisticas);
-                else Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getContext(), "Debes iniciar sesión para ver las estadísticas", Toast.LENGTH_SHORT).show();
             }
         });
 
