@@ -79,7 +79,8 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/pesstart"
                 android:gravity="center"
                 android:text="Puzzles"
                 android:textColor="@color/white"
@@ -97,39 +98,52 @@
                 <ImageView
                     android:id="@+id/btPorcentaje"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="115dp"
                     android:layout_weight="1"
                     android:src="@drawable/boton_porcentaje" />
 
                 <ImageView
                     android:id="@+id/btMemory"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="115dp"
+                    android:layout_marginTop="7dp"
                     android:layout_weight="1"
                     android:src="@drawable/boton_memory" />
 
                 <ImageView
                     android:id="@+id/btTresraya"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="115dp"
+                    android:layout_marginTop="7dp"
                     android:layout_weight="1"
                     android:src="@drawable/boton_tresraya" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/pesstart"
+                    android:gravity="center"
+                    android:text="Otros"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/btSolitario"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="115dp"
+                    android:layout_marginTop="7dp"
                     android:layout_weight="1"
                     android:src="@drawable/boton_solitario" />
 
                 <ImageView
                     android:id="@+id/btFlappy"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="115dp"
+                    android:layout_marginTop="7dp"
                     android:layout_weight="1"
                     android:src="@drawable/boton_flappy" />
 

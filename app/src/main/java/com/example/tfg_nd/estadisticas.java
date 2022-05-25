@@ -36,6 +36,7 @@ public class estadisticas extends Fragment {
     ArrayList<String> imagenes = new ArrayList<>();
     Spinner spinner;
     RecyclerView recyclerView;
+    TextView titulo_spinner;
 
     private TextView tvNumero, tvNobre;
 
@@ -69,24 +70,27 @@ public class estadisticas extends Fragment {
         tvNumero = v.findViewById(R.id.st_numero);
         recyclerView = v.findViewById(R.id.lista);
         spinner = v.findViewById(R.id.spinner);
+        titulo_spinner = v.findViewById(R.id.titulo_spinner);
 
-        Toast.makeText(getContext(), "Pulsa el correo de alguien para ver sus estadísticas", Toast.LENGTH_SHORT).show();
-
-        spinneador(spinner, new String[]{"Porcentajes", "Memory", "Tres en raya", "Solitario", "Flappy bids", "Dinero"});
+        spinneador(spinner, new String[]{"", "Porcentajes", "Memory", "Tres en raya", "Solitario", "Flappy bids", "Dinero"});
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch(spinner.getSelectedItem().toString()){
                     case "Porcentajes":
                         consulta_puzzle("porcentajes");
+                        titulo_spinner.setText("Porcentajes");
                         break;
                     case "Memory":
                         consulta_puzzle("memory");
+                        titulo_spinner.setText("Memory");
                         break;
                     case "Tres en raya":
                         consulta_puzzle("tresraya");
+                        titulo_spinner.setText("Tres en raya");
                         break;
                     case "Solitario":
+                        titulo_spinner.setText("Solitario");
                         nombres.clear();
                         numeros.clear();
                         imagenes.clear();
@@ -105,6 +109,7 @@ public class estadisticas extends Fragment {
                         });
                         break;
                     case "Flappy bids":
+                        titulo_spinner.setText("Flappy Birds");
                         tvNumero.setText("Máxima puntuación");
                         nombres.clear();
                         numeros.clear();
@@ -140,8 +145,8 @@ public class estadisticas extends Fragment {
                             }
                         });
                         break;
-
                 }
+                spinner.setSelection(0);
             }
 
             @Override

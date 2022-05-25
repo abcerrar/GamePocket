@@ -1,6 +1,7 @@
 package com.example.tfg_nd.ui.home;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -75,6 +78,7 @@ public class HomeFragment extends Fragment {
         actionButton(btTresraya, R.drawable.boton_tresraya, R.drawable.boton_tresraya_pulsado);
         actionButton(btSolitario, R.drawable.boton_solitario, R.drawable.boton_solitario_pulsado);
         actionButton(btFlappy, R.drawable.boton_flappy, R.drawable.boton_flappy_pulsado);
+
 
         if(currentUser != null){
             email = currentUser.getEmail();
@@ -209,7 +213,10 @@ public class HomeFragment extends Fragment {
                         boton.setImageResource(imagen2);
                         break;
                     case MotionEvent.ACTION_HOVER_EXIT:
-                        boton.setImageResource(imagen2);
+                        boton.setImageResource(imagen1);
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        boton.setImageResource(imagen1);
                         break;
 
                 }

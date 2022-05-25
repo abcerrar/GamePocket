@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondonegro"
     android:orientation="vertical"
-    tools:context=".login" >
+    tools:context=".login">
 
     <EditText
         android:id="@+id/etName"
@@ -14,8 +15,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
+        android:fontFamily="@font/minecraftia"
         android:hint="Nombre"
         android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHint="@color/browser_actions_title_color"
         android:visibility="invisible" />
 
     <EditText
@@ -26,8 +30,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
+        android:fontFamily="@font/minecraftia"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="@color/browser_actions_title_color" />
 
     <EditText
         android:id="@+id/etPass"
@@ -37,8 +44,11 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
+        android:fontFamily="@font/minecraftia"
         android:hint="Contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/browser_actions_title_color" />
 
     <EditText
         android:id="@+id/etPass2"
@@ -48,8 +58,11 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
+        android:fontFamily="@font/minecraftia"
         android:hint="Repetir contraseña"
         android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/browser_actions_title_color"
         android:visibility="invisible" />
 
     <LinearLayout
@@ -75,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
+        android:fontFamily="@font/minecraftia"
         android:text="No tengo cuenta"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_blue_light" />

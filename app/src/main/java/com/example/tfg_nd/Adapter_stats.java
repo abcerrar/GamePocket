@@ -80,8 +80,8 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         holder.tvNumero.setText(num);
 
         if(email.equals(nom)) {
-            holder.tvNombre.setTextColor(-16776961);
-            holder.tvNumero.setTextColor(-16776961);
+            holder.tvNombre.setTextColor(activity.getResources().getColor(R.color.amarillo));
+            holder.tvNumero.setTextColor(activity.getResources().getColor(R.color.amarillo));
         }
 
         int img = Integer.parseInt(imagen.get(holder.getAdapterPosition()));

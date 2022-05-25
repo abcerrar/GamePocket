@@ -21,13 +21,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/spinner"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="20dp" />
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/fondonegro">
+
+                <TextView
+                    android:id="@+id/titulo_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Púlsame para elegir un juego"
+                    android:textSize="17dp"
+                    android:theme="@style/spinnerstyle" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:theme="@style/spinnerstyle" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/textView23"
@@ -37,9 +54,10 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="25dp"
                 android:fontFamily="@font/ka"
+                android:padding="10dp"
                 android:text="Ranking global"
-                android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textColor="@color/morado"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
             <LinearLayout

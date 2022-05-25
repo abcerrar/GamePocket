@@ -1,7 +1,9 @@
 package com.example.tfg_nd;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,6 +28,8 @@ import com.example.tfg_nd.databinding.ActivityHomeMenuBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.lang.reflect.Field;
+
 public class HomeMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private final String TAG = "HomeMenuActivity.java";
@@ -41,12 +45,12 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityHomeMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mPref = new manejadorPreferencias("pref", this);
 
         setSupportActionBar(binding.appBarHomeMenu.toolbar);
+
 
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;

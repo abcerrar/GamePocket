@@ -11,7 +11,7 @@
         android:id="@+id/textView12"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="@color/fondo2" />
+        android:background="@color/morado" />
 
     <LinearLayout
         android:layout_width="match_parent"
