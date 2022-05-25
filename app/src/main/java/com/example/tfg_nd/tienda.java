@@ -212,6 +212,7 @@ public class tienda extends Fragment {
                 TextView titulo;
                 Button comprar = custom_layout.findViewById(R.id.btComprar);
                 ImageView desc_imagen = custom_layout.findViewById(R.id.desc_imagen);
+                ImageView moneda = custom_layout.findViewById(R.id.moneda);
 
                 titulo = custom_layout.findViewById(R.id.desc_titulo);
                 desc_imagen.setImageDrawable(imagen);
@@ -223,6 +224,7 @@ public class tienda extends Fragment {
                     try{
                         int precio = Integer.parseInt(documentSnapshot.getData().get("precio")+"");
                         comprar.setText(precio+"");
+                        moneda.setImageResource(R.drawable.coin);
                         comprar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -235,6 +237,7 @@ public class tienda extends Fragment {
                     }
                 }else{
                     comprar.setText("Seleccionar");
+                    moneda.setImageDrawable(null);
                     comprar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

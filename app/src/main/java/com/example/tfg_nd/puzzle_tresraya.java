@@ -341,7 +341,7 @@ public class puzzle_tresraya extends Fragment {
                                 for(int i=0; i<fichas.length; i++) if(fichas[i].getDrawable() == null) empate = false;
 
                                 if(empate){
-                                    dialog = user.alertFinalPartida("Empate.", "Puedes intentarlo de nuevo", 0, 0, 0, getActivity(), listenerReload, listenerNext, listenerNext, listenerMenu, dialog, getContext());
+                                    dialog = user.alertFinalPartida("Empate.", "Puedes intentarlo de nuevo", 0, 0, 0, getActivity(), listenerReload, listenerNext2, listenerNext, listenerMenu, dialog, getContext());
                                     dialog.show();
                                 }
                             }

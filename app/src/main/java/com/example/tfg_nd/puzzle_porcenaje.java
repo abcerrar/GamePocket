@@ -148,13 +148,13 @@ public class puzzle_porcenaje extends Fragment {
                         exp = 5;
                     }else if(resultado == 2 || resultado == -2 || resultado == 3 || resultado == -3){
                         titulo = "Has estado cerca";
-                        titulo2 = "Has estado cerca, puedes volver a intentarlo,\n era " + porcentaje;
+                        titulo2 = "Has estado cerca, puedes volver a intentarlo, era " + porcentaje;
                         num_estrellas = 1;
                         dinero = 1;
                         exp = 1;
                     }else{
                         titulo = "Has fallado";
-                        titulo2 = "Puedes volver a intentarlo,\n era: " + porcentaje;
+                        titulo2 = "Puedes volver a intentarlo, era: " + porcentaje;
                         num_estrellas = 0;
                         dinero = 0;
                         exp = 0;

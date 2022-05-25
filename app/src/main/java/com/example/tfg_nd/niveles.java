@@ -69,7 +69,6 @@ public class niveles extends Fragment {
         mPref = new manejadorPreferencias("pref", getActivity());
         FirebaseUser current_user = mAuth.getCurrentUser();
         dialog = new comp_estadisticas().getAnim(getContext());
-
         niveles = new TextView[MAX_NIVELES];
         estrellas = new TextView[MAX_NIVELES];
         niveles[0] = v.findViewById(R.id.nivel1);

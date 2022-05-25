@@ -4,6 +4,7 @@
     android:id="@+id/plantilla"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/fondonegro"
     android:orientation="vertical">
 
     <TextView
@@ -24,8 +25,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/minecraftia"
             android:gravity="start"
             android:text="TextView"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -40,8 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="5dp"
+            android:fontFamily="@font/minecraftia"
             android:gravity="end"
             android:text="TextView"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 

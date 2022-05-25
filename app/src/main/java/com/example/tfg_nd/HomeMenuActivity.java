@@ -53,7 +53,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.login, R.id.perfil, R.id.test, R.id.niveles)
+                R.id.nav_home, R.id.login, R.id.perfil, R.id.test, R.id.niveles, R.id.tienda)
                 .setOpenableLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_menu);
@@ -132,7 +132,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 HomeMenuActivity.this.startActivity(new Intent(this, Klondike.class));
                 break;
             case R.id.estadisticas:
-                navController.navigate(R.id.estadisticas);
+                navController.navigate(R.id.tabs_estadisticas);
                 break;
 
 
@@ -157,10 +157,5 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    public static float pxToDp(Context context, float px) {
-        return px / context.getResources().getDisplayMetrics().density;
-    }
-
 
 }
