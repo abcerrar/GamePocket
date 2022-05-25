@@ -253,6 +253,10 @@ public class User {
         tvExperiencia = custom_layout.findViewById(R.id.tvGanaExperiencia);
         rb = custom_layout.findViewById(R.id.ratingBar);
 
+        reloadGame.setColorFilter(activity.getResources().getColor(R.color.white));
+        backMenu.setColorFilter(activity.getResources().getColor(R.color.white));
+        nextLevel.setColorFilter(activity.getResources().getColor(R.color.white));
+
         tit.setText(titulo);
         tit2.setText(titulo2);
         tvDinero.setText("+ " + dinero);

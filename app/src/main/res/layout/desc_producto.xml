@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/fondonegro"
     android:orientation="vertical"
     android:padding="25dp">
 
@@ -13,9 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
+        android:fontFamily="@font/minecraftia"
         android:gravity="center"
         android:text="titulo"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -38,7 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/minecraftia"
             android:text="comprar"
+            android:textColor="@color/white"
             app:iconGravity="textEnd" />
 
         <ImageView

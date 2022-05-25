@@ -106,7 +106,7 @@ public class Klondike extends AppCompatActivity {
             }
         });
 
-                ImageView[] onClickSetter = {pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View, stack1View, stack2View, stack3View, stack4View};
+        ImageView[] onClickSetter = {pile1View, pile2View, pile3View, pile4View, pile5View, pile6View, pile7View, stack1View, stack2View, stack3View, stack4View};
 
 
         //Click para el mazo

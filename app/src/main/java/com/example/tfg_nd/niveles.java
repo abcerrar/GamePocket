@@ -2,10 +2,15 @@ package com.example.tfg_nd;
 
 import android.app.Dialog;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -13,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +51,7 @@ public class niveles extends Fragment {
     private String gamemode, email;
     private int current_level;
     private Button btReset, btJvj;
+    private Window window;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -97,8 +104,11 @@ public class niveles extends Fragment {
         estrellas[11] = v.findViewById(R.id.stars12);
         btReset = v.findViewById(R.id.btReset);
         btJvj = v.findViewById(R.id.btJvj);
+        window = getActivity().getWindow();
         dialog.show();
 
+        window.setStatusBarColor(getActivity().getResources().getColor(R.color.azul));
+        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#43a047")));
         //Asignar en onClick a cada TextView
         for(int i = 0; i<MAX_NIVELES; i++){
             setOnClickLevel(i);
@@ -109,16 +119,21 @@ public class niveles extends Fragment {
         if(!gamemode.equals("error") && current_user != null){
 
             //Elegir los colores en funcion del juego
+            ActionBar actionBar;
+            actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
             switch (gamemode){
                 case "porcentajes":
+                    actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.amarillo)));
                     cuadro_nivel = getResources().getColor(R.color.morado);
                     cuadro_nivelCompleto = getResources().getColor(R.color.amarillo);
                     break;
                 case "memory":
+                    actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
                     cuadro_nivel = getResources().getColor(R.color.naranja);
                     cuadro_nivelCompleto = getResources().getColor(R.color.azul);
                     break;
                 case "tresraya":
+                    actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.rosa)));
                     cuadro_nivel = getResources().getColor(R.color.amarillo_2);
                     cuadro_nivelCompleto = getResources().getColor(R.color.rosa);
                     break;
