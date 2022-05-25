@@ -67,8 +67,8 @@ public class perfil extends Fragment {
 
         if(currentUser!=null){
 
-            manejadorPreferencias mPref = new manejadorPreferencias("pref", getActivity());
             email = currentUser.getEmail();
+            manejadorPreferencias mPref = new manejadorPreferencias(email, getActivity());
             //Si hay otro correo aqui es que se quiere consultar el perfil de otro usuario
             String email_externo = mPref.get("email_externo", email);
             if(!email_externo.equals(email)) {

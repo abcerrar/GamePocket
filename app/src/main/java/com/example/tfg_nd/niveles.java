@@ -48,7 +48,7 @@ public class niveles extends Fragment {
     private TextView[] niveles;
     private TextView[] estrellas;
     private manejadorPreferencias mPref;
-    private String gamemode, email;
+    private String gamemode, email = "sin_email";
     private int current_level;
     private Button btReset, btJvj;
     private Window window;
@@ -73,8 +73,7 @@ public class niveles extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_niveles, container, false);
-        mPref = new manejadorPreferencias("pref", getActivity());
-        FirebaseUser current_user = mAuth.getCurrentUser();
+
         dialog = new comp_estadisticas().getAnim(getContext());
         niveles = new TextView[MAX_NIVELES];
         estrellas = new TextView[MAX_NIVELES];
@@ -106,6 +105,10 @@ public class niveles extends Fragment {
         btJvj = v.findViewById(R.id.btJvj);
         window = getActivity().getWindow();
         dialog.show();
+
+        FirebaseUser current_user = mAuth.getCurrentUser();
+        if(current_user!=null) email = current_user.getEmail();
+        mPref = new manejadorPreferencias(email, getActivity());
 
         window.setStatusBarColor(getActivity().getResources().getColor(R.color.azul));
         window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#43a047")));
@@ -141,7 +144,6 @@ public class niveles extends Fragment {
                     Toast.makeText(getContext(), "Error cargando el gamemode", Toast.LENGTH_SHORT).show();
             }
 
-            email = current_user.getEmail();
             DocumentReference docRef = db.collection(gamemode).document(email);
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override

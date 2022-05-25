@@ -24,7 +24,7 @@ public class comp_estadisticas extends Fragment {
     private manejadorPreferencias mPref;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    String email;
+    String email = "sin_email";
 
     //Variables para el fragment extra
     int star1, star2, star3, recordFlappy, nivel, dinero;
@@ -49,10 +49,10 @@ public class comp_estadisticas extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_comp_estadisticas, container, false);
 
-        mPref = new manejadorPreferencias("pref", getActivity());
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) email = currentUser.getEmail();
+
+        mPref = new manejadorPreferencias(email, getActivity());
 
         tvStar1 = v.findViewById(R.id.progress_porcentaje);
         tvStar2 = v.findViewById(R.id.progress_memory);

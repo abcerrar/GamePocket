@@ -37,7 +37,8 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     private ActivityHomeMenuBinding binding;
     NavController navController;
     DrawerLayout drawer;
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser;
     manejadorPreferencias mPref;
     static public int width;
     static public int height;
@@ -47,7 +48,11 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         binding = ActivityHomeMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        mPref = new manejadorPreferencias("pref", this);
+
+        currentUser = mAuth.getCurrentUser();
+        String email = "sin_email";
+        if(currentUser!=null) email = currentUser.getEmail();
+        mPref = new manejadorPreferencias(email, this);
 
         setSupportActionBar(binding.appBarHomeMenu.toolbar);
 
@@ -83,8 +88,7 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Log.w(TAG, item.getItemId()+"");
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
         int id = item.getItemId();
         //Se pueden añadir animaciones para el menu

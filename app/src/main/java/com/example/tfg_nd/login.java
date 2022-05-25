@@ -34,8 +34,7 @@ public class login extends Fragment {
     Button btnAcceder;
     TextView changeDisplay;
     EditText etEmail, contraseña, etName, contraseña2;
-    FirebaseAuth mAuth;
-    manejadorPreferencias mPref;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();;
     boolean login = true;
     private final String TAG = "login.java";
 
@@ -51,8 +50,6 @@ public class login extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mPref = new manejadorPreferencias("pref", getActivity());
-        mAuth = FirebaseAuth.getInstance();
         btnAcceder = v.findViewById(R.id.btAcceder);
         etEmail = v.findViewById(R.id.etEmail);
         contraseña = v.findViewById(R.id.etPass);

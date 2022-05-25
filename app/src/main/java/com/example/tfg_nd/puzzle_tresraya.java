@@ -31,7 +31,7 @@ public class puzzle_tresraya extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private manejadorPreferencias mPref;
     private final String gamemode = "tresraya";
-    private String email;
+    private String email = "sin_email";
     private User user;
     private AlertDialog dialog;
     private int nivel_actual = 0;
@@ -64,12 +64,12 @@ public class puzzle_tresraya extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_puzzle_tresraya, container, false);
-        mPref = new manejadorPreferencias("pref", getActivity());
         currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
         }else user = new User();
+        mPref = new manejadorPreferencias(email, getActivity());
 
         nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
         Toast.makeText(getContext(), "Nivel: " + nivel_actual, Toast.LENGTH_SHORT).show();

@@ -16,10 +16,13 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Random;
 
 public class GameView extends View {
 
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     manejadorPreferencias mPref;
     Handler handler;
     Runnable runnable;
@@ -76,7 +79,9 @@ public class GameView extends View {
         dHeight = point.y;
         rect = new Rect(0, 0, dWidth, dHeight);
         birds = new Bitmap[2];
-        mPref = new manejadorPreferencias("pref", (Activity) context);
+        String email = "sin_email";
+        if(mAuth.getCurrentUser()!=null) email = mAuth.getCurrentUser().getEmail();
+        mPref = new manejadorPreferencias(email, (Activity) context);
         String pajaro = mPref.get("pajaro", "pou");
         switch (pajaro){
             case "pajaro_azul":

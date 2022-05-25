@@ -43,7 +43,7 @@ public class estadisticas extends Fragment {
     private manejadorPreferencias mPref;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    String email;
+    String email = "sin_email";
 
 
 
@@ -61,10 +61,10 @@ public class estadisticas extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_estadisticas, container, false);
-        mPref = new manejadorPreferencias("pref", getActivity());
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) email = currentUser.getEmail();
+        mPref = new manejadorPreferencias(email, getActivity());
 
         tvNobre = v.findViewById(R.id.st_nombre);
         tvNumero = v.findViewById(R.id.st_numero);

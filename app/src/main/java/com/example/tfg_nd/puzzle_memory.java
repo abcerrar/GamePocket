@@ -65,12 +65,13 @@ public class puzzle_memory extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_puzzle_memory, container, false);
 
-        mPref = new manejadorPreferencias("pref", getActivity());
         currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
         }else user = new User();
+
+        mPref = new manejadorPreferencias(email, getActivity());
 
         String dorso_actual = mPref.get("dorso_memory", "dorso_rata");
         switch (dorso_actual){

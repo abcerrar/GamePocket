@@ -42,7 +42,7 @@ public class tienda extends Fragment {
     private manejadorPreferencias mPref;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private String email, gamemode;
+    private String email="sin_email", gamemode;
     private User user;
     private ListenerRegistration listener;
     private TextView tvDinero;
@@ -64,7 +64,6 @@ public class tienda extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tienda, container, false);
-        mPref = new manejadorPreferencias("pref", getActivity());
         anim_dialog =  new comp_estadisticas().getAnim(getContext());
 
         if(mAuth.getCurrentUser() != null){
@@ -72,6 +71,7 @@ public class tienda extends Fragment {
             user = new User(email);
         }
         else email = "sin_email";
+        mPref = new manejadorPreferencias(email, getActivity());
 
 
         img_memory.add(v.findViewById(R.id.mem_dorso_dollar));

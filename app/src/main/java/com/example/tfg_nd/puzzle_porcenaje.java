@@ -54,7 +54,7 @@ public class puzzle_porcenaje extends Fragment {
         tvRelleno = v.findViewById(R.id.tvRelleno);
         sb = v.findViewById(R.id.seekBar2);
         contenedor = v.findViewById(R.id.contenedor);
-        mPref = new manejadorPreferencias("pref", getActivity());
+
         dimensiones = new int[]{
                 R.dimen.pc1, R.dimen.pc2, R.dimen.pc3, R.dimen.pc4, R.dimen.pc5, R.dimen.pc6, R.dimen.pc7, R.dimen.pc8, R.dimen.pc9, R.dimen.pc10,
                 R.dimen.pc11, R.dimen.pc12, R.dimen.pc13, R.dimen.pc14, R.dimen.pc15, R.dimen.pc16, R.dimen.pc17, R.dimen.pc18, R.dimen.pc19, R.dimen.pc20,
@@ -69,7 +69,7 @@ public class puzzle_porcenaje extends Fragment {
         };
 
         currentUser = mAuth.getCurrentUser();
-        String email;
+        String email = "sin_email";
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
@@ -80,6 +80,7 @@ public class puzzle_porcenaje extends Fragment {
             nivel_actual = -1;
             tvTitulo.setText("");
         }
+        mPref = new manejadorPreferencias(email, getActivity());
 
         listenerReload = new View.OnClickListener() {
             @Override

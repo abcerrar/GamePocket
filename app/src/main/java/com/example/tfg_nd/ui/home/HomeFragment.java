@@ -43,14 +43,14 @@ public class HomeFragment extends Fragment {
     private final String TAG = "HomeFragment.java";
     private manejadorPreferencias mPref;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private LinearLayout btEstadísticas, btTienda;
     private ImageView btPorcentaje, btMemory, btTresraya, btSolitario, btFlappy;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
-    String email;
+    String email = "sim_email";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,10 +68,6 @@ public class HomeFragment extends Fragment {
         btFlappy = root.findViewById(R.id.btFlappy);
         btSolitario = root.findViewById(R.id.btSolitario);
 
-        mAuth = FirebaseAuth.getInstance();
-        mPref = new manejadorPreferencias("pref", getActivity());
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
         //Asignar la imagen del boton pulsado cuando le pulsas
         actionButton(btPorcentaje, R.drawable.boton_porcentaje, R.drawable.boton_porcentaje_pulsado);
         actionButton(btMemory, R.drawable.boton_memory, R.drawable.boton_memory_pulsado);
@@ -79,9 +75,11 @@ public class HomeFragment extends Fragment {
         actionButton(btSolitario, R.drawable.boton_solitario, R.drawable.boton_solitario_pulsado);
         actionButton(btFlappy, R.drawable.boton_flappy, R.drawable.boton_flappy_pulsado);
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser != null){
             email = currentUser.getEmail();
+            mPref = new manejadorPreferencias(email, getActivity());
             Log.d(TAG, "Current email: " + email);
             tvEmail.setText(email);
             DocumentReference docRef = db.collection("users").document(email);
@@ -121,6 +119,7 @@ public class HomeFragment extends Fragment {
             Log.d(TAG, "No estás logeado");
             dinero.setText("????");
             tvEmail.setText("No estás logeado");
+            mPref = new manejadorPreferencias("sin_email", getActivity());
         }
 
         btPorcentaje.setOnClickListener(new View.OnClickListener() {

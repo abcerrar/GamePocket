@@ -90,7 +90,6 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         holder.tvNombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                manejadorPreferencias mPref = new manejadorPreferencias("pref", activity);
                 String nom = nombre.get(holder.getAdapterPosition());
                 //mPref.put("email_externo", nom);
                 //NavHostFragment.findNavController(fragment).navigate(R.id.perfil);

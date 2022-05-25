@@ -27,7 +27,6 @@ public class StartGame extends Activity {
 
     AlertDialog dialog;
     GameView gameView;
-    manejadorPreferencias mPref;
     String email, record;
 
     public StartGame activity;
@@ -40,7 +39,6 @@ public class StartGame extends Activity {
         super.onCreate(savedInstanceState);
         gameView= new GameView(this);
         setContentView(gameView);
-        mPref = new manejadorPreferencias("pref", StartGame.this);
     }
 
     public StartGame(){
@@ -61,8 +59,6 @@ public class StartGame extends Activity {
     }
 
     public int getRecord(){
-        //mPref = new manejadorPreferencias("pref", StartGame.this);
-        //String record = mPref.get("record_flappy", "0");
         int record = 0;
         try{
             record = Integer.parseInt(this.record);
@@ -74,8 +70,6 @@ public class StartGame extends Activity {
         FirebaseUser current_user = mAuth.getCurrentUser();
         if(current_user!=null) email = current_user.getEmail();
         database.collection("flappy").document(email).update("record", record);
-        //mPref = new manejadorPreferencias("pref", StartGame.this);
-        //mPref.put("record_flappy", record+"");
     }
 
     public void exitGame(){
