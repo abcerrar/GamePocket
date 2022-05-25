@@ -111,7 +111,8 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                     mPref.put("gamemode", "porcentajes");
                     navController.navigate(R.id.niveles);
                 }else{
-                    Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                    mPref.put("nivel", "1");
+                    navController.navigate(R.id.puzzle_porcenaje);
                 }
                 break;
             case R.id.memory:
@@ -119,15 +120,17 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
                     mPref.put("gamemode", "memory");
                     navController.navigate(R.id.niveles);
                 }else{
-                    Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                    mPref.put("nivel", "1");
+                    navController.navigate(R.id.puzzle_memory);
                 }
                 break;
             case R.id.tresenraya:
                 if(currentUser!=null){
                     mPref.put("gamemode", "tresraya");
                     navController.navigate(R.id.niveles);
-                }else{
-                    Toast.makeText(this, "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                }else {
+                    mPref.put("nivel", "-1");
+                    navController.navigate(R.id.puzzle_tresraya);
                 }
                 break;
             case R.id.tienda:
