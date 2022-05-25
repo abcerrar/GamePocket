@@ -127,6 +127,8 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                     star1 = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
                 }catch (NumberFormatException e){
                     star1=0;
+                }catch (NullPointerException e){
+                    star1=0;
                 }
                 db.collection("memory").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -135,6 +137,8 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                             star2 = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
                         }catch (NumberFormatException e){
                             star2=0;
+                        }catch (NullPointerException e){
+                            star2=0;
                         }
                         db.collection("tresraya").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -142,6 +146,8 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                                 try{
                                     star3 = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
                                 }catch (NumberFormatException e){
+                                    star3=0;
+                                }catch (NullPointerException e){
                                     star3=0;
                                 }
                                 db.collection("solitario").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -157,6 +163,8 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                                                     recordFlappy = Integer.parseInt(documentSnapshot.getData().get("record")+"");
                                                 }catch (NumberFormatException e){
                                                     recordFlappy= 0;
+                                                }catch (NullPointerException e){
+                                                    recordFlappy= 0;
                                                 }
                                                 db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                     @Override
@@ -166,6 +174,10 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
                                                             dinero = Integer.parseInt(documentSnapshot.getData().get("dinero")+"");
                                                             nom_stats = documentSnapshot.getData().get("nombre")+"";
                                                         }catch (NumberFormatException e){
+                                                            nivel = -1;
+                                                            dinero = -1;
+                                                            nom_stats = "error";
+                                                        }catch (NullPointerException e){
                                                             nivel = -1;
                                                             dinero = -1;
                                                             nom_stats = "error";

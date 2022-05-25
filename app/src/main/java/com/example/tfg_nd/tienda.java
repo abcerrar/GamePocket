@@ -187,9 +187,7 @@ public class tienda extends Fragment {
                     }
                 });
                 break;
-
         }
-
     }
 
     public void ver_producto(String nombre, Drawable imagen){
@@ -224,6 +222,7 @@ public class tienda extends Fragment {
                 TextView titulo;
                 Button comprar = custom_layout.findViewById(R.id.btComprar);
                 ImageView desc_imagen = custom_layout.findViewById(R.id.desc_imagen);
+                ImageView moneda = custom_layout.findViewById(R.id.moneda);
 
                 titulo = custom_layout.findViewById(R.id.desc_titulo);
                 desc_imagen.setImageDrawable(imagen);
@@ -246,6 +245,7 @@ public class tienda extends Fragment {
                         Toast.makeText(getContext(), "Error al leer el precio de " + nombre, Toast.LENGTH_SHORT).show();
                     }
                 }else{
+                    moneda.setImageDrawable(null);
                     switch (gamemode){
                         case "memory":
                             if(nombre.equals(dorso_seleccionado)){
@@ -298,40 +298,43 @@ public class tienda extends Fragment {
     }
 
     public void comprarProducto(String nombre, int precio){
-        Toast.makeText(getContext(), "Comprando " + nombre + " por " + precio + " monedas", Toast.LENGTH_SHORT).show();
-        if(!user.incrementarDinero(-precio)) Toast.makeText(getContext(), "No tienes tanto dinero", Toast.LENGTH_SHORT).show();
+        if(email.equals("sin_email")) Toast.makeText(getContext(), "No puedes comprar ni seleccionar productos sin iniciar sesión", Toast.LENGTH_SHORT).show();
+        else if(!user.incrementarDinero(-precio)) Toast.makeText(getContext(), "No tienes tanto dinero", Toast.LENGTH_SHORT).show();
         else{
             user.addProduct(nombre);
             seleccionarProducto(nombre);
+            Toast.makeText(getContext(), "Comprando " + nombre + " por " + precio + " monedas", Toast.LENGTH_SHORT).show();
         }
     }
     public void seleccionarProducto(String nombre){
-        Toast.makeText(getContext(), "Seleccionando " + nombre, Toast.LENGTH_SHORT).show();
+
         user.selectProduct(nombre, gamemode);
-
-        switch (gamemode){
-            case "memory":
-                mPref.put("dorso_memory", nombre);
-                for(int i=0; i<img_memory.size(); i++) {
-                    if(!img_memory.get(i).getTag().equals(nombre)) img_memory.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
-                    else img_memory.get(i).setPadding(0, 0, 0, 0);
-                }
-                break;
-            case "tresraya":
-                mPref.put("fichas_tresraya", nombre);
-                for(int i=0; i<fichas_tresraya.size(); i++) {
-                    if(!fichas_tresraya.get(i).getTag().equals(nombre)) fichas_tresraya.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
-                    else fichas_tresraya.get(i).setPadding(0, 0, 0, 0);
-                }
-                break;
-            case "flappy":
-                mPref.put("pajaro", nombre);
-                for(int i=0; i<pajaros_flappy.size(); i++) {
-                    if(!pajaros_flappy.get(i).getTag().equals(nombre)) pajaros_flappy.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
-                    else pajaros_flappy.get(i).setPadding(0, 0, 0, 0);
-                }
-                break;
-
+        if(email.equals("sin_email")) Toast.makeText(getContext(), "No puedes comprar ni seleccionar productos sin iniciar sesión", Toast.LENGTH_SHORT).show();
+        else{
+            switch (gamemode){
+                case "memory":
+                    mPref.put("dorso_memory", nombre);
+                    for(int i=0; i<img_memory.size(); i++) {
+                        if(!img_memory.get(i).getTag().equals(nombre)) img_memory.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+                        else img_memory.get(i).setPadding(0, 0, 0, 0);
+                    }
+                    break;
+                case "tresraya":
+                    mPref.put("fichas_tresraya", nombre);
+                    for(int i=0; i<fichas_tresraya.size(); i++) {
+                        if(!fichas_tresraya.get(i).getTag().equals(nombre)) fichas_tresraya.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+                        else fichas_tresraya.get(i).setPadding(0, 0, 0, 0);
+                    }
+                    break;
+                case "flappy":
+                    mPref.put("pajaro", nombre);
+                    for(int i=0; i<pajaros_flappy.size(); i++) {
+                        if(!pajaros_flappy.get(i).getTag().equals(nombre)) pajaros_flappy.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+                        else pajaros_flappy.get(i).setPadding(0, 0, 0, 0);
+                    }
+                    break;
+            }
+            Toast.makeText(getContext(), "Seleccionando " + nombre, Toast.LENGTH_SHORT).show();
         }
     }
 

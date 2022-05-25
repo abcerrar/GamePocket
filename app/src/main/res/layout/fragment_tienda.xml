@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondonegro"
     tools:context=".tienda">
 
     <TextView
@@ -13,7 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="4dp"
+        android:fontFamily="@font/minecraftia"
         android:text="430"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/imageView10"
@@ -23,8 +26,8 @@
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="25dp"
-        android:layout_height="23dp"
+        android:layout_width="23dp"
+        android:layout_height="28dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="4dp"
         android:src="@drawable/coin"
@@ -50,7 +53,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:fontFamily="@font/minecraftia"
                 android:text="Memory"
+                android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -60,7 +65,7 @@
                 android:layout_height="3dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@color/fondo2"
+                android:background="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -116,7 +121,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/minecraftia"
                 android:text="Tres en raya"
+                android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -126,7 +133,7 @@
                 android:layout_height="3dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@color/fondo2"
+                android:background="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -182,7 +189,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/minecraftia"
                 android:text="Flappy Birds"
+                android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -192,7 +201,7 @@
                 android:layout_height="3dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@color/fondo2"
+                android:background="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
