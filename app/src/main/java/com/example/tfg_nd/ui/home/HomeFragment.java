@@ -130,7 +130,8 @@ public class HomeFragment extends Fragment {
                     mPref.put("gamemode", "porcentajes");
                     NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                 }else{
-                    Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                    mPref.put("nivel", "1");
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_porcenaje);
                 }
             }
         });
@@ -142,7 +143,8 @@ public class HomeFragment extends Fragment {
                     mPref.put("gamemode", "memory");
                     NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
                 }else{
-                    Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                    mPref.put("nivel", "1");
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_memory);
                 }
             }
         });
@@ -153,8 +155,9 @@ public class HomeFragment extends Fragment {
                 if(currentUser!=null){
                     mPref.put("gamemode", "tresraya");
                     NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
-                }else{
-                    Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
+                }else {
+                    mPref.put("nivel", "-1");
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.puzzle_tresraya);
                 }
             }
         });
@@ -162,7 +165,8 @@ public class HomeFragment extends Fragment {
         btEstadísticas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tabs_estadisticas);
+                if(currentUser != null) NavHostFragment.findNavController(getParentFragment()).navigate(R.id.tabs_estadisticas);
+                else Toast.makeText(getContext(), "Debes iniciar sesión para los juegos con progreso", Toast.LENGTH_SHORT).show();
             }
         });
 

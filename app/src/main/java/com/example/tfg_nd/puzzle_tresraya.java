@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ public class puzzle_tresraya extends Fragment {
     private int nivel_actual = 0;
     private View.OnClickListener listenerReload, listenerMenu, listenerNext2, listenerNext;
     private TextView lineaAspa, lineaCirculo, j1, j2, tvNivel, tvDificultad;
+    private FirebaseUser currentUser;
 
     //Constantes juego
     private ImageView fichas[];
@@ -63,11 +65,11 @@ public class puzzle_tresraya extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_puzzle_tresraya, container, false);
         mPref = new manejadorPreferencias("pref", getActivity());
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
-        }
+        }else user = new User();
 
         nivel_actual = Integer.parseInt(mPref.get("nivel", "0"));
         Toast.makeText(getContext(), "Nivel: " + nivel_actual, Toast.LENGTH_SHORT).show();
@@ -126,8 +128,13 @@ public class puzzle_tresraya extends Fragment {
         listenerMenu = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
-                dialog.dismiss();
+                if(currentUser == null){
+                    Intent i = new Intent(getContext(), HomeMenuActivity.class);
+                    startActivity(i);
+                }else{
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                    dialog.dismiss();
+                }
             }
         };
         listenerNext = new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class login extends Fragment {
     TextView changeDisplay;
     EditText etEmail, contraseña, etName, contraseña2;
     FirebaseAuth mAuth;
+    manejadorPreferencias mPref;
     boolean login = true;
     private final String TAG = "login.java";
 
@@ -49,6 +51,7 @@ public class login extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
+        mPref = new manejadorPreferencias("pref", getActivity());
         mAuth = FirebaseAuth.getInstance();
         btnAcceder = v.findViewById(R.id.btAcceder);
         etEmail = v.findViewById(R.id.etEmail);

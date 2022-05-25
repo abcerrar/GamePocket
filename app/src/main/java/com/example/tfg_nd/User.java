@@ -30,8 +30,10 @@ public class User {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final String TAG = "Utils_db.java";
 
-    private final String email;
+    private String email;
     private int dinero;
+
+    public User(){}
 
     public User(String email){
         this.email = email;

@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,7 @@ public class puzzle_memory extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private manejadorPreferencias mPref;
     private final String gamemode = "memory";
-    private String email;
+    private String email = "sin_email";
     private User user;
     private AlertDialog dialog;
     private View.OnClickListener listenerReload, listenerMenu, listenerNext, listenerNext2;
@@ -35,6 +36,7 @@ public class puzzle_memory extends Fragment {
     private TextView tvMovimientos, tvParejas, tvTitulo;
     private int movimientos = 0, last_pressed, parejas_completadas = 0;
     private boolean comprobar = false;
+    FirebaseUser currentUser;
 
 
     //Constantes juego
@@ -64,11 +66,12 @@ public class puzzle_memory extends Fragment {
         View v = inflater.inflate(R.layout.fragment_puzzle_memory, container, false);
 
         mPref = new manejadorPreferencias("pref", getActivity());
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             email = currentUser.getEmail();
             user = new User(email);
-        }
+        }else user = new User();
+
         String dorso_actual = mPref.get("dorso_memory", "dorso_rata");
         switch (dorso_actual){
             case "dorso_rata":
@@ -140,9 +143,14 @@ public class puzzle_memory extends Fragment {
         listenerMenu = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assert getParentFragment() != null;
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
-                dialog.dismiss();
+                if(currentUser == null){
+                    Intent i = new Intent(getContext(), HomeMenuActivity.class);
+                    startActivity(i);
+                }else{
+                    assert getParentFragment() != null;
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.niveles);
+                    dialog.dismiss();
+                }
             }
         };
 
@@ -347,10 +355,19 @@ public class puzzle_memory extends Fragment {
             dinero = 0;
             experiencia = 0;
         }
-        user.incrementarExperiencia(experiencia);
-        user.incrementarDinero(dinero);
-        user.actualizarEstrellas(estrellas, gamemode, nivel_actual);
-        if(estrellas>0) user.subirNivel(gamemode, nivel_actual);
+
+        if (currentUser != null) {
+            user.incrementarExperiencia(experiencia);
+            user.incrementarDinero(dinero);
+            user.actualizarEstrellas(estrellas, gamemode, nivel_actual);
+            if(estrellas>0) user.subirNivel(gamemode, nivel_actual);
+        }else{
+            titutlo2 = "Debes iniciar sesión para conseguir recompensas";
+            dinero = 0;
+            experiencia = 0;
+            listenerNext = null;
+        }
+
         dialog = user.alertFinalPartida(titulo, titutlo2, estrellas*2, dinero, experiencia, getActivity(), listenerReload, listenerNext2, listenerNext, listenerMenu, dialog, getContext());
         dialog.show();
     }

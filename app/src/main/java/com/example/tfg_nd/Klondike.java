@@ -135,7 +135,11 @@ public class Klondike extends AppCompatActivity {
                     //Toast.makeText(v.getContext(),"Robo", Toast.LENGTH_SHORT).show();
 
                     movingCard = findViewById(v.getId());
-                    tvCarta.setText(piles[(Integer.parseInt(movingCard.getTag().toString()))].get(piles[(Integer.parseInt(movingCard.getTag().toString()))].size()-1).getCard());
+                    try{
+                        tvCarta.setText(piles[(Integer.parseInt(movingCard.getTag().toString()))].get(piles[(Integer.parseInt(movingCard.getTag().toString()))].size()-1).getCard());
+                    }catch (ArrayIndexOutOfBoundsException e){
+                        tvCarta.setText("Empty");
+                    }
                 }
                 else{
                     Toast.makeText(v.getContext(),"Cancelo Robo", Toast.LENGTH_SHORT).show();
