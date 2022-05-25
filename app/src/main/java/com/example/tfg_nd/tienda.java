@@ -47,8 +47,10 @@ public class tienda extends Fragment {
     private ListenerRegistration listener;
     private TextView tvDinero;
     private AlertDialog dialog;
+    private String dorso_seleccionado, ficha_seleccionada, pajaro_seleccionado;
 
     Dialog anim_dialog;
+    private final int PADDING = 25;
 
     public tienda() {
     }
@@ -73,8 +75,8 @@ public class tienda extends Fragment {
 
 
         img_memory.add(v.findViewById(R.id.mem_dorso_dollar));
-        img_memory.add(v.findViewById(R.id.mem_dorso_sombra));
         img_memory.add(v.findViewById(R.id.mem_dorso_rata));
+        img_memory.add(v.findViewById(R.id.mem_dorso_sombra));
 
         fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_normales));
         fichas_tresraya.add(v.findViewById(R.id.tresraya_fichas_rojas));
@@ -87,16 +89,26 @@ public class tienda extends Fragment {
         tvDinero = v.findViewById(R.id.desc_dinero);
 
         fichas_tresraya.get(0).setColorFilter(getResources().getColor(R.color.black));
+
+        dorso_seleccionado = mPref.get("dorso_memory", "dorso_rata");
         for(int i=0; i<img_memory.size(); i++){
             asignarOnClick(i, "memory");
+            if(!img_memory.get(i).getTag().equals(dorso_seleccionado)) img_memory.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+            else img_memory.get(i).setPadding(0, 0, 0, 0);
         }
+        ficha_seleccionada = mPref.get("fichas_tresraya", "fichas_normales");
         for(int i=0; i<fichas_tresraya.size(); i++){
             asignarOnClick(i, "tresraya");
-        }
-        for(int i=0; i<pajaros_flappy.size(); i++){
-            asignarOnClick(i, "flappy");
+            if(!fichas_tresraya.get(i).getTag().equals(ficha_seleccionada)) fichas_tresraya.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+            else fichas_tresraya.get(i).setPadding(0, 0, 0, 0);
         }
 
+        pajaro_seleccionado = mPref.get("current_pajaro", "pajaro_azul");
+        for(int i=0; i<pajaros_flappy.size(); i++){
+            asignarOnClick(i, "flappy");
+            if(!pajaros_flappy.get(i).getTag().equals(pajaro_seleccionado)) pajaros_flappy.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+            else pajaros_flappy.get(i).setPadding(0, 0, 0, 0);
+        }
 
 
         DocumentReference docRef = db.collection("users").document(email);
@@ -212,7 +224,6 @@ public class tienda extends Fragment {
                 TextView titulo;
                 Button comprar = custom_layout.findViewById(R.id.btComprar);
                 ImageView desc_imagen = custom_layout.findViewById(R.id.desc_imagen);
-                ImageView moneda = custom_layout.findViewById(R.id.moneda);
 
                 titulo = custom_layout.findViewById(R.id.desc_titulo);
                 desc_imagen.setImageDrawable(imagen);
@@ -224,7 +235,6 @@ public class tienda extends Fragment {
                     try{
                         int precio = Integer.parseInt(documentSnapshot.getData().get("precio")+"");
                         comprar.setText(precio+"");
-                        moneda.setImageResource(R.drawable.coin);
                         comprar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -236,8 +246,40 @@ public class tienda extends Fragment {
                         Toast.makeText(getContext(), "Error al leer el precio de " + nombre, Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    comprar.setText("Seleccionar");
-                    moneda.setImageDrawable(null);
+                    switch (gamemode){
+                        case "memory":
+                            if(nombre.equals(dorso_seleccionado)){
+                                comprar.setText("Seleccionado");
+                                comprar.setEnabled(false);
+                            }else{
+                                comprar.setText("Seleccionar");
+                                dorso_seleccionado = nombre;
+                                comprar.setEnabled(true);
+                            }
+                            break;
+                        case "tresraya":
+                            if(nombre.equals(ficha_seleccionada)){
+                                comprar.setText("Seleccionado");
+                                comprar.setEnabled(false);
+                            }else{
+                                comprar.setText("Seleccionar");
+                                ficha_seleccionada = nombre;
+                                comprar.setEnabled(true);
+                            }
+                            break;
+                        case "flappy":
+                            if(nombre.equals(pajaro_seleccionado)){
+                                comprar.setText("Seleccionado");
+                                comprar.setEnabled(false);
+                            }else{
+                                comprar.setText("Seleccionar");
+                                pajaro_seleccionado = nombre;
+                                comprar.setEnabled(true);
+                            }
+                            break;
+
+                    }
+
                     comprar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -270,18 +312,31 @@ public class tienda extends Fragment {
         switch (gamemode){
             case "memory":
                 mPref.put("dorso_memory", nombre);
+                for(int i=0; i<img_memory.size(); i++) {
+                    if(!img_memory.get(i).getTag().equals(nombre)) img_memory.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+                    else img_memory.get(i).setPadding(0, 0, 0, 0);
+                }
                 break;
             case "tresraya":
                 mPref.put("fichas_tresraya", nombre);
+                for(int i=0; i<fichas_tresraya.size(); i++) {
+                    if(!fichas_tresraya.get(i).getTag().equals(nombre)) fichas_tresraya.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+                    else fichas_tresraya.get(i).setPadding(0, 0, 0, 0);
+                }
                 break;
             case "flappy":
                 mPref.put("pajaro", nombre);
-                Log.d("ola", nombre);
+                for(int i=0; i<pajaros_flappy.size(); i++) {
+                    if(!pajaros_flappy.get(i).getTag().equals(nombre)) pajaros_flappy.get(i).setPadding(PADDING, PADDING, PADDING, PADDING);
+                    else pajaros_flappy.get(i).setPadding(0, 0, 0, 0);
+                }
                 break;
 
         }
-
     }
+
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

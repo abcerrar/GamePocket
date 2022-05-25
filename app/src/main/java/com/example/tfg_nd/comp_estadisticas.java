@@ -92,6 +92,8 @@ public class comp_estadisticas extends Fragment {
                     star1 = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
                 }catch (NumberFormatException e){
                     star1=0;
+                }catch (NullPointerException e){
+                    star1 = 0;
                 }
                 db.collection("memory").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -100,6 +102,8 @@ public class comp_estadisticas extends Fragment {
                             star2 = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
                         }catch (NumberFormatException e){
                             star2=0;
+                        }catch(NullPointerException e){
+                            star2 = 0;
                         }
                         db.collection("tresraya").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -108,6 +112,8 @@ public class comp_estadisticas extends Fragment {
                                     star3 = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
                                 }catch (NumberFormatException e){
                                     star3=0;
+                                }catch(NullPointerException e){
+                                    star3 = 0;
                                 }
                                 db.collection("solitario").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
@@ -122,6 +128,8 @@ public class comp_estadisticas extends Fragment {
                                                     recordFlappy = Integer.parseInt(documentSnapshot.getData().get("record")+"");
                                                 }catch (NumberFormatException e){
                                                     recordFlappy=0;
+                                                }catch (NullPointerException e){
+                                                    recordFlappy=0;
                                                 }
                                                 db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                     @Override
@@ -131,6 +139,10 @@ public class comp_estadisticas extends Fragment {
                                                             dinero = Integer.parseInt(documentSnapshot.getData().get("dinero")+"");
                                                             nombre = documentSnapshot.getData().get("nombre")+"";
                                                         }catch (NumberFormatException e){
+                                                            nivel = -1;
+                                                            dinero = -1;
+                                                            nombre = "error";
+                                                        }catch (NullPointerException e){
                                                             nivel = -1;
                                                             dinero = -1;
                                                             nombre = "error";

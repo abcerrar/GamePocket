@@ -55,6 +55,7 @@ public class perfil extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_perfil, container, false);
         currentUser = mAuth.getCurrentUser();
+
         btnCerrarSesion = v.findViewById(R.id.profile_signout);
         btnBorrarCuenta = v.findViewById(R.id.btBorrarCuenta);
         tvPerfil = v.findViewById(R.id.textView6);
