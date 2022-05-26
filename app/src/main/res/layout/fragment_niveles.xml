@@ -26,6 +26,7 @@
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="1"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -34,8 +35,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -49,10 +51,11 @@
                 android:id="@+id/nivel2"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="2"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -61,8 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -76,10 +80,11 @@
                 android:id="@+id/nivel3"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="3"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -88,8 +93,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -103,10 +109,11 @@
                 android:id="@+id/nivel4"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="4"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -115,8 +122,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -138,10 +146,11 @@
                 android:id="@+id/nivel5"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="5"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -150,8 +159,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -165,10 +175,11 @@
                 android:id="@+id/nivel6"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="6"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -177,8 +188,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -192,10 +204,11 @@
                 android:id="@+id/nivel7"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="7"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -204,8 +217,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -219,10 +233,11 @@
                 android:id="@+id/nivel8"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="8"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -231,8 +246,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -254,10 +270,11 @@
                 android:id="@+id/nivel9"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="9"
+                android:textColor="@color/fondonegro"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -266,8 +283,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -281,10 +299,11 @@
                 android:id="@+id/nivel10"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="10"
+                android:textColor="@color/fondonegro"
                 android:textSize="38sp"
                 android:textStyle="bold" />
 
@@ -293,8 +312,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -308,10 +328,11 @@
                 android:id="@+id/nivel11"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="11"
+                android:textColor="@color/fondonegro"
                 android:textSize="38sp"
                 android:textStyle="bold" />
 
@@ -320,8 +341,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -335,10 +357,11 @@
                 android:id="@+id/nivel12"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                
+
                 android:fontFamily="@font/ka"
                 android:gravity="center"
                 android:text="12"
+                android:textColor="@color/fondonegro"
                 android:textSize="38sp"
                 android:textStyle="bold" />
 
@@ -347,8 +370,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="bottom"
-                
+
                 android:gravity="center|top"
+                android:textColor="@color/fondonegro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
