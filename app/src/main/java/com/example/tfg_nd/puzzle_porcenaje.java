@@ -200,13 +200,14 @@ public class puzzle_porcenaje extends Fragment {
     public void pintarFigura(){
         num = (int)(Math.random()*99+1);
         switch (nivel_actual){
+
             case 5: case 6: case 7: case 8:
                 contenedor.setImageResource(R.drawable.circle);
-                tvRelleno.setBackgroundColor(getResources().getColor(R.color.azul));
+                tvRelleno.setBackgroundColor(getResources().getColor(R.color.morado));
                 break;
             case 9: case 10: case 11: case 12:
                 contenedor.setImageResource(R.drawable.triangle);
-                tvRelleno.setBackgroundColor(getResources().getColor(R.color.verde));
+                tvRelleno.setBackgroundColor(getResources().getColor(R.color.azul));
                 break;
         }
         int altura = getResources().getDimensionPixelSize(dimensiones[num])*3;

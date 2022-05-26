@@ -62,7 +62,7 @@
         android:id="@+id/tvRelleno"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#CF6C6C"
+        android:background="@color/amarillo"
         app:layout_constraintBottom_toBottomOf="@+id/contenedor"
         app:layout_constraintEnd_toEndOf="@+id/contenedor"
         app:layout_constraintStart_toStartOf="@+id/contenedor"
