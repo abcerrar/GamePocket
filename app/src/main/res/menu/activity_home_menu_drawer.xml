@@ -43,6 +43,6 @@
             android:title="Flappy birds" />
         <item
             android:id="@+id/klondike"
-            android:title="klondike" />
+            android:title="Solitario" />
     </group>
 </menu>

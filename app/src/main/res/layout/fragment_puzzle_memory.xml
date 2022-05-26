@@ -7,319 +7,326 @@
     android:background="@color/fondonegro"
     tools:context=".puzzle_memory">
 
-    <TextView
-        android:id="@+id/tvTitulo_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/ka"
-        android:gravity="center"
-        android:text="Nivel: 1"
-        android:textColor="@color/naranja"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitulo_2">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/fondonegro">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="204dp">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/tvTitulo_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/ka"
+                android:gravity="center"
+                android:text="Nivel: 1"
+                android:textColor="@color/naranja"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/minecraftia"
-                android:gravity="center|top"
-                android:text="Movimientos"
-                android:textColor="@color/azul"
-                android:textSize="20sp" />
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tvMovimientos"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/fondonegro">
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/minecraftia"
+                        android:gravity="center|top"
+                        android:text="Movimientos"
+                        android:textColor="@color/azul"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tvMovimientos"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/minecraftia"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/azul"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/fondonegro">
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/minecraftia"
+                        android:gravity="center|top"
+                        android:text="Parejas"
+                        android:textColor="@color/azul"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tvParejas"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/minecraftia"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/azul"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom|center"
-                android:layout_marginStart="0dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/minecraftia"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/azul"
-                android:textSize="40dp"
-                android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/fondonegro">
+                <ImageView
+                    android:id="@+id/catrta1"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="0" />
 
-            <TextView
-                android:id="@+id/textView17"
+                <ImageView
+                    android:id="@+id/catrta2"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="1" />
+
+                <ImageView
+                    android:id="@+id/catrta3"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="2" />
+
+                <ImageView
+                    android:id="@+id/catrta4"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="3" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/minecraftia"
-                android:gravity="center|top"
-                android:text="Parejas"
-                android:textColor="@color/azul"
-                android:textSize="20sp" />
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tvParejas"
+                <ImageView
+                    android:id="@+id/catrta5"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="4" />
+
+                <ImageView
+                    android:id="@+id/catrta6"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="5" />
+
+                <ImageView
+                    android:id="@+id/catrta7"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="6" />
+
+                <ImageView
+                    android:id="@+id/catrta8"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="7" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom|center"
-                android:layout_marginStart="0dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/minecraftia"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/azul"
-                android:textSize="40dp"
-                android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/catrta9"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="8" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+                <ImageView
+                    android:id="@+id/catrta10"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="9" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
+                <ImageView
+                    android:id="@+id/catrta11"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="10" />
 
-            <ImageView
-                android:id="@+id/catrta1"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="0" />
+                <ImageView
+                    android:id="@+id/catrta12"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="11" />
 
-            <ImageView
-                android:id="@+id/catrta2"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="1" />
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/catrta3"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/catrta4"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="3" />
+                <ImageView
+                    android:id="@+id/catrta13"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="12" />
 
+                <ImageView
+                    android:id="@+id/catrta14"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="13" />
+
+                <ImageView
+                    android:id="@+id/catrta15"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="14" />
+
+                <ImageView
+                    android:id="@+id/catrta16"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="15" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/catrta17"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="16" />
+
+                <ImageView
+                    android:id="@+id/catrta18"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="17" />
+
+                <ImageView
+                    android:id="@+id/catrta19"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="18" />
+
+                <ImageView
+                    android:id="@+id/catrta20"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/potion"
+                    android:tag="19" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/catrta5"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="4" />
-
-            <ImageView
-                android:id="@+id/catrta6"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="5" />
-
-            <ImageView
-                android:id="@+id/catrta7"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="6" />
-
-            <ImageView
-                android:id="@+id/catrta8"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="7" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/catrta9"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="8" />
-
-            <ImageView
-                android:id="@+id/catrta10"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="9" />
-
-            <ImageView
-                android:id="@+id/catrta11"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="10" />
-
-            <ImageView
-                android:id="@+id/catrta12"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="11" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/catrta13"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="12" />
-
-            <ImageView
-                android:id="@+id/catrta14"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="13" />
-
-            <ImageView
-                android:id="@+id/catrta15"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="14" />
-
-            <ImageView
-                android:id="@+id/catrta16"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="15" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/catrta17"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="16" />
-
-            <ImageView
-                android:id="@+id/catrta18"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="17" />
-
-            <ImageView
-                android:id="@+id/catrta19"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="18" />
-
-            <ImageView
-                android:id="@+id/catrta20"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/potion"
-                android:tag="19" />
-
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

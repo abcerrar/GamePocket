@@ -175,7 +175,7 @@ public class puzzle_porcenaje extends Fragment {
                         user.actualizarEstrellas(num_estrellas, gamemode, nivel_actual);
                     }else{
                         titulo = "Era " + porcentaje;
-                        titulo2 = "No obienes recompensas sin iniciar sesión";
+                        titulo2 = "No obtienes recompensas sin iniciar sesión";
                         dinero = 0;
                         exp = 0;
                         listenerNext = null;

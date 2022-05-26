@@ -270,6 +270,7 @@ public class puzzle_tresraya extends Fragment {
     }
 
     public void gamemode_jvj(){
+        tvNivel.setText("JvJ");
         j1.setVisibility(View.VISIBLE);
         j2.setVisibility(View.VISIBLE);
         btCirculo.setClickable(false);

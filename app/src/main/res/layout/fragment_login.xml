@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondonegro"
+    android:gravity="center"
     android:orientation="vertical"
+    android:paddingBottom="100dp"
     tools:context=".login">
 
     <EditText
@@ -91,6 +93,6 @@
         android:fontFamily="@font/minecraftia"
         android:text="No tengo cuenta"
         android:textAllCaps="false"
-        android:textColor="@android:color/holo_blue_light" />
+        android:textColor="@color/morado" />
 
 </LinearLayout>
