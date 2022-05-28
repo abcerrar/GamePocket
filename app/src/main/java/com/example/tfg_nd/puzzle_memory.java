@@ -221,6 +221,7 @@ public class puzzle_memory extends Fragment {
     }
 
     public void cargarImagenes(int cantidad){
+        imagenes.clear();
         imagenes.add(R.drawable.memoryimage1+"");
         imagenes.add(R.drawable.memoryimage1+"");
         imagenes.add(R.drawable.memoryimage2+"");
