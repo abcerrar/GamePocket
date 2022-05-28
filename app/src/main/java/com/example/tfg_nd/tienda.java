@@ -85,6 +85,7 @@ public class tienda extends Fragment {
         pajaros_flappy.add(v.findViewById(R.id.pajaro_pou));
         pajaros_flappy.add(v.findViewById(R.id.pajaro_azul));
         pajaros_flappy.add(v.findViewById(R.id.pajaro_hamb));
+        pajaros_flappy.add(v.findViewById(R.id.pajaro_realista));
 
         tvDinero = v.findViewById(R.id.desc_dinero);
 
@@ -279,7 +280,6 @@ public class tienda extends Fragment {
                             break;
 
                     }
-
                     comprar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

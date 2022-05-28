@@ -11,7 +11,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -92,6 +91,11 @@ public class GameView extends View {
                 birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro_hamb1);
                 birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro_hamb1);
                 break;
+            case "cohete":
+                birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.cohete1);
+                birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.cohete2);
+                break;
+
             default:
                 birds[0] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro1);
                 birds[1] = BitmapFactory.decodeResource(getResources(), R.drawable.pajaro2);

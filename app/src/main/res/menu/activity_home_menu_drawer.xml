@@ -29,7 +29,7 @@
         <item
             android:id="@+id/porcentajes"
             android:title="Porcentajes"
-            android:icon="@drawable/percentage"/>
+            android:icon="@drawable/percentage" />
         <item
             android:id="@+id/memory"
             android:title="Memory"

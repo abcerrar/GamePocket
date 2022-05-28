@@ -245,11 +245,12 @@
                         android:tag="pajaro_hamb" />
 
                     <ImageView
-                        android:id="@+id/imageView23"
+                        android:id="@+id/pajaro_realista"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="15dp"
-                        android:src="@drawable/reload" />
+                        android:tag="cohete"
+                        android:src="@drawable/cohete1" />
                 </LinearLayout>
             </HorizontalScrollView>
 
