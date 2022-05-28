@@ -155,6 +155,10 @@ public class login extends Fragment {
                         db.collection("users").document(email).collection("productos").document("dorso_rata").set(nada);
                         db.collection("users").document(email).collection("productos").document("fichas_normales").set(nada);
                         db.collection("users").document(email).collection("productos").document("pajaro_azul").set(nada);
+                        db.collection("users").document(email).update("current_dorso", "dorso_rata");
+                        db.collection("users").document(email).update("current_ficha", "fichas_normales");
+                        db.collection("users").document(email).update("current_pajaro", "pajaro_azul");
+
 
                         Log.d("TAG", "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();

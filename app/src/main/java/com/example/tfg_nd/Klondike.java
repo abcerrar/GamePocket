@@ -282,8 +282,6 @@ public class Klondike extends AppCompatActivity {
                             winCondition(piles[7],piles[8],piles[9],piles[10]);
                         }
                     }
-
-
                 }
             });
         }

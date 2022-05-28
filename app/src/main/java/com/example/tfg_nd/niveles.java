@@ -112,36 +112,36 @@ public class niveles extends Fragment {
 
         window.setStatusBarColor(getActivity().getResources().getColor(R.color.azul));
         window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#43a047")));
-        //Asignar en onClick a cada TextView
-        for(int i = 0; i<MAX_NIVELES; i++){
-            setOnClickLevel(i);
-        }
 
         gamemode = mPref.get("gamemode", "error");
 
-        if(!gamemode.equals("error") && current_user != null){
+        //Elegir los colores en funcion del juego
+        ActionBar actionBar;
+        actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        switch (gamemode){
+            case "porcentajes":
+                cuadro_nivel = getResources().getColor(R.color.morado);
+                cuadro_nivelCompleto = getResources().getColor(R.color.amarillo);
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.amarillo)));
+                break;
+            case "memory":
+                cuadro_nivel = getResources().getColor(R.color.naranja);
+                cuadro_nivelCompleto = getResources().getColor(R.color.azul);
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
+                break;
+            case "tresraya":
+                cuadro_nivel = getResources().getColor(R.color.amarillo_2);
+                cuadro_nivelCompleto = getResources().getColor(R.color.rosa);
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.rosa)));
+                break;
+            default:
+                Toast.makeText(getContext(), "Error cargando el gamemode", Toast.LENGTH_SHORT).show();
+        }
 
-            //Elegir los colores en funcion del juego
-            ActionBar actionBar;
-            actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-            switch (gamemode){
-                case "porcentajes":
-                    actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.amarillo)));
-                    cuadro_nivel = getResources().getColor(R.color.morado);
-                    cuadro_nivelCompleto = getResources().getColor(R.color.amarillo);
-                    break;
-                case "memory":
-                    actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
-                    cuadro_nivel = getResources().getColor(R.color.naranja);
-                    cuadro_nivelCompleto = getResources().getColor(R.color.azul);
-                    break;
-                case "tresraya":
-                    actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.rosa)));
-                    cuadro_nivel = getResources().getColor(R.color.amarillo_2);
-                    cuadro_nivelCompleto = getResources().getColor(R.color.rosa);
-                    break;
-                default:
-                    Toast.makeText(getContext(), "Error cargando el gamemode", Toast.LENGTH_SHORT).show();
+        if(!gamemode.equals("error") && current_user != null){
+            //Asignar en onClick a cada TextView
+            for(int i = 0; i<MAX_NIVELES; i++){
+                setOnClickLevel(i);
             }
 
             DocumentReference docRef = db.collection(gamemode).document(email);
@@ -203,6 +203,10 @@ public class niveles extends Fragment {
         game.put("nivel", 1);
         niveles[0].setBackgroundColor(cuadro_nivel);
         estrellas[0].setBackgroundColor(cuadro_nivel);
+        for(int i=1; i<niveles.length; i++){
+            niveles[i].setBackgroundColor(cuadro_nivelCompleto);
+            estrellas[i].setBackgroundColor(cuadro_nivelCompleto);
+        }
 
         DocumentReference docRef = db.collection(gamemode).document(email);
         docRef.set(game)
