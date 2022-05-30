@@ -10,12 +10,12 @@
 
     <TextView
         android:id="@+id/tvTitulo"
+        style="@style/WhiteText"
         android:layout_width="362dp"
         android:layout_height="79dp"
         android:fontFamily="@font/pesstart"
         android:gravity="center"
         android:text="Has fallado"
-        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,12 +27,12 @@
 
     <TextView
         android:id="@+id/tvTitulo2"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/minecraftia"
         android:gravity="center"
         android:text="Has fallado"
-        android:textColor="@color/white"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,12 +88,12 @@
 
     <TextView
         android:id="@+id/tvGanaDinero"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:fontFamily="@font/minecraftia"
         android:gravity="center"
         android:text="+5"
-        android:textColor="@color/white"
         android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -119,12 +119,12 @@
 
     <TextView
         android:id="@+id/tvGanaExperiencia"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:fontFamily="@font/minecraftia"
         android:gravity="center"
         android:text="+5"
-        android:textColor="@color/white"
         android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"

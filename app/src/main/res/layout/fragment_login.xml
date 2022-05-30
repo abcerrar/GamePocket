@@ -20,7 +20,7 @@
         android:fontFamily="@font/minecraftia"
         android:hint="Nombre"
         android:inputType="textPersonName"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textColorHint="@color/browser_actions_title_color"
         android:visibility="invisible" />
 
@@ -35,7 +35,7 @@
         android:fontFamily="@font/minecraftia"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textColorHint="@color/browser_actions_title_color" />
 
     <EditText
@@ -49,7 +49,7 @@
         android:fontFamily="@font/minecraftia"
         android:hint="Contraseña"
         android:inputType="textPassword"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textColorHint="@color/browser_actions_title_color" />
 
     <EditText
@@ -63,7 +63,7 @@
         android:fontFamily="@font/minecraftia"
         android:hint="Repetir contraseña"
         android:inputType="textPassword"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textColorHint="@color/browser_actions_title_color"
         android:visibility="invisible" />
 

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/pesstart"
         android:gravity="center"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="18sp" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/ka"
         android:text="Puzzles"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
         android:background="@color/morado"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/minecraftia"
             android:text="Porcentajes"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="15dp" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_marginStart="15dp"
             android:background="@color/amarillo"
             android:gravity="center"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/minecraftia"
             android:text="Memory"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="15dp" />
 
         <TextView
@@ -87,7 +87,7 @@
             android:layout_marginStart="15dp"
             android:background="@color/azul"
             android:gravity="center"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/minecraftia"
             android:text="Tres en raya"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="15dp" />
 
         <TextView
@@ -114,7 +114,7 @@
             android:layout_marginStart="15dp"
             android:background="@color/rosa"
             android:gravity="center"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -125,7 +125,7 @@
         android:layout_marginTop="9dp"
         android:fontFamily="@font/ka"
         android:text="Solitario"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <TextView
@@ -134,7 +134,7 @@
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
         android:background="@color/morado"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/minecraftia"
             android:text="Record: "
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -172,7 +172,7 @@
         android:layout_marginTop="9dp"
         android:fontFamily="@font/ka"
         android:text="Flappy birds"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <TextView
@@ -181,7 +181,7 @@
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
         android:background="@color/morado"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -197,7 +197,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/minecraftia"
             android:text="Record: "
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -219,7 +219,7 @@
         android:layout_marginTop="9dp"
         android:fontFamily="@font/ka"
         android:text="General"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <TextView
@@ -228,7 +228,7 @@
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
         android:background="@color/morado"
-        android:textColor="@color/white"
+        style="@style/WhiteText"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -244,7 +244,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/minecraftia"
             android:text="Nombre: "
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -254,7 +254,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/minecraftia"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -271,7 +271,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/minecraftia"
             android:text="Nivel: "
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -281,7 +281,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/minecraftia"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -297,7 +297,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/minecraftia"
             android:text="Dinero: "
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -307,7 +307,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/minecraftia"
-            android:textColor="@color/white"
+            style="@style/WhiteText"
             android:textSize="16sp" />
 
         <ImageView

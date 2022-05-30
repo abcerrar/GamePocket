@@ -23,14 +23,17 @@
         <item name="android:fontFamily">@font/minecraftia</item>
     </style>
 
+    <style name="WhiteText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
     <style name="spinnerstyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/minecraftia</item>
         <item name="android:textColor">@color/amarillo</item>
         <item name="android:textAlignment">center</item>
         <item name="android:background">@color/fondonegro </item>
-        <item name="hintTextColor">@color/amarillo</item>
-        <item name="hintTextAppearance">@color/amarillo</item>
     </style>
+
     <style name="Theme.Tfg_nd.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Tfg_nd.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
