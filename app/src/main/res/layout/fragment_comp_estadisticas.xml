@@ -22,7 +22,7 @@
         android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/ka"
         android:text="Puzzles"
         android:textColor="@color/white"
