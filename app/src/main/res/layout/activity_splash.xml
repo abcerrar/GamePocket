@@ -18,14 +18,14 @@
 
     <TextView
         android:id="@+id/txt_logo"
+        style="@style/WhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="64dp"
         android:fontFamily="@font/pixeltype"
         android:rotationX="21"
         android:text="PASATIEMPOS"
-        android:textColor="@color/black"
         android:textSize="70sp"
         app:autoSizeTextType="none"
         app:layout_constraintBottom_toBottomOf="@+id/img_logo"

@@ -4,14 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/drawable/shape.xml" value="0.2985" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/activity_card_view.xml" value="0.28804347826086957" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/activity_home_menu.xml" value="0.33242753623188404" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/activity_klondike.xml" value="0.28804347826086957" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/activity_splash.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/activity_start_game.xml" value="0.3625" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/app_bar_home_menu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/content_home_menu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/custom_progressbar.xml" value="0.25" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/desc_producto.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/end_game.xml" value="0.33695652173913043" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/fragment_comp_estadisticas.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/fragment_estadisticas.xml" value="0.3625" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/fragment_gallery.xml" value="0.33605072463768115" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/fragment_login.xml" value="0.33242753623188404" />
@@ -25,6 +29,8 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/fragment_test.xml" value="0.33242753623188404" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/fragment_tienda.xml" value="0.5" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/nav_header_home_menu.xml" value="0.33" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/row.xml" value="0.3625" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/layout/row_stats.xml" value="0.3625" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/menu/activity_home_menu_drawer.xml" value="0.3625" />
         <entry key="..\:/Users/david/AndroidStudioProjects/tfg_nd/app/src/main/res/menu/home_menu.xml" value="0.3625" />
         <entry key="app/src/main/res/layout/activity_home_menu.xml" value="0.2269021739130435" />

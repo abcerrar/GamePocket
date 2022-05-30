@@ -27,6 +27,12 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/amarillo</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/minecraftia</item>
+    </style>
+
     <style name="spinnerstyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/minecraftia</item>
         <item name="android:textColor">@color/amarillo</item>

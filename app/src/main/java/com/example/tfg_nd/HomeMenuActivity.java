@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -48,7 +49,6 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         binding = ActivityHomeMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         currentUser = mAuth.getCurrentUser();
         String email = "sin_email";
         if(currentUser!=null) email = currentUser.getEmail();
