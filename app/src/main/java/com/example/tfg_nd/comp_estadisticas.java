@@ -1,6 +1,5 @@
 package com.example.tfg_nd;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

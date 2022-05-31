@@ -2,7 +2,6 @@ package com.example.tfg_nd;
 
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 

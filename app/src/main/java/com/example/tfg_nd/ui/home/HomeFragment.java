@@ -1,33 +1,24 @@
 package com.example.tfg_nd.ui.home;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-
-import com.example.tfg_nd.HomeMenuActivity;
 import com.example.tfg_nd.Klondike;
 import com.example.tfg_nd.R;
 import com.example.tfg_nd.StartGame;
 import com.example.tfg_nd.databinding.FragmentHomeBinding;
 import com.example.tfg_nd.manejadorPreferencias;
-import com.example.tfg_nd.niveles;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;

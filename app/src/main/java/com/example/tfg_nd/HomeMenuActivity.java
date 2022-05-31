@@ -1,9 +1,6 @@
 package com.example.tfg_nd;
 
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,13 +10,9 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,7 +22,6 @@ import com.example.tfg_nd.databinding.ActivityHomeMenuBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.lang.reflect.Field;
 
 public class HomeMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 

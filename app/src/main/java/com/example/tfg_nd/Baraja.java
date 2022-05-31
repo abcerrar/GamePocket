@@ -1,12 +1,6 @@
 package com.example.tfg_nd;
 
-
-import android.app.Activity;
-import android.content.Context;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Baraja {
