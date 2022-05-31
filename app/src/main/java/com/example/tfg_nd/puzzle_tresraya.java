@@ -115,7 +115,7 @@ public class puzzle_tresraya extends Fragment {
                 imgaspa = R.drawable.aspa;
                 break;
         }
-        Toast.makeText(getContext(), "Fichas: " + imgcirculo + ", " + imgaspa, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Fichas: " + imgcirculo + ", " + imgaspa, Toast.LENGTH_SHORT).show();
         imagenj1 = imgaspa;
         imagenj2 = imgcirculo;
         listenerReload = new View.OnClickListener() {
@@ -338,7 +338,7 @@ public class puzzle_tresraya extends Fragment {
                                         if(!respuestaMedia()) respuestaFacil();
                                         break;
                                     case 3:
-                                        if(!respuestaDificil()) Toast.makeText(getContext(), "Error respondiendo", Toast.LENGTH_SHORT).show();
+                                        respuestaDificil();
                                         break;
                                 }
                                 habilitarBotones();

@@ -45,8 +45,7 @@ public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private LinearLayout btEstadísticas, btTienda;
-    private ImageView btPorcentaje, btMemory, btTresraya, btSolitario, btFlappy;
+    private ImageView btPorcentaje, btMemory, btTresraya, btSolitario, btFlappy, btEstadísticas, btTienda;
 
     ListenerRegistration listener;
     TextView dinero, tvEmail;
@@ -74,6 +73,8 @@ public class HomeFragment extends Fragment {
         actionButton(btTresraya, R.drawable.boton_tresraya, R.drawable.boton_tresraya_pulsado);
         actionButton(btSolitario, R.drawable.boton_solitario, R.drawable.boton_solitario_pulsado);
         actionButton(btFlappy, R.drawable.boton_flappy, R.drawable.boton_flappy_pulsado);
+        actionButton(btEstadísticas, R.drawable.boton_estadisticas, R.drawable.boton_estadisticas_pulsado);
+        actionButton(btTienda, R.drawable.boton_tienda, R.drawable.boton_tienda_pulsado);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
@@ -121,6 +122,17 @@ public class HomeFragment extends Fragment {
             tvEmail.setText("No estás logeado");
             mPref = new manejadorPreferencias("sin_email", getActivity());
         }
+
+        tvEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentUser!=null){
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.perfil);
+                }else{
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.login);
+                }
+            }
+        });
 
         btPorcentaje.setOnClickListener(new View.OnClickListener() {
             @Override

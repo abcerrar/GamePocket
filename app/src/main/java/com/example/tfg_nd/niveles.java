@@ -16,10 +16,12 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -118,25 +120,26 @@ public class niveles extends Fragment {
         //Elegir los colores en funcion del juego
         ActionBar actionBar;
         actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        int color1=0, color2=0;
         switch (gamemode){
             case "porcentajes":
-                cuadro_nivel = getResources().getColor(R.color.morado);
-                cuadro_nivelCompleto = getResources().getColor(R.color.amarillo);
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.amarillo)));
+                color1 = getResources().getColor(R.color.morado);
+                color2 = getResources().getColor(R.color.amarillo);
                 break;
             case "memory":
-                cuadro_nivel = getResources().getColor(R.color.naranja);
-                cuadro_nivelCompleto = getResources().getColor(R.color.azul);
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
+                color1 = getResources().getColor(R.color.naranja);
+                color2 = getResources().getColor(R.color.azul);
                 break;
             case "tresraya":
-                cuadro_nivel = getResources().getColor(R.color.amarillo_2);
-                cuadro_nivelCompleto = getResources().getColor(R.color.rosa);
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.rosa)));
+                color1 = getResources().getColor(R.color.amarillo_2);
+                color2 = getResources().getColor(R.color.rosa);
                 break;
             default:
                 Toast.makeText(getContext(), "Error cargando el gamemode", Toast.LENGTH_SHORT).show();
         }
+        cuadro_nivel = color1;
+        cuadro_nivelCompleto = color2;
+        actionBar.setBackgroundDrawable(new ColorDrawable(color2));
 
         if(!gamemode.equals("error") && current_user != null){
             //Asignar en onClick a cada TextView
@@ -157,6 +160,7 @@ public class niveles extends Fragment {
                                 niveles[i].setBackgroundColor(cuadro_nivel);
                                 estrellas[i].setBackgroundColor(cuadro_nivel);
                                 asignatEstrellas((i+1));
+                                colorButton(niveles[i], estrellas[i], cuadro_nivel, cuadro_nivelCompleto);
                                 //★
                             }else{
                                 niveles[i].setBackgroundColor(cuadro_nivelCompleto);
@@ -243,7 +247,9 @@ public class niveles extends Fragment {
         niveles[nivel].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nivel < current_level) jumpToGame(nivel);
+                if(nivel < current_level) {
+                    jumpToGame(nivel);
+                }
                 else Toast.makeText(getContext(), "Debes pasarte los niveles anteriores ", Toast.LENGTH_SHORT).show();
             }
         });
@@ -291,6 +297,30 @@ public class niveles extends Fragment {
                 }catch(Exception e){
                     Log.w(TAG, "Error al acceder a las etrellas");
                 }
+            }
+        });
+    }
+
+    public void colorButton (TextView boton, TextView estrellas, int color1, int color2){
+        boton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_UP:
+                        boton.setBackgroundColor(color1);
+                        estrellas.setBackgroundColor(color1);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        boton.setBackgroundColor(color2);
+                        estrellas.setBackgroundColor(color2);
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT: case MotionEvent.ACTION_CANCEL:
+                        boton.setBackgroundColor(color1);
+                        estrellas.setBackgroundColor(color1);
+                        break;
+
+                }
+                return false;
             }
         });
     }
