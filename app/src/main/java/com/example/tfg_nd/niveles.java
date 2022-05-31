@@ -140,6 +140,8 @@ public class niveles extends Fragment {
         cuadro_nivel = color1;
         cuadro_nivelCompleto = color2;
         actionBar.setBackgroundDrawable(new ColorDrawable(color2));
+        btReset.setBackgroundColor(color1);
+        btJvj.setBackgroundColor(color1);
 
         if(!gamemode.equals("error") && current_user != null){
             //Asignar en onClick a cada TextView

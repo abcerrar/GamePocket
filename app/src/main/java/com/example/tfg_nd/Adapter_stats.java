@@ -197,7 +197,6 @@ public class Adapter_stats extends RecyclerView.Adapter<Adapter_stats.ViewHolder
         });
     }
     public void pintarStats(){
-        Toast.makeText(context, star1 + ", " + star2 + ", " + star3 + ", " + recordSolitario + ", " + recordFlappy, Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View custom_layout = activity.getLayoutInflater().inflate(R.layout.fragment_comp_estadisticas, null);
         TextView tvStar1, tvStar2, tvStar3, tvSolitario, tvFlappy, tvNombre, tvNivel, tvDinero, tvEmail;

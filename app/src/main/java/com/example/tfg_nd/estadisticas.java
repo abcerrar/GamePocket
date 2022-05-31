@@ -128,6 +128,7 @@ public class estadisticas extends Fragment {
                         });
                         break;
                     case "Dinero":
+                        titulo_spinner.setText("Dinero");
                         tvNumero.setText("Dinero");
                         nombres.clear();
                         numeros.clear();
