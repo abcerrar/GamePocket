@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,9 +90,9 @@ public class comp_estadisticas extends Fragment {
                 try{
                     star1 = Integer.parseInt(documentSnapshot.getData().get("total_estrellas")+"");
                 }catch (NumberFormatException e){
-                    star1=0;
+                    star1=1;
                 }catch (NullPointerException e){
-                    star1 = 0;
+                    star1 = 1;
                 }
                 db.collection("memory").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override

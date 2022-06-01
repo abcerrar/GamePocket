@@ -16,7 +16,7 @@
             android:icon="@drawable/profile"/>
         <item
             android:id="@+id/tienda"
-            android:icon="@drawable/shop"
+            android:icon="@drawable/shop_icon"
             android:title="Tienda" />
         <item
             android:id="@+id/estadisticas"
@@ -37,12 +37,14 @@
         <item
             android:id="@+id/tresenraya"
             android:title="3 en raya"
-            android:icon="@drawable/xo_negro"/>
+            android:icon="@drawable/tresraya_icon"/>
         <item
             android:id="@+id/flappy"
-            android:title="Flappy birds" />
+            android:title="Flappy birds"
+            android:icon="@drawable/flappy_icon" />
         <item
             android:id="@+id/klondike"
-            android:title="Solitario" />
+            android:title="Solitario"
+            android:icon="@drawable/solitario_icon"/>
     </group>
 </menu>
