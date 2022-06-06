@@ -12,14 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/test"
-        android:name="com.example.tfg_nd.test"
-        android:label="fragment_test"
-        tools:layout="@layout/fragment_test" />
-    <fragment
         android:id="@+id/login"
         android:name="com.example.tfg_nd.login"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/perfil"

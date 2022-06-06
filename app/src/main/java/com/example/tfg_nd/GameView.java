@@ -191,13 +191,11 @@ public class GameView extends View {
             velocity = -30;
             gameState = true;
             cont_click = 0;
-            Log.d("hlçol", cont_click+"");
         }
         if (gameOver) {
             cont_click++;
             if(cont_click==3){
                 score = 0;
-                Log.d("hlçol", cont_click+"");
                 startGame = new StartGame();
                 startGame.exitGame();
             }
