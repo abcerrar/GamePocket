@@ -1,6 +1,7 @@
 package com.example.tfg_nd;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -46,6 +47,9 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
         if(currentUser!=null) email = currentUser.getEmail();
         mPref = new manejadorPreferencias(email, this);
 
+
+        //Poner que solo se pueda usar en vertical
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSupportActionBar(binding.appBarHomeMenu.toolbar);
 
 
