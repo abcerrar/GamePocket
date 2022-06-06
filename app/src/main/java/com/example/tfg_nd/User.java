@@ -133,6 +133,7 @@ public class User {
                                 Log.d(TAG, "Error al incrementar las estrellas de " + email + ": " + e);
                             }
                         });
+
                     //Aumentar el total de estrellas
                     db.collection(gamemode).document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -150,6 +151,7 @@ public class User {
                             }catch (NumberFormatException ex){
                                 Log.w(TAG, "Error al pasasr a int las estrellas de " + email);
                             }
+                            total_estrellas = total_estrellas - estrellas_actuales;
 
                             db.collection(gamemode).document(email).update("total_estrellas", total_estrellas + estrellas);
                         }
