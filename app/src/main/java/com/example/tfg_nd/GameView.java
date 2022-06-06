@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,6 +50,7 @@ public class GameView extends View {
     int tubeVelocity = 10;
     int colliderVerticalOffset = 100;
     int colliderHorizontalOffset = 70;
+    int cont_click = 0;
 
     public int score = 0;
     StartGame startGame = new StartGame();
@@ -188,11 +190,17 @@ public class GameView extends View {
         if (action == MotionEvent.ACTION_DOWN && !gameOver) {
             velocity = -30;
             gameState = true;
+            cont_click = 0;
+            Log.d("hlçol", cont_click+"");
         }
         if (gameOver) {
-            score = 0;
-            startGame = new StartGame();
-            startGame.exitGame();
+            cont_click++;
+            if(cont_click==3){
+                score = 0;
+                Log.d("hlçol", cont_click+"");
+                startGame = new StartGame();
+                startGame.exitGame();
+            }
         }
         return true;
     }
