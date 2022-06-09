@@ -27,6 +27,7 @@ public class comp_estadisticas extends Fragment {
 
     //Variables para el fragment extra
     int star1, star2, star3, recordFlappy, nivel, dinero;
+
     String recordSolitario, nombre, temporal_email;
     TextView tvStar1, tvStar2, tvStar3, tvSolitario, tvFlappy, tvNombre, tvNivel, tvDinero, tvEmail;
 

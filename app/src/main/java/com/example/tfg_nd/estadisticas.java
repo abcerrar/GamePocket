@@ -179,15 +179,10 @@ public class estadisticas extends Fragment {
 
     public void cargarRecycler(){
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
-
-        //DividerItemDecoration linea = new DividerItemDecoration(getContext(), layout.getOrientation());
-        //recyclerView.addItemDecoration(linea);
-
         recyclerView.setLayoutManager(layout);
 
         Adapter_stats adapter = new Adapter_stats(getActivity(), getContext(), getParentFragment(), nombres, numeros, imagenes);
         recyclerView.setAdapter(adapter);
-
     };
 
 

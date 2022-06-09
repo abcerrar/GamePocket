@@ -342,9 +342,9 @@ public class puzzle_tresraya extends Fragment {
                                         break;
                                 }
                                 habilitarBotones();
-                                if(checkVictory(imagenj2)) {
-                                    derrota(dificultad);
-                                }
+
+                                if(checkVictory(imagenj2)) derrota(dificultad);
+
                                 boolean empate = true;
                                 for(int i=0; i<fichas.length; i++) if(fichas[i].getDrawable() == null) empate = false;
 
