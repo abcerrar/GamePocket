@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
     ListenerRegistration listener;
     TextView dinero, tvEmail;
     String email = "sim_email";
-    //test
+    //test3
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
